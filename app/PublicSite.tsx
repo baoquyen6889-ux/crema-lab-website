@@ -8,13 +8,10 @@ type PublicSiteProps = {
 };
 
 const navigation = [
-  ["01", "Về Crema Lab", "#about"],
-  ["02", "Kiến thức", "#knowledge-lab"],
-  ["03", "Giảng viên", "#instructor"],
-  ["04", "Khóa học", "#khoa-hoc"],
-  ["05", "Học phí", "#hoc-phi"],
-  ["06", "Lịch học", "#lich-hoc"],
-  ["07", "Tư vấn", "#dang-ky"],
+  ["01", "Kiến thức", "#knowledge-lab"],
+  ["02", "Khóa học", "#khoa-hoc"],
+  ["03", "Lịch học", "#lich-hoc"],
+  ["04", "Tư vấn", "#dang-ky"],
 ];
 
 const principles = [
