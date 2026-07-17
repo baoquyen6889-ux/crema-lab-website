@@ -11,8 +11,7 @@ type PublicSiteProps = {
 const navigation = [
   ["01", "Kiến thức", "#knowledge-lab"],
   ["02", "Khóa học", "#khoa-hoc"],
-  ["03", "Lịch học", "#lich-hoc"],
-  ["04", "Tư vấn", "#dang-ky"],
+  ["03", "Tư vấn", "#dang-ky"],
 ];
 
 const principles = [
