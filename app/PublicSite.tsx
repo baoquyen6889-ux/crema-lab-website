@@ -81,6 +81,8 @@ const courses = [
     duration: "6 buổi",
     format: "Tại Lab",
     tuition: "Tư vấn 1:1",
+    khaiGiang: "20.07",
+    lich: "Thứ 3 · 5 · 7",
     description:
       "Nắm nguyên lý espresso, sữa và quy trình làm việc — tự điều chỉnh thay vì phụ thuộc công thức.",
   },
@@ -91,6 +93,8 @@ const courses = [
     duration: "4 buổi",
     format: "Tại Lab",
     tuition: "Tư vấn 1:1",
+    khaiGiang: "03.08",
+    lich: "Thứ 7 · CN",
     description:
       "Xây ngôn ngữ cảm quan, hiệu chỉnh vị giác, đọc mối liên hệ hương – vị – cấu trúc – hậu vị.",
   },
@@ -101,15 +105,11 @@ const courses = [
     duration: "4 buổi",
     format: "Tại Lab",
     tuition: "Tư vấn 1:1",
+    khaiGiang: "17.08",
+    lich: "Thứ 2 · 4",
     description:
       "Kiểm soát chiết xuất bằng dữ liệu và quan sát để chủ động tạo hương vị mong muốn.",
   },
-];
-
-const schedule = [
-  ["Barista Foundation", "20.07", "Thứ 3 · 5 · 7", "18:30 — 21:00", "Còn 4 chỗ"],
-  ["Sensory & Flavor", "03.08", "Thứ 7 · CN", "09:00 — 12:00", "Còn 6 chỗ"],
-  ["Brewing Control", "17.08", "Thứ 2 · 4", "18:30 — 21:00", "Đang nhận đăng ký"],
 ];
 
 export default function PublicSite({ onExperience }: PublicSiteProps) {
@@ -340,60 +340,36 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       <section className="tuition-section" id="hoc-phi" aria-labelledby="tuition-heading">
         <div className="section-heading reveal">
           <div>
-            <p className="section-kicker">Học phí</p>
+            <p className="section-kicker">Học phí &amp; Lịch học</p>
             <h2 id="tuition-heading">ĐẦU TƯ CHO KỸ NĂNG.</h2>
           </div>
           <p>
             Học phí tư vấn 1:1 theo lộ trình phù hợp — không có mức giá chung.
+            Lớp nhỏ, khai giảng theo lịch dưới đây.
           </p>
         </div>
 
-        <div className="tuition-table" role="table" aria-label="Học phí theo khóa">
+        <div className="tuition-table" role="table" aria-label="Học phí và lịch khai giảng theo khóa">
           <div className="tuition-row tuition-header" role="row">
             <span>Khóa học</span>
-            <span>Thời lượng</span>
+            <span>Buổi</span>
             <span>Hình thức</span>
+            <span>Khai giảng</span>
+            <span>Lịch</span>
             <span>Học phí</span>
           </div>
           {courses.map((course, index) => (
             <a className="tuition-row reveal" href="#dang-ky" role="row" key={course.number} style={{ transitionDelay: `${index * 70}ms` }}>
               <span data-label="Khóa học">{course.title}</span>
-              <span data-label="Thời lượng">{course.duration}</span>
+              <span data-label="Buổi">{course.duration}</span>
               <span data-label="Hình thức">{course.format}</span>
+              <span data-label="Khai giảng">{course.khaiGiang}</span>
+              <span data-label="Lịch">{course.lich}</span>
               <span data-label="Học phí">{course.tuition}</span>
             </a>
           ))}
         </div>
-        <p className="tool-note">Bấm vào một dòng để gửi yêu cầu tư vấn học phí cho khóa đó.</p>
-      </section>
-
-      <section className="schedule-section" id="lich-hoc" aria-labelledby="schedule-heading">
-        <div className="section-heading reveal">
-          <div>
-            <p className="section-kicker">Lịch học</p>
-            <h2 id="schedule-heading">LỊCH GẦN NHẤT.</h2>
-          </div>
-          <p>Lớp nhỏ — đủ thời gian để giảng viên quan sát và phản hồi từng học viên.</p>
-        </div>
-
-        <div className="schedule-table" role="table" aria-label="Lịch khai giảng">
-          <div className="schedule-row schedule-header" role="row">
-            <span>Khóa học</span>
-            <span>Khai giảng</span>
-            <span>Lịch học</span>
-            <span>Thời gian</span>
-            <span>Tình trạng</span>
-          </div>
-          {schedule.map((row, index) => (
-            <a className="schedule-row reveal" href="#dang-ky" role="row" key={`${row[0]}-${row[1]}`} style={{ transitionDelay: `${index * 70}ms` }}>
-              {row.map((cell, index) => (
-                <span key={cell} data-label={schedule[0] ? ["Khóa học", "Khai giảng", "Lịch học", "Thời gian", "Tình trạng"][index] : ""}>
-                  {cell}
-                </span>
-              ))}
-            </a>
-          ))}
-        </div>
+        <p className="tool-note">Bấm vào một dòng để gửi yêu cầu tư vấn cho khóa đó.</p>
       </section>
 
       <section className="registration-section" id="dang-ky" aria-labelledby="register-heading">
