@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import "./public-site.css";
 
 type PublicSiteProps = {
@@ -114,6 +114,36 @@ const schedule = [
 
 export default function PublicSite({ onExperience }: PublicSiteProps) {
   const [submitted, setSubmitted] = useState(false);
+  const rootRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const targets = Array.from(root.querySelectorAll(".reveal"));
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      targets.forEach((el) => el.classList.add("is-visible"));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
+    );
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  function handleSpotlight(event: MouseEvent<HTMLElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty("--mx", `${((event.clientX - rect.left) / rect.width) * 100}%`);
+    event.currentTarget.style.setProperty("--my", `${((event.clientY - rect.top) / rect.height) * 100}%`);
+  }
 
   function submitConsultation(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -121,7 +151,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
   }
 
   return (
-    <main id="website" className="public-site">
+    <main id="website" className="public-site" ref={rootRef}>
       <header className="public-nav">
         <a className="brand" href="#website" aria-label="Crema Lab — về đầu trang">
           <span className="brand-mark" aria-hidden="true">
@@ -188,7 +218,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       </div>
 
       <section className="about-section" id="about" aria-labelledby="about-heading">
-        <div className="section-heading">
+        <div className="section-heading reveal">
           <div>
             <p className="section-kicker">01 — Về Crema Lab</p>
             <h2 id="about-heading">TRIẾT LÝ VẬN HÀNH.</h2>
@@ -201,8 +231,13 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </div>
 
         <div className="principle-grid">
-          {principles.map((principle) => (
-            <article className="principle-card" key={principle.title}>
+          {principles.map((principle, index) => (
+            <article
+              className="principle-card reveal spotlight"
+              key={principle.title}
+              style={{ transitionDelay: `${index * 90}ms` }}
+              onMouseMove={handleSpotlight}
+            >
               <h3>{principle.title}</h3>
               <p>{principle.description}</p>
             </article>
@@ -211,7 +246,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       </section>
 
       <section className="knowledge-section" id="knowledge-lab" aria-labelledby="knowledge-heading">
-        <div className="section-heading">
+        <div className="section-heading reveal">
           <div>
             <p className="section-kicker">02 — Kiến thức</p>
             <h2 id="knowledge-heading">HỌC BẰNG CÁCH KHÁM PHÁ.</h2>
@@ -223,8 +258,13 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </div>
 
         <div className="tool-grid">
-          {knowledgeTools.map((tool) => (
-            <article className="tool-card" key={tool.href}>
+          {knowledgeTools.map((tool, index) => (
+            <article
+              className="tool-card reveal spotlight"
+              key={tool.href}
+              style={{ transitionDelay: `${index * 90}ms` }}
+              onMouseMove={handleSpotlight}
+            >
               <div className={`tool-visual tool-${tool.kind}`} aria-hidden="true">
                 <span />
                 <span />
@@ -248,7 +288,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       </section>
 
       <section className="instructor-section" id="instructor" aria-labelledby="instructor-heading">
-        <div className="section-heading">
+        <div className="section-heading reveal">
           <div>
             <p className="section-kicker">03 — Giảng viên</p>
             <h2 id="instructor-heading">HỌC TỪ NGƯỜI TRỰC TIẾP LÀM NGHỀ.</h2>
@@ -256,7 +296,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
           <p>Đứng lớp là người trực tiếp vận hành, không chỉ giảng lý thuyết.</p>
         </div>
 
-        <div className="instructor-card">
+        <div className="instructor-card reveal">
           <div className="instructor-portrait" aria-hidden="true" />
           <div className="instructor-copy">
             <p className="instructor-role">{instructor.role}</p>
@@ -272,7 +312,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       </section>
 
       <section className="courses-section" id="khoa-hoc" aria-labelledby="courses-heading">
-        <div className="section-heading">
+        <div className="section-heading reveal">
           <div>
             <p className="section-kicker">04 — Khóa học</p>
             <h2 id="courses-heading">HỌC ĐỂ TỰ ĐIỀU CHỈNH.</h2>
@@ -284,8 +324,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </div>
 
         <div className="course-grid">
-          {courses.map((course) => (
-            <article className="course-card" key={course.number}>
+          {courses.map((course, index) => (
+            <article className="course-card reveal" key={course.number} style={{ transitionDelay: `${index * 80}ms` }}>
               <div className="course-number">{course.number}</div>
               <p className="course-level">{course.level}</p>
               <h3>{course.title}</h3>
@@ -303,7 +343,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       </section>
 
       <section className="tuition-section" id="hoc-phi" aria-labelledby="tuition-heading">
-        <div className="section-heading">
+        <div className="section-heading reveal">
           <div>
             <p className="section-kicker">05 — Học phí</p>
             <h2 id="tuition-heading">ĐẦU TƯ CHO KỸ NĂNG.</h2>
@@ -321,8 +361,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <span>Hình thức</span>
             <span>Học phí</span>
           </div>
-          {courses.map((course) => (
-            <a className="tuition-row" href="#dang-ky" role="row" key={course.number}>
+          {courses.map((course, index) => (
+            <a className="tuition-row reveal" href="#dang-ky" role="row" key={course.number} style={{ transitionDelay: `${index * 70}ms` }}>
               <span data-label="Khóa học">{course.title}</span>
               <span data-label="Thời lượng">{course.duration}</span>
               <span data-label="Hình thức">{course.format}</span>
@@ -334,7 +374,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       </section>
 
       <section className="schedule-section" id="lich-hoc" aria-labelledby="schedule-heading">
-        <div className="section-heading">
+        <div className="section-heading reveal">
           <div>
             <p className="section-kicker">06 — Lịch học</p>
             <h2 id="schedule-heading">LỊCH GẦN NHẤT.</h2>
@@ -350,8 +390,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <span>Thời gian</span>
             <span>Tình trạng</span>
           </div>
-          {schedule.map((row) => (
-            <a className="schedule-row" href="#dang-ky" role="row" key={`${row[0]}-${row[1]}`}>
+          {schedule.map((row, index) => (
+            <a className="schedule-row reveal" href="#dang-ky" role="row" key={`${row[0]}-${row[1]}`} style={{ transitionDelay: `${index * 70}ms` }}>
               {row.map((cell, index) => (
                 <span key={cell} data-label={schedule[0] ? ["Khóa học", "Khai giảng", "Lịch học", "Thời gian", "Tình trạng"][index] : ""}>
                   {cell}
@@ -363,7 +403,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       </section>
 
       <section className="registration-section" id="dang-ky" aria-labelledby="register-heading">
-        <div className="registration-copy">
+        <div className="registration-copy reveal">
           <p className="section-kicker">07 — Tư vấn</p>
           <h2 id="register-heading">CHỌN ĐÚNG ĐIỂM BẮT ĐẦU.</h2>
           <p>
@@ -376,7 +416,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
           </div>
         </div>
 
-        <form className="registration-form" onSubmit={submitConsultation}>
+        <form className="registration-form reveal" onSubmit={submitConsultation} style={{ transitionDelay: "90ms" }}>
           <label>
             Họ và tên
             <input name="name" autoComplete="name" required placeholder="Tên của bạn" />
