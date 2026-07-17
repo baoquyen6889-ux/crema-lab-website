@@ -47,7 +47,6 @@ const knowledgeTools = [
     description:
       "Đi từ nhóm hương tổng quát đến mô tả cụ thể — gọi tên đúng điều bạn cảm nhận trong tách.",
     href: "/tools/flavor-wheel.html",
-    action: "Mở bánh xe hương vị",
     kind: "wheel",
     meta: "Công cụ tương tác · Song ngữ",
   },
@@ -57,7 +56,6 @@ const knowledgeTools = [
     description:
       "Khám phá vùng trồng, độ cao, giống và sơ chế — hiểu vì sao mỗi vùng cho một hồ sơ hương vị riêng.",
     href: "/tools/vietnam-coffee-map.html",
-    action: "Mở bản đồ vùng trồng",
     kind: "map",
     meta: "Dữ liệu vùng trồng · Có nguồn",
   },
@@ -67,7 +65,6 @@ const knowledgeTools = [
     description:
       "Chỉnh Dose, Ratio, Grind size, Contact time — xem chúng ảnh hưởng thế nào đến dòng chảy và kết quả trong tách.",
     href: "/tools/extraction-lab.html",
-    action: "Mở Extraction Lab",
     kind: "lab",
     meta: "Mô phỏng tương tác · 3 tầng kiến thức",
   },
@@ -261,6 +258,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
               href={tool.href}
               target="_blank"
               rel="noreferrer"
+              aria-label={tool.title}
               style={{ transitionDelay: `${index * 90}ms` }}
               onMouseMove={handleSpotlight}
             >
@@ -276,9 +274,6 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                 </div>
                 <h3>{tool.title}</h3>
                 <p>{tool.description}</p>
-                <span className="tool-card-action">
-                  {tool.action} <span aria-hidden="true">↗</span>
-                </span>
               </div>
             </a>
           ))}
