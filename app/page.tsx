@@ -74,8 +74,9 @@ export default function Home() {
       }
     };
     const onWheel = (event: WheelEvent) => {
-      if (phase === "explore" || isEditableTarget(event.target) || Math.abs(event.deltaY) < 16) return;
+      if (phase === "explore" || isEditableTarget(event.target)) return;
       event.preventDefault();
+      if (Math.abs(event.deltaY) < 16) return;
       move(event.deltaY > 0 ? 1 : -1);
     };
     const onTouchStart = (event: TouchEvent) => {
