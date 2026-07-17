@@ -165,9 +165,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </a>
 
         <nav aria-label="Điều hướng chính">
-          {navigation.map(([number, label, href]) => (
+          {navigation.map(([, label, href]) => (
             <a key={href} href={href}>
-              <small>{number}</small>
               {label}
             </a>
           ))}
@@ -201,9 +200,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <small>THE VARIABLE SYSTEM</small>
             <p>Flavor is not a formula.<br />It is a system.</p>
           </div>
-          {navigation.map(([number, label, href]) => (
+          {navigation.map(([, label, href]) => (
             <a key={href} href={href}>
-              <small>{number}</small>
               <strong>{label}</strong>
               <span aria-hidden="true">↘</span>
             </a>
@@ -212,8 +210,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       </section>
 
       <div className="system-strip" aria-label="Chuỗi biến số cà phê">
-        {['Nguồn gốc', 'Sơ chế', 'Rang', 'Chiết xuất', 'Cảm quan'].map((item, index) => (
-          <span key={item}><small>0{index + 1}</small>{item}</span>
+        {['Nguồn gốc', 'Sơ chế', 'Rang', 'Chiết xuất', 'Cảm quan'].map((item) => (
+          <span key={item}>{item}</span>
         ))}
       </div>
 
