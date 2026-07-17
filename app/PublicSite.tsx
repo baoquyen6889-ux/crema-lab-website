@@ -18,17 +18,17 @@ const principles = [
   {
     title: "Hệ thống biến số",
     description:
-      "Mỗi tách cà phê là kết quả của nhiều biến số tương tác — nguồn gốc, sơ chế, rang, chiết xuất, cảm quan — không phải một bước duy nhất quyết định tất cả.",
+      "Một tách cà phê là kết quả của nhiều biến số tương tác — nguồn gốc, sơ chế, rang, chiết xuất, cảm quan.",
   },
   {
     title: "Học bằng quan sát",
     description:
-      "Công cụ tương tác giúp bạn nhìn thấy điều đang xảy ra bên trong một quả cà phê, một mẻ rang, một lần chiết xuất — không chỉ ghi nhớ lý thuyết suông.",
+      "Công cụ tương tác cho thấy điều đang xảy ra bên trong một quả cà phê, một mẻ rang, một lần chiết xuất.",
   },
   {
     title: "Tiêu chuẩn khoa học",
     description:
-      "Mỗi khẳng định chuyên môn đều có căn cứ, phân biệt rõ dữ liệu thực tế và hình ảnh minh hoạ mang tính khái niệm.",
+      "Mỗi khẳng định đều có căn cứ, tách bạch dữ liệu thực tế và hình minh hoạ mang tính khái niệm.",
   },
 ];
 
@@ -36,7 +36,7 @@ const instructor = {
   role: "Head Trainer",
   name: "ĐỘI NGŨ GIẢNG VIÊN CREMA LAB",
   bio:
-    "Trực tiếp vận hành rang, pha chế và huấn luyện hằng ngày tại Lab — không đứng lớp thuần lý thuyết. Mỗi buổi học đi từ quan sát thực tế đến nguyên lý, rồi quay lại thực hành để học viên tự kiểm chứng.",
+    "Trực tiếp vận hành rang, pha chế và huấn luyện hằng ngày tại Lab. Mỗi buổi đi từ quan sát thực tế đến nguyên lý, rồi quay lại thực hành để học viên tự kiểm chứng.",
   focus: ["ESPRESSO & SỮA", "RANG & ĐÁNH GIÁ CẢM QUAN", "CHIẾT XUẤT & KIỂM SOÁT BIẾN SỐ"],
 };
 
@@ -45,7 +45,7 @@ const knowledgeTools = [
     number: "01",
     title: "BÁNH XE HƯƠNG VỊ CÀ PHÊ",
     description:
-      "Đi từ nhóm hương tổng quát đến những mô tả cụ thể để gọi tên điều bạn thật sự cảm nhận trong tách cà phê.",
+      "Đi từ nhóm hương tổng quát đến mô tả cụ thể — gọi tên đúng điều bạn cảm nhận trong tách.",
     href: "/tools/flavor-wheel.html",
     action: "Mở bánh xe hương vị",
     kind: "wheel",
@@ -55,7 +55,7 @@ const knowledgeTools = [
     number: "02",
     title: "BẢN ĐỒ VÙNG TRỒNG VIỆT NAM",
     description:
-      "Khám phá vùng trồng, độ cao, giống và phương pháp sơ chế để hiểu vì sao mỗi vùng tạo nên một hồ sơ hương vị khác nhau.",
+      "Khám phá vùng trồng, độ cao, giống và sơ chế — hiểu vì sao mỗi vùng cho một hồ sơ hương vị riêng.",
     href: "/tools/vietnam-coffee-map.html",
     action: "Mở bản đồ vùng trồng",
     kind: "map",
@@ -65,7 +65,7 @@ const knowledgeTools = [
     number: "03",
     title: "EXTRACTION LAB",
     description:
-      "Chỉnh Dose, Ratio, Grind size và Contact time để xem chúng ảnh hưởng đến tốc độ dòng chảy và kết quả trong tách như thế nào.",
+      "Chỉnh Dose, Ratio, Grind size, Contact time — xem chúng ảnh hưởng thế nào đến dòng chảy và kết quả trong tách.",
     href: "/tools/extraction-lab.html",
     action: "Mở Extraction Lab",
     kind: "lab",
@@ -82,7 +82,7 @@ const courses = [
     format: "Tại Lab",
     tuition: "Tư vấn 1:1",
     description:
-      "Nắm vững nguyên lý espresso, sữa, quy trình làm việc và cách tự điều chỉnh thay vì phụ thuộc vào công thức.",
+      "Nắm nguyên lý espresso, sữa và quy trình làm việc — tự điều chỉnh thay vì phụ thuộc công thức.",
   },
   {
     number: "02",
@@ -92,7 +92,7 @@ const courses = [
     format: "Tại Lab",
     tuition: "Tư vấn 1:1",
     description:
-      "Xây dựng ngôn ngữ cảm quan, hiệu chỉnh vị giác và đọc mối liên hệ giữa hương, vị, cấu trúc và hậu vị.",
+      "Xây ngôn ngữ cảm quan, hiệu chỉnh vị giác, đọc mối liên hệ hương – vị – cấu trúc – hậu vị.",
   },
   {
     number: "03",
@@ -102,7 +102,7 @@ const courses = [
     format: "Tại Lab",
     tuition: "Tư vấn 1:1",
     description:
-      "Kiểm soát chiết xuất bằng dữ liệu, biến số và quan sát để chủ động tạo ra hương vị mong muốn.",
+      "Kiểm soát chiết xuất bằng dữ liệu và quan sát để chủ động tạo hương vị mong muốn.",
   },
 ];
 
@@ -221,9 +221,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <h2 id="about-heading">TRIẾT LÝ VẬN HÀNH.</h2>
           </div>
           <p>
-            Crema Lab tin hương vị không đến từ một công thức cố định, mà từ khả
-            năng đọc và kiểm soát một hệ thống biến số. Chúng tôi dạy cách nhìn
-            thấy hệ thống đó, không chỉ ghi nhớ con số.
+            Hương vị không đến từ công thức cố định, mà từ khả năng đọc và kiểm
+            soát một hệ thống biến số.
           </p>
         </div>
 
@@ -246,11 +245,11 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         <div className="section-heading reveal">
           <div>
             <p className="section-kicker">Kiến thức</p>
-            <h2 id="knowledge-heading">HỌC BẰNG CÁCH KHÁM PHÁ.</h2>
+            <h2 id="knowledge-heading">HỌC QUA KHÁM PHÁ.</h2>
           </div>
           <p>
-            Hai công cụ trực quan giúp biến dữ liệu cà phê phức tạp thành trải
-            nghiệm dễ hiểu, dễ nhớ và có thể sử dụng ngay.
+            Ba công cụ trực quan giúp dữ liệu cà phê phức tạp trở nên dễ hiểu và
+            dùng được ngay.
           </p>
         </div>
 
@@ -288,9 +287,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         <div className="section-heading reveal">
           <div>
             <p className="section-kicker">Giảng viên</p>
-            <h2 id="instructor-heading">HỌC TỪ NGƯỜI TRỰC TIẾP LÀM NGHỀ.</h2>
+            <h2 id="instructor-heading">HỌC TỪ NGƯỜI LÀM NGHỀ.</h2>
           </div>
-          <p>Đứng lớp là người trực tiếp vận hành, không chỉ giảng lý thuyết.</p>
         </div>
 
         <div className="instructor-card reveal">
@@ -315,8 +313,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <h2 id="courses-heading">HỌC ĐỂ TỰ ĐIỀU CHỈNH.</h2>
           </div>
           <p>
-            Mỗi khóa học đi từ nguyên lý đến thực hành, giúp bạn hiểu biến số và
-            tự đưa ra quyết định trong những tình huống thật.
+            Mỗi khóa đi từ nguyên lý đến thực hành — hiểu biến số, tự quyết định
+            trong tình huống thật.
           </p>
         </div>
 
@@ -346,8 +344,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <h2 id="tuition-heading">ĐẦU TƯ CHO KỸ NĂNG.</h2>
           </div>
           <p>
-            Học phí được tư vấn 1:1 theo lộ trình và số buổi phù hợp — không
-            công bố một mức giá chung cho mọi học viên.
+            Học phí tư vấn 1:1 theo lộ trình phù hợp — không có mức giá chung.
           </p>
         </div>
 
@@ -376,7 +373,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <p className="section-kicker">Lịch học</p>
             <h2 id="schedule-heading">LỊCH GẦN NHẤT.</h2>
           </div>
-          <p>Lớp nhỏ để giảng viên có đủ thời gian quan sát và phản hồi trực tiếp cho từng học viên.</p>
+          <p>Lớp nhỏ — đủ thời gian để giảng viên quan sát và phản hồi từng học viên.</p>
         </div>
 
         <div className="schedule-table" role="table" aria-label="Lịch khai giảng">
@@ -402,10 +399,10 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       <section className="registration-section" id="dang-ky" aria-labelledby="register-heading">
         <div className="registration-copy reveal">
           <p className="section-kicker">Tư vấn</p>
-          <h2 id="register-heading">CHỌN ĐÚNG ĐIỂM BẮT ĐẦU.</h2>
+          <h2 id="register-heading">CHỌN ĐIỂM BẮT ĐẦU.</h2>
           <p>
-            Hãy để lại mục tiêu của bạn. Crema Lab sẽ liên hệ để tư vấn khóa học
-            phù hợp, không ép đăng ký và không gửi thông tin dư thừa.
+            Để lại mục tiêu của bạn — Crema Lab liên hệ tư vấn khóa học phù hợp,
+            không ép đăng ký, không gửi thông tin dư thừa.
           </p>
           <div className="contact-lines">
             <span>hello@cremalab.vn</span>
