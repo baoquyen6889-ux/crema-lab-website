@@ -45,7 +45,7 @@
 .system-strip:hover .system-strip-track{animation-play-state:paused}
 .system-strip-track>span{display:flex;align-items:center;gap:14px;padding:0 4.25vw;height:100%;border-right:1px solid rgba(255,255,255,.09);font:13px var(--font-heading),Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
 @keyframes stripMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.stage-icon{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--copper);flex-shrink:0}.stage-icon svg{width:18px;height:18px;color:#0d0e0b}
+.stage-icon{display:flex;align-items:center;justify-content:center;width:26px;height:26px;flex-shrink:0}.stage-icon svg{width:26px;height:26px;color:#fff}
 
 .knowledge-section,.courses-section,.registration-section,.about-section,.instructor-section,.tuition-section{padding:125px 4.25vw 132px}.section-heading{margin-bottom:68px;display:grid;grid-template-columns:1.55fr .65fr;gap:10vw;align-items:end}.section-heading h2{margin:0;max-width:930px;font-size:clamp(56px,6.4vw,98px);line-height:.92;letter-spacing:-.04em;text-transform:uppercase}.section-heading>p{margin:0 0 3px;color:var(--quiet);font-size:11px;line-height:1.78}
 

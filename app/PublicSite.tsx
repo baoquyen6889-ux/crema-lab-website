@@ -44,45 +44,43 @@ const stages = [
   {
     label: "Nguồn gốc",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-        <circle cx="9" cy="14" r="5" />
-        <circle cx="15" cy="10" r="5" />
-        <path d="M12 8V4" strokeLinejoin="round" />
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <circle cx="9" cy="15" r="5.5" />
+        <circle cx="15.5" cy="10" r="5.5" />
       </svg>
     ),
   },
   {
     label: "Sơ chế",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 3c3 4 6 7.5 6 11a6 6 0 1 1-12 0c0-3.5 3-7 6-11Z" />
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2.2c3.4 4.4 6.8 8.5 6.8 12.3a6.8 6.8 0 1 1-13.6 0c0-3.8 3.4-7.9 6.8-12.3Z" />
       </svg>
     ),
   },
   {
     label: "Rang",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 3c-1 3-4 4.5-4 8a4 4 0 0 0 8 0c0-1.2-.6-2-1.2-2.8.2 1.4-.5 2.3-1.3 2.3-1 0-1-1-.7-1.8C13.4 7.2 12.6 5 12 3Z" />
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12.2 1.8c.9 2.7-1.6 4-2.4 6.2-1 2.7.3 4.4 1.7 4.4 1.1 0 1.9-1 1.5-2.3 2 1.6 3.2 3.9 3.2 6.1a5.4 5.4 0 1 1-10.8 0c0-5.3 4.3-8.4 6.8-14.4Z" />
       </svg>
     ),
   },
   {
     label: "Chiết xuất",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M6 3h12l-1.5 12a3 3 0 0 1-3 2.7h-3a3 3 0 0 1-3-2.7L6 3Z" />
-        <path d="M9 21h6" />
-        <path d="M12 18v3" />
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3.5 4h17L18 10.5H6L3.5 4Z" />
+        <path d="M6.6 12.5h10.8l-1.3 7.4a2.4 2.4 0 0 1-2.4 2h-3.4a2.4 2.4 0 0 1-2.4-2l-1.3-7.4Z" />
       </svg>
     ),
   },
   {
     label: "Cảm quan",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M5 13c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0" />
-        <path d="M5 18c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round">
+        <path d="M4 9.5c1.9-2.4 3.8-2.4 5.7 0s3.8 2.4 5.7 0 3.8-2.4 5.7 0" />
+        <path d="M4 16.5c1.9-2.4 3.8-2.4 5.7 0s3.8 2.4 5.7 0 3.8-2.4 5.7 0" />
       </svg>
     ),
   },
