@@ -255,9 +255,12 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
 
         <div className="tool-grid">
           {knowledgeTools.map((tool, index) => (
-            <article
+            <a
               className="tool-card reveal spotlight"
               key={tool.href}
+              href={tool.href}
+              target="_blank"
+              rel="noreferrer"
               style={{ transitionDelay: `${index * 90}ms` }}
               onMouseMove={handleSpotlight}
             >
@@ -273,11 +276,11 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                 </div>
                 <h3>{tool.title}</h3>
                 <p>{tool.description}</p>
-                <a href={tool.href} target="_blank" rel="noreferrer">
+                <span className="tool-card-action">
                   {tool.action} <span aria-hidden="true">↗</span>
-                </a>
+                </span>
               </div>
-            </article>
+            </a>
           ))}
         </div>
         <p className="tool-note">Các công cụ mở ở tab riêng để giữ nguyên không gian tương tác.</p>
