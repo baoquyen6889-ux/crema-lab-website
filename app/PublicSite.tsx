@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import "./public-site.css";
 
 type PublicSiteProps = {
@@ -155,8 +156,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       <header className="public-nav">
         <a className="brand" href="#website" aria-label="Crema Lab — về đầu trang">
           <span className="brand-mark" aria-hidden="true">
-            <i />
-            <i />
+            <Image src="/images/crema-lab-logo.png" alt="" width={64} height={64} priority />
           </span>
           <span>
             <strong>CREMA</strong>
@@ -446,7 +446,9 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
 
       <footer className="public-footer">
         <a className="brand footer-brand" href="#website" aria-label="Crema Lab — về đầu trang">
-          <span className="brand-mark" aria-hidden="true"><i /><i /></span>
+          <span className="brand-mark" aria-hidden="true">
+            <Image src="/images/crema-lab-logo.png" alt="" width={64} height={64} />
+          </span>
           <span><strong>CREMA</strong><small>LAB</small></span>
         </a>
         <nav aria-label="Điều hướng cuối trang">
