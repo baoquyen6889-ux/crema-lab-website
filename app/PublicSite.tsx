@@ -34,16 +34,16 @@ const principles = [
 
 const instructor = {
   role: "Head Trainer",
-  name: "Đội ngũ giảng viên Crema Lab",
+  name: "ĐỘI NGŨ GIẢNG VIÊN CREMA LAB",
   bio:
     "Trực tiếp vận hành rang, pha chế và huấn luyện hằng ngày tại Lab — không đứng lớp thuần lý thuyết. Mỗi buổi học đi từ quan sát thực tế đến nguyên lý, rồi quay lại thực hành để học viên tự kiểm chứng.",
-  focus: ["Espresso & Sữa", "Rang & Đánh giá cảm quan", "Chiết xuất & Kiểm soát biến số"],
+  focus: ["ESPRESSO & SỮA", "RANG & ĐÁNH GIÁ CẢM QUAN", "CHIẾT XUẤT & KIỂM SOÁT BIẾN SỐ"],
 };
 
 const knowledgeTools = [
   {
     number: "01",
-    title: "Bánh xe hương vị cà phê",
+    title: "BÁNH XE HƯƠNG VỊ CÀ PHÊ",
     description:
       "Đi từ nhóm hương tổng quát đến những mô tả cụ thể để gọi tên điều bạn thật sự cảm nhận trong tách cà phê.",
     href: "/tools/flavor-wheel.html",
@@ -53,7 +53,7 @@ const knowledgeTools = [
   },
   {
     number: "02",
-    title: "Bản đồ vùng trồng Việt Nam",
+    title: "BẢN ĐỒ VÙNG TRỒNG VIỆT NAM",
     description:
       "Khám phá vùng trồng, độ cao, giống và phương pháp sơ chế để hiểu vì sao mỗi vùng tạo nên một hồ sơ hương vị khác nhau.",
     href: "/tools/vietnam-coffee-map.html",
@@ -63,7 +63,7 @@ const knowledgeTools = [
   },
   {
     number: "03",
-    title: "Extraction Lab",
+    title: "EXTRACTION LAB",
     description:
       "Chỉnh Dose, Ratio, Grind size và Contact time để xem chúng ảnh hưởng đến tốc độ dòng chảy và kết quả trong tách như thế nào.",
     href: "/tools/extraction-lab.html",
@@ -77,7 +77,7 @@ const courses = [
   {
     number: "01",
     title: "Barista Foundation",
-    level: "Nền tảng",
+    level: "NỀN TẢNG",
     duration: "6 buổi",
     format: "Tại Lab",
     tuition: "Tư vấn 1:1",
@@ -87,7 +87,7 @@ const courses = [
   {
     number: "02",
     title: "Sensory & Flavor",
-    level: "Chuyên sâu",
+    level: "CHUYÊN SÂU",
     duration: "4 buổi",
     format: "Tại Lab",
     tuition: "Tư vấn 1:1",
@@ -97,7 +97,7 @@ const courses = [
   {
     number: "03",
     title: "Brewing Control",
-    level: "Ứng dụng",
+    level: "ỨNG DỤNG",
     duration: "4 buổi",
     format: "Tại Lab",
     tuition: "Tư vấn 1:1",
@@ -220,7 +220,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       <section className="about-section" id="about" aria-labelledby="about-heading">
         <div className="section-heading reveal">
           <div>
-            <p className="section-kicker">01 — Về Crema Lab</p>
+            <p className="section-kicker">Về Crema Lab</p>
             <h2 id="about-heading">TRIẾT LÝ VẬN HÀNH.</h2>
           </div>
           <p>
@@ -248,7 +248,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       <section className="knowledge-section" id="knowledge-lab" aria-labelledby="knowledge-heading">
         <div className="section-heading reveal">
           <div>
-            <p className="section-kicker">02 — Kiến thức</p>
+            <p className="section-kicker">Kiến thức</p>
             <h2 id="knowledge-heading">HỌC BẰNG CÁCH KHÁM PHÁ.</h2>
           </div>
           <p>
@@ -290,7 +290,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       <section className="instructor-section" id="instructor" aria-labelledby="instructor-heading">
         <div className="section-heading reveal">
           <div>
-            <p className="section-kicker">03 — Giảng viên</p>
+            <p className="section-kicker">Giảng viên</p>
             <h2 id="instructor-heading">HỌC TỪ NGƯỜI TRỰC TIẾP LÀM NGHỀ.</h2>
           </div>
           <p>Đứng lớp là người trực tiếp vận hành, không chỉ giảng lý thuyết.</p>
@@ -314,7 +314,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       <section className="courses-section" id="khoa-hoc" aria-labelledby="courses-heading">
         <div className="section-heading reveal">
           <div>
-            <p className="section-kicker">04 — Khóa học</p>
+            <p className="section-kicker">Khóa học</p>
             <h2 id="courses-heading">HỌC ĐỂ TỰ ĐIỀU CHỈNH.</h2>
           </div>
           <p>
@@ -345,7 +345,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       <section className="tuition-section" id="hoc-phi" aria-labelledby="tuition-heading">
         <div className="section-heading reveal">
           <div>
-            <p className="section-kicker">05 — Học phí</p>
+            <p className="section-kicker">Học phí</p>
             <h2 id="tuition-heading">ĐẦU TƯ CHO KỸ NĂNG.</h2>
           </div>
           <p>
@@ -376,7 +376,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       <section className="schedule-section" id="lich-hoc" aria-labelledby="schedule-heading">
         <div className="section-heading reveal">
           <div>
-            <p className="section-kicker">06 — Lịch học</p>
+            <p className="section-kicker">Lịch học</p>
             <h2 id="schedule-heading">LỊCH GẦN NHẤT.</h2>
           </div>
           <p>Lớp nhỏ để giảng viên có đủ thời gian quan sát và phản hồi trực tiếp cho từng học viên.</p>
@@ -404,7 +404,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
 
       <section className="registration-section" id="dang-ky" aria-labelledby="register-heading">
         <div className="registration-copy reveal">
-          <p className="section-kicker">07 — Tư vấn</p>
+          <p className="section-kicker">Tư vấn</p>
           <h2 id="register-heading">CHỌN ĐÚNG ĐIỂM BẮT ĐẦU.</h2>
           <p>
             Hãy để lại mục tiêu của bạn. Crema Lab sẽ liên hệ để tư vấn khóa học
