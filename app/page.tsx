@@ -74,7 +74,7 @@ export default function Home() {
       }
     };
     const onWheel = (event: WheelEvent) => {
-      if ((phase !== "idle" && phase !== "chapter") || isEditableTarget(event.target) || Math.abs(event.deltaY) < 16) return;
+      if (phase === "explore" || isEditableTarget(event.target) || Math.abs(event.deltaY) < 16) return;
       event.preventDefault();
       move(event.deltaY > 0 ? 1 : -1);
     };
