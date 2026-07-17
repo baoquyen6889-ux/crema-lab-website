@@ -1,0 +1,138 @@
+.living-hero{
+  height:100svh;
+  min-height:680px;
+  overflow:hidden;
+  position:relative;
+  background:#050504;
+  color:#ece7de;
+  font-family:Inter,"Helvetica Neue",Arial,sans-serif;
+  isolation:isolate;
+  transition:background 1.2s ease,color 1.2s ease;
+}
+.living-hero:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:12;
+  pointer-events:none;
+  opacity:.12;
+  background-image:
+    repeating-linear-gradient(91deg,rgba(255,255,255,.018) 0,rgba(255,255,255,.018) 1px,transparent 1px,transparent 4px),
+    repeating-linear-gradient(4deg,rgba(255,255,255,.01) 0,rgba(255,255,255,.01) 1px,transparent 1px,transparent 6px);
+  mix-blend-mode:soft-light;
+}
+.experience-skip{
+  position:absolute;
+  z-index:30;
+  left:24px;
+  top:18px;
+  padding:10px 13px;
+  background:#ebe4da;
+  color:#17120f;
+  font-size:10px;
+  letter-spacing:.08em;
+  transform:translateY(-160%);
+  transition:transform .2s ease;
+}
+.experience-skip:focus{transform:none}
+.living-header{
+  position:absolute;
+  z-index:10;
+  top:0;
+  left:0;
+  right:0;
+  height:104px;
+  padding:0 5.55vw;
+  display:flex;
+  align-items:center;
+}
+.living-wordmark{font-size:15px;letter-spacing:.18em;font-weight:600}
+.living-wordmark b{font-weight:600;color:#aa6037}
+.living-scene{
+  height:100%;
+  position:relative;
+  padding:104px 5.55vw 54px;
+  display:flex;
+  align-items:center;
+}
+.living-scene:before{
+  content:"";
+  position:absolute;
+  z-index:4;
+  inset:54% 0 0;
+  pointer-events:none;
+  background:linear-gradient(180deg,transparent 0%,rgba(5,5,4,.42) 47%,rgba(5,5,4,.94) 100%);
+}
+.living-copy{
+  position:absolute;
+  z-index:7;
+  left:5.55vw;
+  bottom:62px;
+  width:min(680px,70vw);
+  pointer-events:none;
+}
+.living-copy a,.living-copy button{pointer-events:auto}
+.living-copy h1{
+  margin:0;
+  font-family:"Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  font-size:clamp(28px,2.45vw,36px);
+  font-stretch:condensed;
+  font-weight:400;
+  letter-spacing:-.028em;
+  line-height:1;
+  white-space:nowrap;
+}
+.living-principle{font-size:12px;color:#8a837b;margin:11px 0 17px}
+.living-principle strong{font-weight:400;color:#d2cbc1}
+.living-actions{display:flex;align-items:center;gap:25px}
+.living-actions a,.living-actions button{text-transform:uppercase;font-size:8px;letter-spacing:.17em}
+.living-primary{
+  width:184px;
+  height:43px;
+  border:0;
+  padding:0 17px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#a65d35;
+  color:#faf5ed;
+  cursor:pointer;
+  transition:background .35s ease,box-shadow .35s ease,transform .35s ease;
+}
+.living-primary:hover,.living-primary:focus-visible{background:#b96d42;box-shadow:0 8px 30px rgba(145,75,40,.18);transform:translateY(-1px)}
+.living-primary span{font-size:10px}
+.living-primary:disabled{pointer-events:none}
+.living-secondary{padding:15px 0;color:#8e8881}
+.living-secondary span{color:#b96d43;margin-left:12px}
+.motion-control{
+  position:absolute;
+  z-index:9;
+  right:5.55vw;
+  bottom:32px;
+  border:0;
+  padding:0;
+  background:none;
+  color:#56524d;
+  text-transform:uppercase;
+  font-size:7px;
+  letter-spacing:.2em;
+  cursor:pointer;
+}
+.motion-control span{color:#837d76;margin-left:9px}
+.motion-control:before{content:"";display:inline-block;width:4px;height:4px;border:1px solid #776b62;border-radius:50%;margin-right:8px}
+.motion-control[aria-pressed="true"]:before{background:#a65d35;border-color:#a65d35}
+@media(max-width:900px){
+  .living-copy{width:min(620px,82vw)}
+  .living-copy h1{font-size:32px}
+}
+@media(max-width:600px){
+  .living-hero{min-height:720px}
+  .living-scene{padding-left:7vw;padding-right:7vw}
+  .living-copy{left:7vw;bottom:70px;width:86vw}
+  .living-copy h1{font-size:clamp(28px,8vw,38px);white-space:normal;max-width:92%}
+  .living-actions{gap:18px}
+  .living-header{padding:0 7vw}
+  .living-secondary{display:none}
+  .motion-control{right:7vw;bottom:28px}
+  .living-scene:before{inset:50% 0 0;background:linear-gradient(180deg,transparent,rgba(5,5,4,.7) 58%,rgba(5,5,4,.98))}
+}

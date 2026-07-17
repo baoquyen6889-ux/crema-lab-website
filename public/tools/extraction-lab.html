@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extraction Lab — Crema Lab</title>
+<meta name="description" content="Công cụ tương tác mô phỏng chiết xuất espresso: điều chỉnh Dose, Ratio, Grind size và Contact time để quan sát ảnh hưởng lên tốc độ dòng chảy và kết quả trong tách.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F5F5F5;
+  --ink: #1E1F1F;
+  --coffee: #8B5E3C;
+  --gold: #E1AD5F;
+  --line: rgba(30, 31, 31, 0.14);
+  --line-strong: rgba(30, 31, 31, 0.28);
+  --card-bg: #FFFFFF;
+  --under: #B0592E;
+  --balanced: #3F7A4E;
+  --over: #5B3A2A;
+  --serif-display: "Be Vietnam Pro", "Inter", sans-serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: var(--coffee); }
+a:hover { color: var(--ink); }
+h1, h2, h3, .display { font-family: var(--serif-display); letter-spacing: 0.01em; margin: 0; font-weight: 700; color: var(--ink); }
+
+.skip-link { position: absolute; left: -999px; top: 0; background: var(--ink); color: #fff; padding: 10px 16px; z-index: 999; }
+.skip-link:focus { left: 8px; top: 8px; }
+
+.home-shortcut { position: fixed; z-index: 999; left: 18px; bottom: 18px; padding: 10px 14px; border: 1px solid rgba(255,255,255,0.16); background: #1b1915; color: #f5f0e8 !important; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-decoration: none; box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+.home-shortcut:hover { background: var(--coffee); color: #fff !important; }
+
+.site-header { border-bottom: 1px solid var(--line); padding: 22px 32px; display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.brand-mark { font-family: var(--serif-display); font-size: 20px; letter-spacing: 0.08em; text-decoration: none; color: var(--ink); }
+.brand-mark span { color: var(--coffee); }
+.site-header nav { font-size: 12px; letter-spacing: 0.02em; font-weight: 600; color: #55564f; }
+
+.hero { max-width: 900px; margin: 0 auto; padding: 56px 32px 24px; }
+.eyebrow { font-weight: 700; font-size: 11px; letter-spacing: 0.06em; color: var(--coffee); text-transform: uppercase; }
+.hero h1 { font-size: clamp(28px, 4vw, 40px); margin-top: 10px; }
+.hero p { max-width: 620px; margin: 16px 0 0; color: #43443f; }
+
+.tab-bar { max-width: 1080px; margin: 32px auto 0; padding: 0 32px; display: flex; gap: 8px; border-bottom: 1px solid var(--line); }
+.tab-btn { border: 0; background: none; padding: 12px 4px; margin-right: 24px; font: 700 12px/1 var(--sans); letter-spacing: 0.06em; text-transform: uppercase; color: #7a776d; cursor: pointer; border-bottom: 2px solid transparent; }
+.tab-btn[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--coffee); }
+.tab-btn:focus-visible { outline: 2px solid var(--coffee); outline-offset: 2px; }
+
+.tab-panel { max-width: 1080px; margin: 0 auto; padding: 36px 32px 90px; }
+.tab-panel[hidden] { display: none; }
+
+.lab-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: start; }
+.controls { background: var(--card-bg); border: 1px solid var(--line); padding: 28px; }
+.control { margin-bottom: 26px; }
+.control:last-child { margin-bottom: 0; }
+.control label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; letter-spacing: 0.03em; margin-bottom: 8px; }
+.control label b { color: var(--coffee); font-weight: 700; }
+.control input[type="range"] { width: 100%; accent-color: var(--coffee); }
+.control .scale-labels { display: flex; justify-content: space-between; font-size: 10px; color: #8a877d; margin-top: 4px; }
+.readouts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
+.readout b { display: block; font-size: 20px; }
+.readout span { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #8a877d; }
+
+.visual { background: #1b1915; border: 1px solid var(--line-strong); padding: 28px; color: #f0ece3; min-height: 340px; display: flex; flex-direction: column; }
+.flow-stage { position: relative; flex: 1; min-height: 180px; display: flex; align-items: flex-end; justify-content: center; gap: 6px; overflow: hidden; }
+.flow-stream { width: 6px; border-radius: 3px; background: linear-gradient(180deg, var(--gold), var(--coffee)); transform-origin: top center; }
+@keyframes flowDrip { 0% { opacity: .35; transform: scaleY(.4); } 50% { opacity: 1; transform: scaleY(1); } 100% { opacity: .35; transform: scaleY(.4); } }
+.flow-stream { animation: flowDrip 1.4s ease-in-out infinite; }
+.flow-stream.channel { background: linear-gradient(180deg, #d98a4f, #b0592e); }
+
+.result-badge { margin-top: 20px; padding: 14px 16px; border-left: 3px solid var(--coffee); background: rgba(255,255,255,0.06); }
+.result-badge b { display: block; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 6px; }
+.result-badge p { margin: 0; font-size: 12.5px; color: #d8d3c8; }
+.channel-warning { margin-top: 12px; padding: 10px 14px; border-left: 3px solid var(--gold); background: rgba(225,173,95,0.12); font-size: 12px; color: #f0dfc0; }
+.channel-warning[hidden] { display: none; }
+
+.deeper-toggle { margin-top: 20px; border: 1px solid var(--line-strong); background: #fff; padding: 10px 16px; font: 700 11px/1 var(--sans); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
+.deeper-toggle:hover { background: var(--ink); color: #fff; }
+.understand-panel { margin-top: 18px; padding: 20px; background: #fff; border: 1px solid var(--line); }
+.understand-panel[hidden] { display: none; }
+.understand-panel h3 { font-size: 14px; margin-bottom: 10px; }
+.understand-panel p { margin: 0 0 12px; color: #43443f; font-size: 13px; }
+.understand-panel p:last-child { margin-bottom: 0; }
+
+.deep-dive-note { max-width: 760px; margin: 0 auto 28px; padding: 14px 18px; background: rgba(139,94,60,0.08); border: 1px solid var(--line); font-size: 12.5px; color: #4a473e; }
+.tier-entry { max-width: 760px; margin: 0 auto 32px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.tier-entry:last-child { border-bottom: 0; }
+.tier-entry h3 { font-size: 18px; margin-bottom: 10px; }
+.tier-entry p { margin: 0 0 8px; color: #43443f; font-size: 13.5px; }
+
+@media (max-width: 820px) {
+  .lab-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .flow-stream { animation: none; opacity: .8; }
+}
+</style>
+</head>
+<body>
+<a class="home-shortcut" href="/" aria-label="Quay về trang chủ Crema Lab">← Trang chủ</a>
+<a class="skip-link" href="#lab-section">Bỏ qua đến Extraction Lab</a>
+
+<header class="site-header">
+  <a class="brand-mark" href="/" aria-label="Crema Lab — Trang chủ">CREMA LAB <span>— Coffee &amp; Training</span></a>
+  <nav><a href="#lab-section">Phòng thí nghiệm</a> &nbsp;·&nbsp; <a href="#deep-dive-section">Ghi chú kỹ thuật / Nguồn</a></nav>
+</header>
+
+<div class="hero">
+  <div class="eyebrow">Extraction Lab · Bản rút gọn</div>
+  <h1>Kiểm soát biến số. Quan sát kết quả.</h1>
+  <p>Một công thức cho bạn con số. Hiểu nguyên lý giúp bạn biết phải hiệu chỉnh điều gì. Chỉnh Dose, Ratio, Grind size và Contact time bên dưới để xem chúng ảnh hưởng đến dòng chảy như thế nào — đây là mô phỏng khái niệm, không phải phép đo trực tiếp từ một máy pha thật.</p>
+</div>
+
+<div class="tab-bar" role="tablist" aria-label="Chế độ xem Extraction Lab">
+  <button type="button" class="tab-btn" id="tab-discover" role="tab" aria-selected="true" aria-controls="panel-discover">Phòng thí nghiệm</button>
+  <button type="button" class="tab-btn" id="tab-deep-dive" role="tab" aria-selected="false" aria-controls="panel-deep-dive">Ghi chú kỹ thuật / Nguồn</button>
+</div>
+
+<section class="tab-panel" id="panel-discover" role="tabpanel" aria-labelledby="tab-discover" tabindex="0">
+  <div class="lab-grid" id="lab-section">
+    <div class="controls">
+      <div class="control">
+        <label for="dose-input">Dose (lượng cà phê) <b id="dose-value">18.0 g</b></label>
+        <input type="range" id="dose-input" min="14" max="22" step="0.5" value="18" aria-describedby="dose-value">
+        <div class="scale-labels"><span>14g</span><span>22g</span></div>
+      </div>
+      <div class="control">
+        <label for="ratio-input">Ratio (dose : yield) <b id="ratio-value">1 : 2.0</b></label>
+        <input type="range" id="ratio-input" min="1" max="3" step="0.1" value="2" aria-describedby="ratio-value">
+        <div class="scale-labels"><span>Đậm (1:1)</span><span>Loãng (1:3)</span></div>
+      </div>
+      <div class="control">
+        <label for="grind-input">Grind size (cỡ xay) <b id="grind-value">Trung bình</b></label>
+        <input type="range" id="grind-input" min="1" max="10" step="1" value="5" aria-describedby="grind-value">
+        <div class="scale-labels"><span>Rất mịn</span><span>Rất thô</span></div>
+      </div>
+      <div class="control">
+        <label for="time-input">Contact time (thời gian tiếp xúc) <b id="time-value">27 giây</b></label>
+        <input type="range" id="time-input" min="15" max="40" step="1" value="27" aria-describedby="time-value">
+        <div class="scale-labels"><span>15s</span><span>40s</span></div>
+      </div>
+
+      <div class="readouts">
+        <div class="readout"><b id="yield-readout">36.0 g</b><span>Yield</span></div>
+        <div class="readout"><b id="ratio-readout">1 : 2.0</b><span>Ratio</span></div>
+      </div>
+
+      <button type="button" class="deeper-toggle" id="deeper-toggle" aria-expanded="false" aria-controls="understand-panel">Đi sâu hơn — Vì sao lại như vậy?</button>
+      <div class="understand-panel" id="understand-panel" hidden>
+        <h3>Understand</h3>
+        <p id="understand-text"></p>
+        <p><em>Grind size, Dose, Ratio và Contact time không độc lập — thay đổi một biến số luôn kéo theo ảnh hưởng lên tốc độ và mức độ chiết xuất của các biến còn lại.</em></p>
+      </div>
+    </div>
+
+    <div class="visual" aria-live="polite">
+      <div class="flow-stage" id="flow-stage" aria-hidden="true"></div>
+      <div class="result-badge">
+        <b id="result-title">Cân bằng</b>
+        <p id="result-text">Tốc độ dòng chảy phù hợp với cỡ xay và liều lượng đã chọn.</p>
+      </div>
+      <div class="channel-warning" id="channel-warning" hidden>⚠ Rủi ro kênh nước: tổ hợp cỡ xay/ratio này thường đi kèm phân bố nước không đều trong thực tế (minh hoạ khái niệm).</div>
+    </div>
+  </div>
+</section>
+
+<section class="tab-panel" id="panel-deep-dive" role="tabpanel" aria-labelledby="tab-deep-dive" tabindex="0" hidden>
+  <div id="deep-dive-section"></div>
+  <div class="deep-dive-note">Các khoảng số liệu dưới đây là tham khảo phổ biến trong ngành pha chế specialty, không phải chuẩn tuyệt đối — thiết bị, giống cà phê và độ ẩm hạt tại thời điểm rang đều làm thay đổi khoảng tối ưu thực tế.</div>
+
+  <article class="tier-entry">
+    <h3>Dose</h3>
+    <p>Dose phổ biến cho espresso 1 shot: 18–20g (tùy phễu lọc). Đây là khoảng tham khảo trong ngành, không phải chuẩn bắt buộc.</p>
+  </article>
+  <article class="tier-entry">
+    <h3>Ratio</h3>
+    <p>Ratio 1:2 (vd. 18g vào, 36g ra) là điểm khởi đầu phổ biến cho espresso hiện đại; 1:1 tới 1:3 vẫn trong phạm vi được nhiều roaster/barista sử dụng tùy mục tiêu hương vị.</p>
+  </article>
+  <article class="tier-entry">
+    <h3>Grind size</h3>
+    <p>Không có một "cỡ xay đúng" áp dụng chung cho mọi máy/loại hạt/độ ẩm — grind size tối ưu phụ thuộc thiết bị xay, độ chín, quy trình sơ chế và độ ẩm hạt tại thời điểm rang.</p>
+  </article>
+  <article class="tier-entry">
+    <h3>Contact time</h3>
+    <p>Khoảng tham khảo cho espresso: 25–35 giây cho một shot chuẩn, nhưng con số này thay đổi nhiều theo thiết bị (áp suất bơm, phễu lọc, nhiệt độ) — không dùng làm mục tiêu duy nhất để đánh giá một shot ngon.</p>
+  </article>
+  <article class="tier-entry">
+    <h3>Yield</h3>
+    <p>Yield không tự nó nói lên chất lượng tách cà phê — hai shot cùng yield có thể có mức độ chiết xuất rất khác nhau tùy dose và grind. Đo bằng cân, không phải ước lượng bằng thể tích, vì crema làm sai lệch thể tích.</p>
+  </article>
+  <p style="max-width:760px;margin:0 auto;font-size:12.5px;color:#6a675d;">Nội dung đầy đủ 3 tầng (Discover/Understand/Deep Dive) cho các biến số này nằm trong <code>content-tiers.md</code> của dự án.</p>
+</section>
+
+<script>
+(function () {
+  var dose = document.getElementById("dose-input");
+  var ratio = document.getElementById("ratio-input");
+  var grind = document.getElementById("grind-input");
+  var time = document.getElementById("time-input");
+
+  var doseValue = document.getElementById("dose-value");
+  var ratioValue = document.getElementById("ratio-value");
+  var grindValue = document.getElementById("grind-value");
+  var timeValue = document.getElementById("time-value");
+  var yieldReadout = document.getElementById("yield-readout");
+  var ratioReadout = document.getElementById("ratio-readout");
+  var flowStage = document.getElementById("flow-stage");
+  var resultTitle = document.getElementById("result-title");
+  var resultText = document.getElementById("result-text");
+  var channelWarning = document.getElementById("channel-warning");
+  var understandText = document.getElementById("understand-text");
+
+  var GRIND_LABELS = ["Rất mịn", "Mịn", "Mịn vừa", "Trung mịn", "Trung bình", "Trung thô", "Thô vừa", "Thô", "Khá thô", "Rất thô"];
+
+  var UNDERSTAND = {
+    under: "Ở tổ hợp hiện tại, nước chảy nhanh hơn mức cần thiết để hòa tan đủ chất trong hạt — cỡ xay đang thô hơn hoặc thời gian tiếp xúc đang ngắn hơn so với dose/ratio đã chọn. Kết quả xu hướng: chua gắt, mỏng, thiếu ngọt.",
+    over: "Ở tổ hợp hiện tại, nước bị cản trở nhiều hơn mức cần thiết — cỡ xay đang mịn hơn hoặc thời gian tiếp xúc đang dài hơn so với dose/ratio đã chọn. Kết quả xu hướng: đắng, khô miệng, đôi khi cháy khét.",
+    balanced: "Ở tổ hợp hiện tại, tốc độ dòng chảy khớp với cỡ xay, dose và ratio đã chọn — đây là vùng cân bằng tham khảo, không phải điểm 'đúng' duy nhất cho mọi loại hạt."
+  };
+
+  function renderFlow(streamCount, speed, channeling) {
+    flowStage.innerHTML = "";
+    for (var i = 0; i < streamCount; i++) {
+      var el = document.createElement("div");
+      el.className = "flow-stream" + (channeling && i === Math.floor(streamCount / 2) ? " channel" : "");
+      var height = channeling && i === Math.floor(streamCount / 2) ? 40 : 60 + (i % 3) * 20;
+      el.style.height = height + "px";
+      el.style.animationDuration = speed + "s";
+      el.style.animationDelay = (i * 0.12) + "s";
+      if (channeling && i === Math.floor(streamCount / 2)) {
+        el.style.marginLeft = "14px";
+      }
+      flowStage.appendChild(el);
+    }
+  }
+
+  function update() {
+    var doseVal = parseFloat(dose.value);
+    var ratioVal = parseFloat(ratio.value);
+    var grindVal = parseInt(grind.value, 10);
+    var timeVal = parseInt(time.value, 10);
+    var yieldVal = doseVal * ratioVal;
+
+    doseValue.textContent = doseVal.toFixed(1) + " g";
+    ratioValue.textContent = "1 : " + ratioVal.toFixed(1);
+    grindValue.textContent = GRIND_LABELS[grindVal - 1];
+    timeValue.textContent = timeVal + " giây";
+    yieldReadout.textContent = yieldVal.toFixed(1) + " g";
+    ratioReadout.textContent = "1 : " + ratioVal.toFixed(1);
+
+    var expectedTime = 22 - (grindVal - 5) * 2.2 + (doseVal - 18) * 0.4;
+    var diff = timeVal - expectedTime;
+    var state, title, text, speed, streams;
+
+    if (diff < -5) {
+      state = "under"; title = "Dưới chiết — dòng chảy nhanh, mỏng";
+      text = "Nước chảy nhanh hơn dự kiến cho cỡ xay này. Tách cà phê có xu hướng chua gắt, mỏng, thiếu ngọt.";
+      speed = 0.7; streams = 5;
+    } else if (diff > 5) {
+      state = "over"; title = "Quá chiết — cản trở, kéo dài";
+      text = "Nước bị cản trở nhiều hơn dự kiến. Tách cà phê có xu hướng đắng, khô miệng, đôi khi cháy khét.";
+      speed = 2.4; streams = 3;
+    } else {
+      state = "balanced"; title = "Cân bằng";
+      text = "Tốc độ dòng chảy phù hợp với cỡ xay và liều lượng đã chọn.";
+      speed = 1.4; streams = 4;
+    }
+
+    resultTitle.textContent = title;
+    resultTitle.style.color = state === "under" ? "#e0a26e" : state === "over" ? "#c98a6a" : "#8fd19e";
+    resultText.textContent = text;
+    understandText.textContent = UNDERSTAND[state];
+
+    var channeling = (grindVal >= 8 && ratioVal < 1.7) || (grindVal <= 2 && ratioVal > 2.6);
+    channelWarning.hidden = !channeling;
+    renderFlow(streams, speed, channeling);
+  }
+
+  [dose, ratio, grind, time].forEach(function (input) {
+    input.addEventListener("input", update);
+  });
+  update();
+
+  var deeperToggle = document.getElementById("deeper-toggle");
+  var understandPanel = document.getElementById("understand-panel");
+  deeperToggle.addEventListener("click", function () {
+    var expanded = deeperToggle.getAttribute("aria-expanded") === "true";
+    deeperToggle.setAttribute("aria-expanded", String(!expanded));
+    understandPanel.hidden = expanded;
+  });
+
+  var tabDiscover = document.getElementById("tab-discover");
+  var tabDeepDive = document.getElementById("tab-deep-dive");
+  var panelDiscover = document.getElementById("panel-discover");
+  var panelDeepDive = document.getElementById("panel-deep-dive");
+
+  function selectTab(tab) {
+    var isDiscover = tab === "discover";
+    tabDiscover.setAttribute("aria-selected", String(isDiscover));
+    tabDeepDive.setAttribute("aria-selected", String(!isDiscover));
+    panelDiscover.hidden = !isDiscover;
+    panelDeepDive.hidden = isDiscover;
+  }
+  tabDiscover.addEventListener("click", function () { selectTab("discover"); });
+  tabDeepDive.addEventListener("click", function () { selectTab("deep-dive"); });
+})();
+</script>
+</body>
+</html>
