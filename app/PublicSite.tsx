@@ -69,7 +69,6 @@ const instructor = {
   name: "Đội ngũ giảng viên Crema Lab",
   bio:
     "Trực tiếp vận hành rang, pha chế và huấn luyện hằng ngày tại Lab. Mỗi buổi đi từ quan sát thực tế đến nguyên lý, rồi quay lại thực hành để học viên tự kiểm chứng.",
-  focus: ["ESPRESSO & SỮA", "RANG & ĐÁNH GIÁ CẢM QUAN", "CHIẾT XUẤT & KIỂM SOÁT BIẾN SỐ"],
 };
 
 const stages = [
@@ -380,14 +379,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <p className="instructor-signature">{instructor.name}</p>
             <p className="instructor-signature-role">— {instructor.role}, Crema Lab</p>
           </div>
-          <div className="instructor-visual">
-            <div className="instructor-portrait" aria-hidden="true" />
-            <ul className="instructor-focus">
-              {instructor.focus.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
+          <div className="instructor-portrait" aria-hidden="true" />
         </div>
       </section>
 
