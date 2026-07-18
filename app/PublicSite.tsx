@@ -413,9 +413,6 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                   <span>{course.format}</span>
                   <span>Khai giảng {course.khaiGiang}</span>
                 </div>
-                <a className="course-cta" href="#dang-ky">
-                  Nhận tư vấn khóa học <span aria-hidden="true">↘</span>
-                </a>
               </div>
               <div className="course-stack-visual" aria-hidden="true">
                 <span className="course-stack-icon">{course.icon}</span>
