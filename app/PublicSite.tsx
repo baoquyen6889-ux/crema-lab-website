@@ -46,34 +46,6 @@ const mobileNav = [
   },
 ];
 
-const faqs = [
-  {
-    question: "Cần chuẩn bị gì trước khi bắt đầu?",
-    answer:
-      "Không cần kinh nghiệm hay dụng cụ riêng. Bạn chỉ cần sự tò mò — mọi thiết bị và nguyên liệu đã có sẵn tại Lab.",
-  },
-  {
-    question: "Crema Lab dạy những khóa nào?",
-    answer:
-      "Ba khóa chính: Barista Foundation, Sensory & Flavor, và Brewing Control — mỗi khóa đi từ nguyên lý đến thực hành tại chỗ.",
-  },
-  {
-    question: "Học phí và lịch học như thế nào?",
-    answer:
-      "Không có mức giá chung — Crema Lab tư vấn học phí và lịch khai giảng theo lộ trình phù hợp với mục tiêu của bạn.",
-  },
-  {
-    question: "Một khóa học kéo dài bao lâu?",
-    answer:
-      "Tùy khóa, thường từ vài buổi đến vài tuần, học trực tiếp tại Lab. Chi tiết số buổi có ở từng khóa phía trên.",
-  },
-  {
-    question: "Sau khóa học có được hỗ trợ thêm không?",
-    answer:
-      "Có. Học viên có thể quay lại hỏi thêm hoặc luyện tập cùng giảng viên sau khi kết thúc khóa chính thức.",
-  },
-];
-
 const instructor = {
   role: "Head Trainer",
   name: "Đội ngũ giảng viên Crema Lab",
@@ -234,7 +206,6 @@ const courses = [
 
 export default function PublicSite({ onExperience }: PublicSiteProps) {
   const [submitted, setSubmitted] = useState(false);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -423,83 +394,53 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </div>
       </section>
 
-      <section className="faq-section" id="faq" aria-labelledby="faq-heading">
-        <span className="faq-badge">FAQs</span>
-        <h2 id="faq-heading" className="reveal">
-          Rõ ràng trước<br /><em>khi bắt đầu.</em>
-        </h2>
-
-        <div className="faq-list">
-          {faqs.map((faq, index) => {
-            const isOpen = openFaq === index;
-            return (
-              <div className={`faq-item${isOpen ? " is-open" : ""}`} key={faq.question}>
-                <button
-                  type="button"
-                  className="faq-question"
-                  aria-expanded={isOpen}
-                  onClick={() => setOpenFaq(isOpen ? null : index)}
-                >
-                  {faq.question}
-                  <span className="faq-toggle" aria-hidden="true">{isOpen ? "−" : "+"}</span>
-                </button>
-                {isOpen && <p className="faq-answer">{faq.answer}</p>}
-              </div>
-            );
-          })}
-
-          <div className="faq-callout">
-            <div>
-              <p className="faq-callout-title">Còn thắc mắc?</p>
-              <p className="faq-callout-copy">Để lại thông tin, Crema Lab sẽ liên hệ tư vấn trực tiếp.</p>
-            </div>
-            <a className="faq-callout-button" href="#dang-ky">Liên hệ tư vấn</a>
-          </div>
-        </div>
-      </section>
-
       <section className="registration-section" id="dang-ky" aria-labelledby="register-heading">
-        <div className="registration-copy reveal">
-          <p className="section-kicker">Tư vấn</p>
-          <h2 id="register-heading">CHỌN ĐIỂM BẮT ĐẦU.</h2>
-          <p>
-            Để lại mục tiêu của bạn — Crema Lab liên hệ tư vấn phù hợp, không
-            làm phiền.
-          </p>
-          <div className="contact-lines">
-            <span>hello@cremalab.vn</span>
-            <span>TP. Hồ Chí Minh</span>
+        <div className="registration-panel reveal">
+          <div className="registration-copy">
+            <span className="registration-badge">Tư vấn</span>
+            <h2 id="register-heading">
+              Chọn điểm <em>bắt đầu.</em>
+            </h2>
+            <p>
+              Để lại mục tiêu của bạn — Crema Lab liên hệ tư vấn phù hợp, không
+              làm phiền.
+            </p>
+            <div className="contact-lines">
+              <span>hello@cremalab.vn</span>
+              <span>TP. Hồ Chí Minh</span>
+            </div>
           </div>
-        </div>
 
-        <form className="registration-form reveal" onSubmit={submitConsultation} style={{ transitionDelay: "90ms" }}>
-          <label>
-            Họ và tên
-            <input name="name" autoComplete="name" required placeholder="Tên của bạn" />
-          </label>
-          <label>
-            Số điện thoại hoặc email
-            <input name="contact" autoComplete="tel" required placeholder="Thông tin liên hệ" />
-          </label>
-          <label>
-            Bạn đang quan tâm điều gì?
-            <select name="interest" defaultValue="">
-              <option value="" disabled>Chọn nhu cầu</option>
-              <option>Barista Foundation</option>
-              <option>Sensory &amp; Flavor</option>
-              <option>Brewing Control</option>
-              <option>Tư vấn lộ trình cá nhân</option>
-            </select>
-          </label>
-          <label>
-            Mục tiêu của bạn
-            <textarea name="goal" rows={3} placeholder="Chia sẻ ngắn để chúng tôi tư vấn chính xác hơn" />
-          </label>
-          <button type="submit">Gửi yêu cầu tư vấn</button>
-          <p className={`form-success${submitted ? " is-visible" : ""}`} aria-live="polite">
-            Đã ghi nhận. Crema Lab sẽ liên hệ với bạn sớm nhất.
-          </p>
-        </form>
+          <form className="registration-form" onSubmit={submitConsultation}>
+            <label>
+              Họ và tên
+              <input name="name" autoComplete="name" required placeholder="Tên của bạn" />
+            </label>
+            <label>
+              Số điện thoại hoặc email
+              <input name="contact" autoComplete="tel" required placeholder="Thông tin liên hệ" />
+            </label>
+            <label>
+              Bạn đang quan tâm điều gì?
+              <select name="interest" defaultValue="">
+                <option value="" disabled>Chọn nhu cầu</option>
+                <option>Barista Foundation</option>
+                <option>Latte Art Control</option>
+                <option>Brewing</option>
+                <option>Menu Coffee &amp; Beverage</option>
+                <option>Tư vấn lộ trình cá nhân</option>
+              </select>
+            </label>
+            <label>
+              Mục tiêu của bạn
+              <textarea name="goal" rows={3} placeholder="Chia sẻ ngắn để chúng tôi tư vấn chính xác hơn" />
+            </label>
+            <button type="submit">Gửi yêu cầu tư vấn</button>
+            <p className={`form-success${submitted ? " is-visible" : ""}`} aria-live="polite">
+              Đã ghi nhận. Crema Lab sẽ liên hệ với bạn sớm nhất.
+            </p>
+          </form>
+        </div>
       </section>
 
       <footer className="public-footer">
