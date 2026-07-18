@@ -261,38 +261,11 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       </header>
 
       <section className="public-intro" aria-labelledby="public-heading">
-        <div className="intro-copy">
-          <p className="section-kicker">Crema Lab · Coffee Education</p>
-          <h2 id="public-heading">
-            <span>HIỂU CÀ PHÊ.</span>
-            <span>LÀM CHỦ KẾT QUẢ.</span>
-          </h2>
-          <p>
-            Kiến thức thực tế, công cụ tương tác và khóa học có hệ thống dành cho
-            người muốn hiểu điều gì thật sự xảy ra bên trong một tách cà phê.
-          </p>
-          <div className="intro-actions">
-            <a className="copper-button" href="#knowledge-lab">
-              Khám phá kiến thức
-            </a>
-            <a className="text-link" href="#khoa-hoc">
-              Xem khóa học <span aria-hidden="true">↘</span>
-            </a>
-          </div>
-        </div>
-
-        <div className="public-index" aria-label="Cấu trúc website">
-          <div className="intro-system">
-            <small>THE VARIABLE SYSTEM</small>
-            <p>Flavor is not a formula.<br />It is a system.</p>
-          </div>
-          {navigation.map(([, label, href]) => (
-            <a key={href} href={href}>
-              <strong>{label}</strong>
-              <span aria-hidden="true">↘</span>
-            </a>
-          ))}
-        </div>
+        <p className="intro-statement" id="public-heading">
+          Flavor is not a formula.
+          <br />
+          <em>It is a system.</em>
+        </p>
       </section>
 
       <div className="system-strip" aria-label="Chuỗi biến số cà phê">

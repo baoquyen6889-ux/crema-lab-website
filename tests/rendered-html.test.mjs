@@ -40,9 +40,8 @@ test("server-renders the Crema Lab brand and commercial website", async () => {
   const html = await response.text();
   assert.match(html, /<title>Crema Lab — The Unseen World of Coffee<\/title>/i);
   assert.match(html, /id="website"/);
-  assert.match(html, /HIỂU CÀ PHÊ/);
-  assert.match(html, /LÀM CHỦ KẾT QUẢ/);
-  assert.match(html, /THE VARIABLE SYSTEM/);
+  assert.match(html, /Flavor is not a formula/);
+  assert.match(html, /It is a system/);
   assert.match(html, /Origin/);
   assert.match(html, /Extraction/);
   assert.match(html, />Kiến thức</);
@@ -193,10 +192,10 @@ test("uses a contemporary editorial system for the public Crema Lab site", async
     readFile(new URL("../app/PublicSite.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/public-site.css", import.meta.url), "utf8"),
   ]);
-  assert.match(site, /THE VARIABLE SYSTEM/);
+  assert.match(site, /intro-statement/);
   assert.match(site, /system-strip/);
   assert.match(site, /footer-statement/);
-  assert.match(styles, /font-size:clamp\(60px,8\.6vw,132px\)/);
+  assert.match(styles, /\.intro-statement\{/);
   assert.match(styles, /\.course-stack-card\{position:sticky/);
   assert.match(styles, /course-stack-visual/);
   assert.match(styles, /\.system-strip/);
