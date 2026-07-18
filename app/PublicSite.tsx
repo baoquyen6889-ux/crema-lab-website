@@ -168,7 +168,6 @@ const courses = [
     description:
       "Nắm nguyên lý espresso, sữa và quy trình pha chế — hiểu đúng để tự điều chỉnh, không phụ thuộc công thức.",
     color: "#9D5429",
-    dark: false,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M5 8h14" />
@@ -188,7 +187,6 @@ const courses = [
     description:
       "Kiểm soát kết cấu sữa, nhiệt độ và lực rót — làm chủ từng đường latte art thay vì phụ thuộc may rủi.",
     color: "#E1AD5F",
-    dark: true,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M4 18c3-8 6-8 8-14 2 6 5 6 8 14" />
@@ -206,7 +204,6 @@ const courses = [
     description:
       "Kiểm soát chiết xuất bằng dữ liệu và quan sát — pour-over, thông số và hiệu chỉnh để chủ động tạo hương vị mong muốn.",
     color: "#A89070",
-    dark: true,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M5 4h14l-4 8H9L5 4Z" />
@@ -225,7 +222,6 @@ const courses = [
     description:
       "Xây dựng menu đồ uống có hệ thống — chuẩn hoá công thức, tính giá vốn và vận hành nhất quán.",
     color: "#1E1F1F",
-    dark: false,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M4 6h9M4 10h9M4 14h6" />
@@ -394,27 +390,28 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         <div className="course-stack">
           {courses.map((course, index) => (
             <article
-              className={`course-stack-card${course.dark ? " is-dark-text" : ""}`}
+              className="course-stack-card"
               key={course.number}
               style={{
                 top: `calc(88px + ${index * 64}px)`,
                 zIndex: index + 1,
-                backgroundColor: course.color,
-                color: course.dark ? "#2b1a10" : "#f5f1e8",
+                borderColor: course.color,
               }}
             >
-              <div className="course-tab">KHÓA HỌC / {course.number}</div>
+              <div className="course-tab" style={{ color: course.color }}>
+                {course.number} — {course.title}
+              </div>
               <div className="course-stack-body">
                 <div className="course-stack-copy">
-                  <p className="course-level">{course.level}</p>
+                  <p className="course-level" style={{ color: course.color }}>{course.level}</p>
                   <h3>{course.title}</h3>
                   <p className="course-description">{course.description}</p>
                   <div className="course-stat">
-                    <strong>{course.duration}</strong>
+                    <strong style={{ color: course.color }}>{course.duration}</strong>
                     <span>Khai giảng {course.khaiGiang} · {course.format}</span>
                   </div>
                 </div>
-                <div className="course-stack-visual" aria-hidden="true">
+                <div className="course-stack-visual" aria-hidden="true" style={{ color: course.color }}>
                   <span className="course-stack-icon">{course.icon}</span>
                   <small>Ảnh khóa học · sắp cập nhật</small>
                 </div>
