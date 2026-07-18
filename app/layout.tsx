@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Be_Vietnam_Pro, Playfair_Display } from "next/font/google";
+import { Be_Vietnam_Pro, Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import "./effects.css";
 
@@ -18,6 +18,13 @@ const displayFont = Playfair_Display({
   display: "swap",
 });
 
+const bodyFont = Inter({
+  subsets: ["latin", "vietnamese"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
+  display: "swap",
+});
+
 
 export const metadata: Metadata = {
   title: "Crema Lab — The Unseen World of Coffee",
@@ -27,7 +34,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="vi" className={`${headingFont.variable} ${displayFont.variable}`}>
+    <html lang="vi" className={`${headingFont.variable} ${displayFont.variable} ${bodyFont.variable}`}>
       <body>{children}</body>
     </html>
   );

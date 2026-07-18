@@ -456,7 +456,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         <button type="button" onClick={onExperience}>Xem lại trải nghiệm mở đầu</button>
         <div className="footer-statement">
           <small>CREMA LAB · 2026</small>
-          <p>Flavor is not a formula.<br />It is a system.</p>
+          <p>Flavor is not a formula.<br /><em>It is a system.</em></p>
         </div>
       </footer>
 
