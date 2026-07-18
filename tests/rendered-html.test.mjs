@@ -56,7 +56,7 @@ test("server-renders the Crema Lab brand and commercial website", async () => {
   assert.match(html, /20\.07/);
   assert.match(html, /id="dang-ky"/);
   assert.match(html, /id="instructor"/);
-  assert.match(html, /NGƯỜI LÀM NGHỀ/);
+  assert.match(html, /nhà vô địch/);
   assert.match(html, /Họ và tên/);
 });
 
@@ -198,7 +198,7 @@ test("uses a contemporary editorial system for the public Crema Lab site", async
   assert.match(styles, /\.course-stack-card\{position:sticky/);
   assert.match(styles, /course-stack-visual/);
   assert.match(styles, /\.system-strip/);
-  assert.match(styles, /\.instructor-section\{background:var\(--paper\);border-bottom:1px solid var\(--line\);display:grid/);
+  assert.match(styles, /\.instructor-panel\{/);
 });
 
 test("keeps the finished site free of starter preview artifacts", async () => {

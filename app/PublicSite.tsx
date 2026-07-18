@@ -47,10 +47,13 @@ const mobileNav = [
 ];
 
 const instructor = {
-  role: "Head Trainer",
-  name: "Đội ngũ giảng viên Crema Lab",
-  bio:
-    "Trực tiếp vận hành rang, pha chế và huấn luyện hằng ngày tại Lab. Mỗi buổi đi từ quan sát thực tế đến nguyên lý, rồi quay lại thực hành để học viên tự kiểm chứng.",
+  role: "Người sáng lập & đào tạo",
+  name: "Kỳ Long",
+  bio: "Tham gia nghề cà phê từ 2012, hoàn thành chứng chỉ SCA Professional.",
+  achievements: [
+    "Champion — Vietnam Super Barista Championship 2016",
+    "Champion — Vietnam Latte Art Competition 2015",
+  ],
 };
 
 const stages = [
@@ -331,14 +334,23 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       </section>
 
       <section className="instructor-section" id="instructor" aria-labelledby="instructor-heading">
-        <div className="instructor-copy reveal">
-          <span className="instructor-badge">{instructor.role}</span>
-          <h2 id="instructor-heading">HỌC TỪ NGƯỜI LÀM NGHỀ.</h2>
-          <p className="instructor-bio">{instructor.bio}</p>
-          <p className="instructor-signature">{instructor.name}</p>
-          <p className="instructor-signature-role">— {instructor.role}, Crema Lab</p>
+        <div className="instructor-panel reveal">
+          <div className="instructor-copy">
+            <span className="instructor-badge">{instructor.role}</span>
+            <h2 id="instructor-heading">
+              Học cùng <em>nhà vô địch</em>.
+            </h2>
+            <p className="instructor-bio">{instructor.bio}</p>
+            <ul className="instructor-achievements">
+              {instructor.achievements.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <p className="instructor-signature">{instructor.name}</p>
+            <p className="instructor-signature-role">— {instructor.role}, Crema Lab</p>
+          </div>
+          <div className="instructor-portrait" aria-hidden="true" />
         </div>
-        <div className="instructor-portrait" aria-hidden="true" />
       </section>
 
       <section className="courses-section" id="khoa-hoc" aria-labelledby="courses-heading">
