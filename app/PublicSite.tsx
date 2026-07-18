@@ -348,7 +348,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                 ))}
               </ul>
               <p className="instructor-signature">{instructor.name}</p>
-              <p className="instructor-signature-role">— {instructor.role}, Crema Lab</p>
+              <p className="instructor-signature-role">{instructor.role}, Crema Lab</p>
             </div>
             <div className="instructor-portrait">
               <Image
