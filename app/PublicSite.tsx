@@ -158,6 +158,13 @@ const courses = [
     khaiGiang: "20.07",
     description:
       "Nắm nguyên lý espresso, sữa và quy trình làm việc — tự điều chỉnh thay vì phụ thuộc công thức.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M5 3h11l-1 12.4A4 4 0 0 1 11 19H10a4 4 0 0 1-4-3.6L5 3Z" />
+        <path d="M16 6.5h1.5a3 3 0 0 1 0 6H16v-2h1.5a1 1 0 0 0 0-2H16v-2Z" />
+        <path d="M7 21h8v1.5H7V21Z" />
+      </svg>
+    ),
   },
   {
     number: "02",
@@ -168,6 +175,12 @@ const courses = [
     khaiGiang: "03.08",
     description:
       "Xây ngôn ngữ cảm quan, hiệu chỉnh vị giác, đọc mối liên hệ hương – vị – cấu trúc – hậu vị.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+        <path d="M4 10c1.9-2.4 3.8-2.4 5.7 0s3.8 2.4 5.7 0 3.8-2.4 5.7 0" />
+        <path d="M4 16c1.9-2.4 3.8-2.4 5.7 0s3.8 2.4 5.7 0 3.8-2.4 5.7 0" />
+      </svg>
+    ),
   },
   {
     number: "03",
@@ -178,6 +191,12 @@ const courses = [
     khaiGiang: "17.08",
     description:
       "Kiểm soát chiết xuất bằng dữ liệu và quan sát để chủ động tạo hương vị mong muốn.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M3.5 4h17L18 10.5H6L3.5 4Z" />
+        <path d="M6.6 12.5h10.8l-1.3 7.4a2.4 2.4 0 0 1-2.4 2h-3.4a2.4 2.4 0 0 1-2.4-2l-1.3-7.4Z" />
+      </svg>
+    ),
   },
 ];
 
@@ -386,21 +405,31 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
           </p>
         </div>
 
-        <div className="course-grid">
+        <div className="course-stack">
           {courses.map((course, index) => (
-            <article className="course-card reveal" key={course.number} style={{ transitionDelay: `${index * 80}ms` }}>
-              <div className="course-number">{course.number}</div>
-              <p className="course-level">{course.level}</p>
-              <h3>{course.title}</h3>
-              <p className="course-description">{course.description}</p>
-              <div className="course-meta">
-                <span>{course.duration}</span>
-                <span>{course.format}</span>
-                <span>Khai giảng {course.khaiGiang}</span>
+            <article
+              className="course-stack-card"
+              key={course.number}
+              style={{ top: `calc(88px + ${index * 18}px)`, zIndex: index + 1 }}
+            >
+              <div className="course-stack-copy">
+                <div className="course-number">{course.number}</div>
+                <p className="course-level">{course.level}</p>
+                <h3>{course.title}</h3>
+                <p className="course-description">{course.description}</p>
+                <div className="course-meta">
+                  <span>{course.duration}</span>
+                  <span>{course.format}</span>
+                  <span>Khai giảng {course.khaiGiang}</span>
+                </div>
+                <a className="course-cta" href="#dang-ky">
+                  Nhận tư vấn khóa học <span aria-hidden="true">↘</span>
+                </a>
               </div>
-              <a href="#dang-ky">
-                Nhận tư vấn khóa học <span aria-hidden="true">↘</span>
-              </a>
+              <div className="course-stack-visual" aria-hidden="true">
+                <span className="course-stack-icon">{course.icon}</span>
+                <small>Ảnh khóa học · sắp cập nhật</small>
+              </div>
             </article>
           ))}
         </div>
