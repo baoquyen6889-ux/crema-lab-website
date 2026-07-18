@@ -48,17 +48,17 @@ const mobileNav = [
 
 const principles = [
   {
-    title: "Hệ thống biến số",
+    title: "HỆ THỐNG BIẾN SỐ",
     description:
       "Một tách cà phê là kết quả của nhiều biến số tương tác — nguồn gốc, sơ chế, rang, chiết xuất, cảm quan.",
   },
   {
-    title: "Học bằng quan sát",
+    title: "HỌC BẰNG QUAN SÁT",
     description:
       "Công cụ tương tác cho thấy điều đang xảy ra bên trong một quả cà phê, một mẻ rang, một lần chiết xuất.",
   },
   {
-    title: "Tiêu chuẩn khoa học",
+    title: "TIÊU CHUẨN KHOA HỌC",
     description:
       "Mỗi khẳng định đều có căn cứ, tách bạch dữ liệu thực tế và hình minh hoạ mang tính khái niệm.",
   },
