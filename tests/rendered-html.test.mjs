@@ -196,7 +196,7 @@ test("uses a contemporary editorial system for the public Crema Lab site", async
   assert.match(site, /THE VARIABLE SYSTEM/);
   assert.match(site, /system-strip/);
   assert.match(site, /footer-statement/);
-  assert.match(styles, /font-size:clamp\(76px,10\.6vw,162px\)/);
+  assert.match(styles, /font-size:clamp\(60px,8\.6vw,132px\)/);
   assert.match(styles, /\.course-card\{min-height:178px/);
   assert.match(styles, /grid-template-columns:70px 130px/);
   assert.match(styles, /\.system-strip/);
