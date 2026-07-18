@@ -356,7 +356,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                 alt={instructor.name}
                 fill
                 sizes="(max-width: 760px) 100vw, 45vw"
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: "cover", objectPosition: "50% 12%" }}
               />
             </div>
           </div>
