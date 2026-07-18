@@ -46,24 +46,6 @@ const mobileNav = [
   },
 ];
 
-const principles = [
-  {
-    title: "HỆ THỐNG BIẾN SỐ",
-    description:
-      "Một tách cà phê là kết quả của nhiều biến số tương tác — nguồn gốc, sơ chế, rang, chiết xuất, cảm quan.",
-  },
-  {
-    title: "HỌC BẰNG QUAN SÁT",
-    description:
-      "Công cụ tương tác cho thấy điều đang xảy ra bên trong một quả cà phê, một mẻ rang, một lần chiết xuất.",
-  },
-  {
-    title: "TIÊU CHUẨN KHOA HỌC",
-    description:
-      "Mỗi khẳng định đều có căn cứ, tách bạch dữ liệu thực tế và hình minh hoạ mang tính khái niệm.",
-  },
-];
-
 const faqs = [
   {
     question: "Cần chuẩn bị gì trước khi bắt đầu?",
@@ -337,22 +319,6 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
           {stages.map((stage) => stage.label).join(" · ")}
         </span>
       </div>
-
-      <section className="about-section" id="about" aria-label="Triết lý vận hành">
-        <div className="principle-grid">
-          {principles.map((principle, index) => (
-            <article
-              className="principle-card reveal spotlight"
-              key={principle.title}
-              style={{ transitionDelay: `${index * 90}ms` }}
-              onMouseMove={handleSpotlight}
-            >
-              <h3>{principle.title}</h3>
-              <p>{principle.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
 
       <section className="knowledge-section" id="knowledge-lab" aria-labelledby="knowledge-heading">
         <div className="section-heading reveal">
