@@ -184,44 +184,71 @@ const courses = [
     format: "Tại Lab",
     khaiGiang: "20.07",
     description:
-      "Nắm nguyên lý espresso, sữa và quy trình làm việc — tự điều chỉnh thay vì phụ thuộc công thức.",
+      "Nắm nguyên lý espresso, sữa và quy trình pha chế — hiểu đúng để tự điều chỉnh, không phụ thuộc công thức.",
+    color: "#9D5429",
+    dark: false,
     icon: (
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M5 3h11l-1 12.4A4 4 0 0 1 11 19H10a4 4 0 0 1-4-3.6L5 3Z" />
-        <path d="M16 6.5h1.5a3 3 0 0 1 0 6H16v-2h1.5a1 1 0 0 0 0-2H16v-2Z" />
-        <path d="M7 21h8v1.5H7V21Z" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 8h14" />
+        <path d="M7 8v4a5 5 0 0 0 10 0V8" />
+        <path d="M10 17v3M14 17v3" />
+        <path d="M9 20h6" />
       </svg>
     ),
   },
   {
     number: "02",
-    title: "Sensory & Flavor",
-    level: "CHUYÊN SÂU",
+    title: "Latte Art Control",
+    level: "KỸ THUẬT",
     duration: "4 buổi",
     format: "Tại Lab",
     khaiGiang: "03.08",
     description:
-      "Xây ngôn ngữ cảm quan, hiệu chỉnh vị giác, đọc mối liên hệ hương – vị – cấu trúc – hậu vị.",
+      "Kiểm soát kết cấu sữa, nhiệt độ và lực rót — làm chủ từng đường latte art thay vì phụ thuộc may rủi.",
+    color: "#E1AD5F",
+    dark: true,
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-        <path d="M4 10c1.9-2.4 3.8-2.4 5.7 0s3.8 2.4 5.7 0 3.8-2.4 5.7 0" />
-        <path d="M4 16c1.9-2.4 3.8-2.4 5.7 0s3.8 2.4 5.7 0 3.8-2.4 5.7 0" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 18c3-8 6-8 8-14 2 6 5 6 8 14" />
+        <path d="M8 18c1.5-4 3-4 4-7 1 3 2.5 3 4 7" />
       </svg>
     ),
   },
   {
     number: "03",
-    title: "Brewing Control",
+    title: "Brewing",
     level: "ỨNG DỤNG",
     duration: "4 buổi",
     format: "Tại Lab",
     khaiGiang: "17.08",
     description:
-      "Kiểm soát chiết xuất bằng dữ liệu và quan sát để chủ động tạo hương vị mong muốn.",
+      "Kiểm soát chiết xuất bằng dữ liệu và quan sát — pour-over, thông số và hiệu chỉnh để chủ động tạo hương vị mong muốn.",
+    color: "#A89070",
+    dark: true,
     icon: (
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M3.5 4h17L18 10.5H6L3.5 4Z" />
-        <path d="M6.6 12.5h10.8l-1.3 7.4a2.4 2.4 0 0 1-2.4 2h-3.4a2.4 2.4 0 0 1-2.4-2l-1.3-7.4Z" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 4h14l-4 8H9L5 4Z" />
+        <path d="M8 12v3a4 4 0 0 0 8 0v-3" />
+        <path d="M6 19h12" />
+      </svg>
+    ),
+  },
+  {
+    number: "04",
+    title: "Menu Coffee & Beverage",
+    level: "VẬN HÀNH",
+    duration: "5 buổi",
+    format: "Tại Lab",
+    khaiGiang: "31.08",
+    description:
+      "Xây dựng menu đồ uống có hệ thống — chuẩn hoá công thức, tính giá vốn và vận hành nhất quán.",
+    color: "#1E1F1F",
+    dark: false,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 6h9M4 10h9M4 14h6" />
+        <path d="M16 9h4v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2V9Z" />
+        <path d="M20 10.5h1a1.3 1.3 0 0 1 0 2.6h-1" />
       </svg>
     ),
   },
@@ -401,24 +428,30 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         <div className="course-stack">
           {courses.map((course, index) => (
             <article
-              className="course-stack-card"
+              className={`course-stack-card${course.dark ? " is-dark-text" : ""}`}
               key={course.number}
-              style={{ top: `calc(88px + ${index * 18}px)`, zIndex: index + 1 }}
+              style={{
+                top: `calc(88px + ${index * 64}px)`,
+                zIndex: index + 1,
+                backgroundColor: course.color,
+                color: course.dark ? "#2b1a10" : "#f5f1e8",
+              }}
             >
-              <div className="course-stack-copy">
-                <div className="course-number">{course.number}</div>
-                <p className="course-level">{course.level}</p>
-                <h3>{course.title}</h3>
-                <p className="course-description">{course.description}</p>
-                <div className="course-meta">
-                  <span>{course.duration}</span>
-                  <span>{course.format}</span>
-                  <span>Khai giảng {course.khaiGiang}</span>
+              <div className="course-tab">KHÓA HỌC / {course.number}</div>
+              <div className="course-stack-body">
+                <div className="course-stack-copy">
+                  <p className="course-level">{course.level}</p>
+                  <h3>{course.title}</h3>
+                  <p className="course-description">{course.description}</p>
+                  <div className="course-stat">
+                    <strong>{course.duration}</strong>
+                    <span>Khai giảng {course.khaiGiang} · {course.format}</span>
+                  </div>
                 </div>
-              </div>
-              <div className="course-stack-visual" aria-hidden="true">
-                <span className="course-stack-icon">{course.icon}</span>
-                <small>Ảnh khóa học · sắp cập nhật</small>
+                <div className="course-stack-visual" aria-hidden="true">
+                  <span className="course-stack-icon">{course.icon}</span>
+                  <small>Ảnh khóa học · sắp cập nhật</small>
+                </div>
               </div>
             </article>
           ))}
