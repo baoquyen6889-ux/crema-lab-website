@@ -74,7 +74,7 @@ const instructor = {
 
 const stages = [
   {
-    label: "Nguồn gốc",
+    label: "Origin",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
         <circle cx="9" cy="15" r="5.5" />
@@ -83,7 +83,7 @@ const stages = [
     ),
   },
   {
-    label: "Sơ chế",
+    label: "Processing",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 2.2c3.4 4.4 6.8 8.5 6.8 12.3a6.8 6.8 0 1 1-13.6 0c0-3.8 3.4-7.9 6.8-12.3Z" />
@@ -91,7 +91,7 @@ const stages = [
     ),
   },
   {
-    label: "Rang",
+    label: "Roasting",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
         <path d="M12.2 1.8c.9 2.7-1.6 4-2.4 6.2-1 2.7.3 4.4 1.7 4.4 1.1 0 1.9-1 1.5-2.3 2 1.6 3.2 3.9 3.2 6.1a5.4 5.4 0 1 1-10.8 0c0-5.3 4.3-8.4 6.8-14.4Z" />
@@ -99,7 +99,7 @@ const stages = [
     ),
   },
   {
-    label: "Chiết xuất",
+    label: "Extraction",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
         <path d="M3.5 4h17L18 10.5H6L3.5 4Z" />
@@ -108,7 +108,7 @@ const stages = [
     ),
   },
   {
-    label: "Cảm quan",
+    label: "Sensory",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round">
         <path d="M4 9.5c1.9-2.4 3.8-2.4 5.7 0s3.8 2.4 5.7 0 3.8-2.4 5.7 0" />

@@ -43,8 +43,8 @@ test("server-renders the Crema Lab brand and commercial website", async () => {
   assert.match(html, /HIỂU CÀ PHÊ/);
   assert.match(html, /LÀM CHỦ KẾT QUẢ/);
   assert.match(html, /THE VARIABLE SYSTEM/);
-  assert.match(html, /Nguồn gốc/);
-  assert.match(html, /Chiết xuất/);
+  assert.match(html, /Origin/);
+  assert.match(html, /Extraction/);
   assert.match(html, />Kiến thức</);
   assert.match(html, />Giảng viên</);
   assert.match(html, />Khóa học</);

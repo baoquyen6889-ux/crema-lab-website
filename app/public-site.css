@@ -43,9 +43,9 @@
 .system-strip{height:78px;overflow:hidden;background:var(--night);color:#cbc9c1;border-bottom:1px solid #2d2e29}
 .system-strip-track{display:flex;align-items:center;height:100%;width:max-content;animation:stripMarquee 26s linear infinite}
 .system-strip:hover .system-strip-track{animation-play-state:paused}
-.system-strip-track>span{display:flex;align-items:center;gap:14px;padding:0 4.25vw;height:100%;border-right:1px solid rgba(255,255,255,.09);font:600 13px var(--font-heading),Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.system-strip-track>span{display:flex;align-items:center;gap:14px;padding:0 4.25vw;height:100%;font:600 13px var(--font-heading),Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
 @keyframes stripMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.stage-icon{display:flex;align-items:center;justify-content:center;width:26px;height:26px;flex-shrink:0}.stage-icon svg{width:26px;height:26px;color:#fff}
+.stage-icon{display:flex;align-items:center;justify-content:center;width:26px;height:26px;flex-shrink:0}.stage-icon svg{width:26px;height:26px;color:currentColor}
 
 .knowledge-section,.courses-section,.registration-section,.instructor-section{padding:125px 4.25vw 132px}.about-section{padding:56px 4.25vw}.section-heading{margin-bottom:68px;display:grid;grid-template-columns:1.55fr .65fr;gap:10vw;align-items:end}.section-heading h2{margin:0;max-width:930px;font-size:clamp(44px,5vw,78px);line-height:1;letter-spacing:-.02em;text-transform:uppercase}.section-heading>p{margin:0 0 3px;color:var(--quiet);font-size:11px;line-height:1.78}
 
