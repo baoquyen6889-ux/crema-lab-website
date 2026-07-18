@@ -403,9 +403,11 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
               </div>
               <div className="course-stack-body">
                 <div className="course-stack-copy">
-                  <p className="course-level" style={{ color: course.color }}>{course.level}</p>
-                  <h3>{course.title}</h3>
-                  <p className="course-description">{course.description}</p>
+                  <div>
+                    <p className="course-level" style={{ color: course.color }}>{course.level}</p>
+                    <h3>{course.title}</h3>
+                    <p className="course-description">{course.description}</p>
+                  </div>
                   <div className="course-stat">
                     <strong style={{ color: course.color }}>{course.duration}</strong>
                     <span>Khai giảng {course.khaiGiang} · {course.format}</span>
