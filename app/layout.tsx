@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Be_Vietnam_Pro } from "next/font/google";
+import { Be_Vietnam_Pro, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import "./effects.css";
 
@@ -10,6 +10,15 @@ const headingFont = Be_Vietnam_Pro({
   display: "swap",
 });
 
+const displayFont = Playfair_Display({
+  subsets: ["latin", "vietnamese"],
+  weight: ["500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+
 export const metadata: Metadata = {
   title: "Crema Lab — The Unseen World of Coffee",
   description: "Hệ thống nghiên cứu, đào tạo và khám phá cà phê — từ những biến số vô hình đến trải nghiệm trong ly.",
@@ -17,5 +26,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="vi" className={headingFont.variable}><body>{children}</body></html>;
+  return (
+    <html lang="vi" className={`${headingFont.variable} ${displayFont.variable}`}>
+      <body>{children}</body>
+    </html>
+  );
 }

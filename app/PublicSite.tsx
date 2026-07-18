@@ -66,7 +66,7 @@ const principles = [
 
 const instructor = {
   role: "Head Trainer",
-  name: "ĐỘI NGŨ GIẢNG VIÊN CREMA LAB",
+  name: "Đội ngũ giảng viên Crema Lab",
   bio:
     "Trực tiếp vận hành rang, pha chế và huấn luyện hằng ngày tại Lab. Mỗi buổi đi từ quan sát thực tế đến nguyên lý, rồi quay lại thực hành để học viên tự kiểm chứng.",
   focus: ["ESPRESSO & SỮA", "RANG & ĐÁNH GIÁ CẢM QUAN", "CHIẾT XUẤT & KIỂM SOÁT BIẾN SỐ"],
@@ -370,19 +370,18 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       </section>
 
       <section className="instructor-section" id="instructor" aria-labelledby="instructor-heading">
-        <div className="section-heading reveal">
-          <div>
-            <p className="section-kicker">Giảng viên</p>
-            <h2 id="instructor-heading">HỌC TỪ NGƯỜI LÀM NGHỀ.</h2>
-          </div>
-        </div>
-
-        <div className="instructor-card reveal">
-          <div className="instructor-portrait" aria-hidden="true" />
+        <div className="instructor-panel reveal">
           <div className="instructor-copy">
-            <p className="instructor-role">{instructor.role}</p>
-            <h3>{instructor.name}</h3>
+            <span className="instructor-badge">{instructor.role}</span>
+            <h2 id="instructor-heading">
+              Học từ <em>người làm nghề</em>.
+            </h2>
             <p className="instructor-bio">{instructor.bio}</p>
+            <p className="instructor-signature">{instructor.name}</p>
+            <p className="instructor-signature-role">— {instructor.role}, Crema Lab</p>
+          </div>
+          <div className="instructor-visual">
+            <div className="instructor-portrait" aria-hidden="true" />
             <ul className="instructor-focus">
               {instructor.focus.map((item) => (
                 <li key={item}>{item}</li>
