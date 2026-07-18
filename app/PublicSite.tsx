@@ -14,6 +14,38 @@ const navigation = [
   ["03", "Tư vấn", "#dang-ky"],
 ];
 
+const mobileNav = [
+  {
+    label: "Kiến thức",
+    href: "#knowledge-lab",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M4 4.8A2.8 2.8 0 0 1 6.8 2H12v20H6.8A2.8 2.8 0 0 1 4 19.2V4.8Z" />
+        <path d="M20 4.8A2.8 2.8 0 0 0 17.2 2H12v20h5.2a2.8 2.8 0 0 0 2.8-2.8V4.8Z" opacity=".5" />
+      </svg>
+    ),
+  },
+  {
+    label: "Khóa học",
+    href: "#khoa-hoc",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3 2 8.2l10 5.2 10-5.2L12 3Z" />
+        <path d="M6.2 12.6v4.3c0 1.7 2.6 3.1 5.8 3.1s5.8-1.4 5.8-3.1v-4.3L12 15.4l-5.8-2.8Z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Tư vấn",
+    href: "#dang-ky",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M4 5.8A2.8 2.8 0 0 1 6.8 3h10.4A2.8 2.8 0 0 1 20 5.8v7.4a2.8 2.8 0 0 1-2.8 2.8H9.4L4 20V5.8Z" />
+      </svg>
+    ),
+  },
+];
+
 const principles = [
   {
     title: "Hệ thống biến số",
@@ -484,6 +516,15 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
           <p>Flavor is not a formula.<br />It is a system.</p>
         </div>
       </footer>
+
+      <nav className="mobile-tabbar" aria-label="Điều hướng nhanh">
+        {mobileNav.map((item) => (
+          <a key={item.href} href={item.href}>
+            <span className="mobile-tabbar-icon" aria-hidden="true">{item.icon}</span>
+            {item.label}
+          </a>
+        ))}
+      </nav>
     </main>
   );
 }
