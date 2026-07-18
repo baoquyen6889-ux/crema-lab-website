@@ -155,9 +155,7 @@ const courses = [
     level: "NỀN TẢNG",
     duration: "6 buổi",
     format: "Tại Lab",
-    tuition: "Tư vấn 1:1",
     khaiGiang: "20.07",
-    lich: "Thứ 3 · 5 · 7",
     description:
       "Nắm nguyên lý espresso, sữa và quy trình làm việc — tự điều chỉnh thay vì phụ thuộc công thức.",
   },
@@ -167,9 +165,7 @@ const courses = [
     level: "CHUYÊN SÂU",
     duration: "4 buổi",
     format: "Tại Lab",
-    tuition: "Tư vấn 1:1",
     khaiGiang: "03.08",
-    lich: "Thứ 7 · CN",
     description:
       "Xây ngôn ngữ cảm quan, hiệu chỉnh vị giác, đọc mối liên hệ hương – vị – cấu trúc – hậu vị.",
   },
@@ -179,9 +175,7 @@ const courses = [
     level: "ỨNG DỤNG",
     duration: "4 buổi",
     format: "Tại Lab",
-    tuition: "Tư vấn 1:1",
     khaiGiang: "17.08",
-    lich: "Thứ 2 · 4",
     description:
       "Kiểm soát chiết xuất bằng dữ liệu và quan sát để chủ động tạo hương vị mong muốn.",
   },
@@ -297,18 +291,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </span>
       </div>
 
-      <section className="about-section" id="about" aria-labelledby="about-heading">
-        <div className="section-heading reveal">
-          <div>
-            <p className="section-kicker">Về Crema Lab</p>
-            <h2 id="about-heading">TRIẾT LÝ VẬN HÀNH.</h2>
-          </div>
-          <p>
-            Hương vị không đến từ công thức cố định, mà từ khả năng đọc và kiểm
-            soát một hệ thống biến số.
-          </p>
-        </div>
-
+      <section className="about-section" id="about" aria-label="Triết lý vận hành">
         <div className="principle-grid">
           {principles.map((principle, index) => (
             <article
@@ -398,7 +381,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
           </div>
           <p>
             Mỗi khóa đi từ nguyên lý đến thực hành — hiểu biến số, tự quyết định
-            trong tình huống thật.
+            trong tình huống thật. Học phí và lịch khai giảng được tư vấn theo
+            lộ trình phù hợp, không có mức giá chung.
           </p>
         </div>
 
@@ -412,6 +396,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
               <div className="course-meta">
                 <span>{course.duration}</span>
                 <span>{course.format}</span>
+                <span>Khai giảng {course.khaiGiang}</span>
               </div>
               <a href="#dang-ky">
                 Nhận tư vấn khóa học <span aria-hidden="true">↘</span>
@@ -421,48 +406,13 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </div>
       </section>
 
-      <section className="tuition-section" id="hoc-phi" aria-labelledby="tuition-heading">
-        <div className="section-heading reveal">
-          <div>
-            <p className="section-kicker">Học phí &amp; Lịch học</p>
-            <h2 id="tuition-heading">ĐẦU TƯ CHO KỸ NĂNG.</h2>
-          </div>
-          <p>
-            Học phí tư vấn 1:1 theo lộ trình phù hợp — không có mức giá chung.
-            Lớp nhỏ, khai giảng theo lịch dưới đây.
-          </p>
-        </div>
-
-        <div className="tuition-table" role="table" aria-label="Học phí và lịch khai giảng theo khóa">
-          <div className="tuition-row tuition-header" role="row">
-            <span>Khóa học</span>
-            <span>Buổi</span>
-            <span>Hình thức</span>
-            <span>Khai giảng</span>
-            <span>Lịch</span>
-            <span>Học phí</span>
-          </div>
-          {courses.map((course, index) => (
-            <a className="tuition-row reveal" href="#dang-ky" role="row" key={course.number} style={{ transitionDelay: `${index * 70}ms` }}>
-              <span data-label="Khóa học">{course.title}</span>
-              <span data-label="Buổi">{course.duration}</span>
-              <span data-label="Hình thức">{course.format}</span>
-              <span data-label="Khai giảng">{course.khaiGiang}</span>
-              <span data-label="Lịch">{course.lich}</span>
-              <span data-label="Học phí">{course.tuition}</span>
-            </a>
-          ))}
-        </div>
-        <p className="tool-note">Bấm vào một dòng để gửi yêu cầu tư vấn cho khóa đó.</p>
-      </section>
-
       <section className="registration-section" id="dang-ky" aria-labelledby="register-heading">
         <div className="registration-copy reveal">
           <p className="section-kicker">Tư vấn</p>
           <h2 id="register-heading">CHỌN ĐIỂM BẮT ĐẦU.</h2>
           <p>
-            Để lại mục tiêu của bạn — Crema Lab liên hệ tư vấn khóa học phù hợp,
-            không ép đăng ký, không gửi thông tin dư thừa.
+            Để lại mục tiêu của bạn — Crema Lab liên hệ tư vấn phù hợp, không
+            làm phiền.
           </p>
           <div className="contact-lines">
             <span>hello@cremalab.vn</span>

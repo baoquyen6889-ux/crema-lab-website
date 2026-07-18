@@ -45,22 +45,20 @@ test("server-renders the Crema Lab brand and commercial website", async () => {
   assert.match(html, /THE VARIABLE SYSTEM/);
   assert.match(html, /Nguồn gốc/);
   assert.match(html, /Chiết xuất/);
-  assert.match(html, />Về Crema Lab</);
   assert.match(html, />Kiến thức</);
   assert.match(html, />Giảng viên</);
   assert.match(html, />Khóa học</);
-  assert.match(html, />Học phí</);
-  assert.match(html, /Lịch học/);
   assert.match(html, />Tư vấn</);
   assert.match(html, /Bánh xe hương vị cà phê/i);
   assert.match(html, /Bản đồ vùng trồng Việt Nam/i);
   assert.match(html, /href="\/tools\/flavor-wheel\.html"/);
   assert.match(html, /href="\/tools\/vietnam-coffee-map\.html"/);
   assert.match(html, /Barista Foundation/);
+  assert.match(html, /Khai giảng/);
+  assert.match(html, /20\.07/);
   assert.match(html, /id="dang-ky"/);
   assert.match(html, /id="about"/);
   assert.match(html, /id="instructor"/);
-  assert.match(html, /id="hoc-phi"/);
   assert.match(html, /Họ và tên/);
 });
 
