@@ -412,6 +412,15 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </div>
       </section>
 
+      <section className="alumni-strip" aria-label="Học viên đã tham gia khóa học">
+        <p className="alumni-kicker">Học viên đã đồng hành cùng Crema Lab</p>
+        <div className="alumni-track" aria-hidden="true">
+          {[...Array(8), ...Array(8)].map((_, index) => (
+            <span className="alumni-avatar" key={index} />
+          ))}
+        </div>
+      </section>
+
       <section className="registration-section" id="dang-ky" aria-labelledby="register-heading">
         <div className="registration-panel reveal">
           <div className="registration-copy">
