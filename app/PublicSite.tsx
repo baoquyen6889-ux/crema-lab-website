@@ -335,21 +335,31 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
 
       <section className="instructor-section" id="instructor" aria-labelledby="instructor-heading">
         <div className="instructor-panel reveal">
-          <div className="instructor-copy">
-            <span className="instructor-badge">{instructor.role}</span>
-            <h2 id="instructor-heading">
-              Học cùng <em>nhà vô địch</em>.
-            </h2>
-            <p className="instructor-bio">{instructor.bio}</p>
-            <ul className="instructor-achievements">
-              {instructor.achievements.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-            <p className="instructor-signature">{instructor.name}</p>
-            <p className="instructor-signature-role">— {instructor.role}, Crema Lab</p>
+          <div className="instructor-tab">Giảng viên</div>
+          <div className="instructor-body">
+            <div className="instructor-copy">
+              <h2 id="instructor-heading">
+                Học cùng <em>nhà vô địch</em>.
+              </h2>
+              <p className="instructor-bio">{instructor.bio}</p>
+              <ul className="instructor-achievements">
+                {instructor.achievements.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <p className="instructor-signature">{instructor.name}</p>
+              <p className="instructor-signature-role">— {instructor.role}, Crema Lab</p>
+            </div>
+            <div className="instructor-portrait">
+              <Image
+                src="/images/instructor-ky-long.jpg"
+                alt={instructor.name}
+                fill
+                sizes="(max-width: 760px) 100vw, 45vw"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
           </div>
-          <div className="instructor-portrait" aria-hidden="true" />
         </div>
       </section>
 
