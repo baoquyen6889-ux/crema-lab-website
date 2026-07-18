@@ -331,18 +331,14 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       </section>
 
       <section className="instructor-section" id="instructor" aria-labelledby="instructor-heading">
-        <div className="instructor-panel reveal">
-          <div className="instructor-copy">
-            <span className="instructor-badge">{instructor.role}</span>
-            <h2 id="instructor-heading">
-              Học từ <em>người làm nghề</em>.
-            </h2>
-            <p className="instructor-bio">{instructor.bio}</p>
-            <p className="instructor-signature">{instructor.name}</p>
-            <p className="instructor-signature-role">— {instructor.role}, Crema Lab</p>
-          </div>
-          <div className="instructor-portrait" aria-hidden="true" />
+        <div className="instructor-copy reveal">
+          <span className="instructor-badge">{instructor.role}</span>
+          <h2 id="instructor-heading">HỌC TỪ NGƯỜI LÀM NGHỀ.</h2>
+          <p className="instructor-bio">{instructor.bio}</p>
+          <p className="instructor-signature">{instructor.name}</p>
+          <p className="instructor-signature-role">— {instructor.role}, Crema Lab</p>
         </div>
+        <div className="instructor-portrait" aria-hidden="true" />
       </section>
 
       <section className="courses-section" id="khoa-hoc" aria-labelledby="courses-heading">
@@ -398,9 +394,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         <div className="registration-panel reveal">
           <div className="registration-copy">
             <span className="registration-badge">Tư vấn</span>
-            <h2 id="register-heading">
-              Chọn điểm <em>bắt đầu.</em>
-            </h2>
+            <h2 id="register-heading">CHỌN ĐIỂM BẮT ĐẦU.</h2>
             <p>
               Để lại mục tiêu của bạn — Crema Lab liên hệ tư vấn phù hợp, không
               làm phiền.

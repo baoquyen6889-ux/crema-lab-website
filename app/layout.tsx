@@ -5,7 +5,7 @@ import "./effects.css";
 
 const headingFont = Be_Vietnam_Pro({
   subsets: ["latin", "vietnamese"],
-  weight: ["500", "600"],
+  weight: ["500", "600", "700"],
   variable: "--font-heading",
   display: "swap",
 });
