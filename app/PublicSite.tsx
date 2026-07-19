@@ -202,7 +202,7 @@ const courses = [
   {
     number: "04",
     title: "Menu Coffee & Beverage",
-    level: "VẬN HÀNH",
+    level: "KẾT HỢP",
     duration: "5 buổi",
     format: "Tại Lab",
     khaiGiang: "31.08",
@@ -215,6 +215,27 @@ const courses = [
         <path d="M4 6h9M4 10h9M4 14h6" />
         <path d="M16 9h4v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2V9Z" />
         <path d="M20 10.5h1a1.3 1.3 0 0 1 0 2.6h-1" />
+      </svg>
+    ),
+  },
+  {
+    number: "05",
+    title: "Barista Operation",
+    level: "VẬN HÀNH",
+    duration: "6 buổi",
+    format: "Riêng 1:1 · 1:2",
+    khaiGiang: "Linh hoạt",
+    description:
+      "Từ quầy bar đến vận hành kinh doanh — chuẩn bị mở quán, xây dựng menu nền và chuẩn hoá vận hành quầy bar thực tế.",
+    color: "#4A2E12",
+    dark: false,
+    link: "/documents/barista-operation-crema-lab.pdf",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 9l1-5h14l1 5" />
+        <path d="M4 9a2.2 2.2 0 0 0 4.4 0 2.2 2.2 0 0 0 4.4 0 2.2 2.2 0 0 0 4.4 0A2.2 2.2 0 0 0 21 9" />
+        <path d="M5 9v10h14V9" />
+        <path d="M9.5 19v-5h5v5" />
       </svg>
     ),
   },
@@ -390,14 +411,17 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </div>
 
         <div className="course-stack">
-          {courses.map((course, index) => (
-            <article
+          {courses.map((course, index) => {
+            const CardTag = course.link ? "a" : "article";
+            return (
+            <CardTag
               className="course-stack-card"
               key={course.number}
               style={{
                 top: `calc(88px + ${index * 64}px)`,
                 zIndex: index + 1,
               }}
+              {...(course.link ? { href: course.link, target: "_blank", rel: "noopener noreferrer" } : {})}
             >
               <div
                 className={`course-tab${course.dark ? " is-dark-text" : ""}`}
@@ -422,8 +446,9 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                   <small>Ảnh khóa học · sắp cập nhật</small>
                 </div>
               </div>
-            </article>
-          ))}
+            </CardTag>
+            );
+          })}
           <div className="course-stack-spacer" aria-hidden="true" />
         </div>
       </section>
@@ -471,6 +496,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                 <option>Latte Art Control</option>
                 <option>Brewing</option>
                 <option>Menu Coffee &amp; Beverage</option>
+                <option>Barista Operation</option>
                 <option>Tư vấn lộ trình cá nhân</option>
               </select>
             </label>
