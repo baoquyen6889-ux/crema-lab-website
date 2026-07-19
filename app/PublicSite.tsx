@@ -393,10 +393,9 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
               style={{
                 top: `calc(88px + ${index * 64}px)`,
                 zIndex: index + 1,
-                borderColor: course.color,
               }}
             >
-              <div className="course-tab" style={{ color: course.color }}>
+              <div className="course-tab" style={{ color: course.color, borderBottomColor: course.color }}>
                 {course.number} — {course.title}
               </div>
               <div className="course-stack-body">
