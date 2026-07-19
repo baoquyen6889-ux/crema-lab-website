@@ -75,6 +75,7 @@
 
 .courses-section{background:var(--paper)}
 .course-stack{padding-top:8px}
+.course-stack-spacer{height:22vh}
 .course-stack-card{position:sticky;margin-bottom:28px;background:var(--paper);border:2px solid var(--line);border-radius:var(--radius-lg);box-shadow:0 16px 28px rgba(21,20,15,.08);overflow:hidden;transition:transform .3s var(--ease)}
 .course-tab{padding:20px 48px;font:600 11px var(--font-heading),Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--line)}
 .course-stack-body{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;gap:48px;height:380px;padding:40px 48px 48px}

@@ -409,6 +409,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
               </div>
             </article>
           ))}
+          <div className="course-stack-spacer" aria-hidden="true" />
         </div>
       </section>
 
