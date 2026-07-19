@@ -77,7 +77,7 @@
 .courses-section{background:var(--paper)}
 .course-stack{max-width:var(--content-max);margin-inline:auto;padding-top:8px}
 .course-stack-spacer{height:100vh}
-.course-stack-card{position:sticky;margin-bottom:28px;background:var(--paper);border:2px solid var(--line);border-radius:var(--radius-lg);overflow:hidden}
+.course-stack-card{display:block;position:sticky;margin-bottom:28px;background:var(--paper);border:2px solid var(--line);border-radius:var(--radius-lg);overflow:hidden}
 .course-tab{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 48px;font:600 11px var(--font-heading),Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#f5f1e8}
 .course-tab.is-dark-text{color:#2b1a10}
 .course-tab-level{opacity:.8}

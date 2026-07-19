@@ -195,7 +195,7 @@ test("uses a contemporary editorial system for the public Crema Lab site", async
   assert.match(site, /system-strip/);
   assert.match(site, /footer-statement/);
   assert.match(styles, /\.intro-statement\{/);
-  assert.match(styles, /\.course-stack-card\{position:sticky/);
+  assert.match(styles, /\.course-stack-card\{display:block;position:sticky/);
   assert.match(styles, /course-stack-visual/);
   assert.match(styles, /\.system-strip/);
   assert.match(styles, /\.instructor-panel\{/);
