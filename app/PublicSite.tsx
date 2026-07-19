@@ -46,6 +46,15 @@ const mobileNav = [
   },
 ];
 
+const alumniPhotos = [
+  "/images/alumni/student-1.jpg",
+  "/images/alumni/student-2.jpg",
+  "/images/alumni/student-3.jpg",
+  "/images/alumni/student-4.jpg",
+  "/images/alumni/student-5.jpg",
+  "/images/alumni/student-6.jpg",
+];
+
 const instructor = {
   role: "Người sáng lập & đào tạo",
   name: "Kỳ Long",
@@ -416,8 +425,10 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       <section className="alumni-strip" aria-label="Học viên đã tham gia khóa học">
         <p className="alumni-kicker">Học viên đã đồng hành cùng Crema Lab</p>
         <div className="alumni-track" aria-hidden="true">
-          {[...Array(8), ...Array(8)].map((_, index) => (
-            <span className="alumni-avatar" key={index} />
+          {[...alumniPhotos, ...alumniPhotos].map((src, index) => (
+            <span className="alumni-frame" key={index}>
+              <Image src={src} alt="" fill sizes="360px" style={{ objectFit: "cover" }} />
+            </span>
           ))}
         </div>
       </section>
