@@ -152,6 +152,7 @@ const courses = [
     description:
       "Nắm nguyên lý espresso, sữa và quy trình pha chế — hiểu đúng để tự điều chỉnh, không phụ thuộc công thức.",
     color: "#9D5429",
+    dark: false,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M5 8h14" />
@@ -171,6 +172,7 @@ const courses = [
     description:
       "Kiểm soát kết cấu sữa, nhiệt độ và lực rót — làm chủ từng đường latte art thay vì phụ thuộc may rủi.",
     color: "#E1AD5F",
+    dark: true,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M4 18c3-8 6-8 8-14 2 6 5 6 8 14" />
@@ -181,13 +183,14 @@ const courses = [
   {
     number: "03",
     title: "Brewing",
-    level: "ỨNG DỤNG",
+    level: "MỞ RỘNG",
     duration: "4 buổi",
     format: "Tại Lab",
     khaiGiang: "17.08",
     description:
       "Kiểm soát chiết xuất bằng dữ liệu và quan sát — pour-over, thông số và hiệu chỉnh để chủ động tạo hương vị mong muốn.",
     color: "#A89070",
+    dark: true,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M5 4h14l-4 8H9L5 4Z" />
@@ -206,6 +209,7 @@ const courses = [
     description:
       "Xây dựng menu đồ uống có hệ thống — chuẩn hoá công thức, tính giá vốn và vận hành nhất quán.",
     color: "#1E1F1F",
+    dark: false,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M4 6h9M4 10h9M4 14h6" />
@@ -395,13 +399,16 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                 zIndex: index + 1,
               }}
             >
-              <div className="course-tab" style={{ color: course.color, borderBottomColor: course.color }}>
-                {course.number} — {course.title}
+              <div
+                className={`course-tab${course.dark ? " is-dark-text" : ""}`}
+                style={{ backgroundColor: course.color }}
+              >
+                <span>{course.number} — {course.title}</span>
+                <span className="course-tab-level">{course.level}</span>
               </div>
               <div className="course-stack-body">
                 <div className="course-stack-copy">
                   <div>
-                    <p className="course-level" style={{ color: course.color }}>{course.level}</p>
                     <h3>{course.title}</h3>
                     <p className="course-description">{course.description}</p>
                   </div>
