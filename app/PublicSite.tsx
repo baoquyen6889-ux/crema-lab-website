@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
+import { CSSProperties, FormEvent, MouseEvent, PointerEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import "./public-site.css";
 
@@ -330,6 +330,63 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
   const [submitted, setSubmitted] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const rootRef = useRef<HTMLElement>(null);
+  const alumniTrackRef = useRef<HTMLDivElement>(null);
+  const alumniState = useRef({ dragging: false, hovering: false, pointerId: null as number | null, startX: 0, startScroll: 0 });
+
+  useEffect(() => {
+    const track = alumniTrackRef.current;
+    if (!track || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    track.scrollLeft = track.scrollWidth / 3;
+    const speed = 36;
+    let last = performance.now();
+    let raf = requestAnimationFrame(step);
+
+    function step(now: number) {
+      const dt = (now - last) / 1000;
+      last = now;
+      const state = alumniState.current;
+      if (!state.dragging && !state.hovering) {
+        track!.scrollLeft += speed * dt;
+      }
+      const setWidth = track!.scrollWidth / 3;
+      if (track!.scrollLeft >= setWidth * 2) track!.scrollLeft -= setWidth;
+      else if (track!.scrollLeft <= 0) track!.scrollLeft += setWidth;
+      raf = requestAnimationFrame(step);
+    }
+
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  function handleAlumniPointerDown(event: PointerEvent<HTMLDivElement>) {
+    const track = alumniTrackRef.current;
+    if (!track) return;
+    const state = alumniState.current;
+    state.dragging = true;
+    state.pointerId = event.pointerId;
+    state.startX = event.clientX;
+    state.startScroll = track.scrollLeft;
+    if (event.pointerType === "mouse") track.setPointerCapture(event.pointerId);
+  }
+
+  function handleAlumniPointerMove(event: PointerEvent<HTMLDivElement>) {
+    const state = alumniState.current;
+    if (!state.dragging || state.pointerId !== event.pointerId || event.pointerType !== "mouse") return;
+    const track = alumniTrackRef.current;
+    if (!track) return;
+    track.scrollLeft = state.startScroll - (event.clientX - state.startX);
+  }
+
+  function handleAlumniPointerUp(event: PointerEvent<HTMLDivElement>) {
+    const state = alumniState.current;
+    if (state.pointerId !== event.pointerId) return;
+    state.pointerId = null;
+    if (event.pointerType === "mouse") {
+      state.dragging = false;
+    } else {
+      window.setTimeout(() => { state.dragging = false; }, 500);
+    }
+  }
 
   useEffect(() => {
     const root = rootRef.current;
@@ -541,10 +598,20 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
 
       <section className="alumni-strip" aria-label="Học viên đã tham gia khóa học">
         <p className="alumni-kicker">Học viên đã đồng hành cùng Crema Lab</p>
-        <div className="alumni-track" aria-hidden="true">
-          {[...alumniPhotos, ...alumniPhotos].map((src, index) => (
+        <div
+          className="alumni-track"
+          aria-hidden="true"
+          ref={alumniTrackRef}
+          onPointerDown={handleAlumniPointerDown}
+          onPointerMove={handleAlumniPointerMove}
+          onPointerUp={handleAlumniPointerUp}
+          onPointerCancel={handleAlumniPointerUp}
+          onMouseEnter={() => { alumniState.current.hovering = true; }}
+          onMouseLeave={() => { alumniState.current.hovering = false; }}
+        >
+          {[...alumniPhotos, ...alumniPhotos, ...alumniPhotos].map((src, index) => (
             <span className="alumni-frame" key={index}>
-              <Image src={src} alt="" fill sizes="360px" style={{ objectFit: "cover" }} />
+              <Image src={src} alt="" fill sizes="360px" style={{ objectFit: "cover" }} draggable={false} />
             </span>
           ))}
         </div>
