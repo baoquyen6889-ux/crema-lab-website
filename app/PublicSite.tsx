@@ -331,13 +331,26 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
   const [showForm, setShowForm] = useState(false);
   const rootRef = useRef<HTMLElement>(null);
   const alumniTrackRef = useRef<HTMLDivElement>(null);
-  const alumniState = useRef({ dragging: false, hovering: false, pointerId: null as number | null, startX: 0, startScroll: 0, safetyTimer: null as number | null });
+  const alumniState = useRef({
+    offset: 0,
+    dragging: false,
+    hovering: false,
+    locked: false,
+    pointerId: null as number | null,
+    startX: 0,
+    startY: 0,
+    startOffset: 0,
+    safetyTimer: null as number | null,
+  });
 
   useEffect(() => {
     const track = alumniTrackRef.current;
     if (!track) return;
 
-    track.scrollLeft = track.scrollWidth / 3;
+    const state = alumniState.current;
+    state.offset = track.scrollWidth / 3;
+    track.style.transform = `translateX(${-state.offset}px)`;
+
     const speed = 36;
     let last = performance.now();
     let raf = requestAnimationFrame(step);
@@ -345,13 +358,13 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
     function step(now: number) {
       const dt = (now - last) / 1000;
       last = now;
-      const state = alumniState.current;
+      const width = track!.scrollWidth / 3;
       if (!state.dragging && !state.hovering) {
-        track!.scrollLeft += speed * dt;
+        state.offset += speed * dt;
       }
-      const setWidth = track!.scrollWidth / 3;
-      if (track!.scrollLeft >= setWidth * 2) track!.scrollLeft -= setWidth;
-      else if (track!.scrollLeft <= 0) track!.scrollLeft += setWidth;
+      if (state.offset >= width * 2) state.offset -= width;
+      else if (state.offset <= 0) state.offset += width;
+      track!.style.transform = `translateX(${-state.offset}px)`;
       raf = requestAnimationFrame(step);
     }
 
@@ -367,38 +380,52 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
   }
 
   function handleAlumniPointerDown(event: PointerEvent<HTMLDivElement>) {
-    const track = alumniTrackRef.current;
-    if (!track) return;
     const state = alumniState.current;
     state.dragging = true;
+    state.locked = event.pointerType === "mouse";
     state.pointerId = event.pointerId;
     state.startX = event.clientX;
-    state.startScroll = track.scrollLeft;
-    if (event.pointerType === "mouse") track.setPointerCapture(event.pointerId);
-    // Safety net: some mobile browsers never fire pointerup/pointercancel once a
-    // touch turns into a page scroll, which would otherwise freeze auto-play forever.
+    state.startY = event.clientY;
+    state.startOffset = state.offset;
+    if (event.pointerType === "mouse") alumniTrackRef.current?.setPointerCapture(event.pointerId);
+    // Safety net in case pointerup/pointercancel never arrives for this gesture.
     clearAlumniSafetyTimer();
-    state.safetyTimer = window.setTimeout(() => { state.dragging = false; }, 4000);
+    state.safetyTimer = window.setTimeout(() => { state.dragging = false; state.locked = false; }, 3000);
   }
 
   function handleAlumniPointerMove(event: PointerEvent<HTMLDivElement>) {
     const state = alumniState.current;
-    if (!state.dragging || state.pointerId !== event.pointerId || event.pointerType !== "mouse") return;
+    if (!state.dragging || state.pointerId !== event.pointerId) return;
     const track = alumniTrackRef.current;
     if (!track) return;
-    track.scrollLeft = state.startScroll - (event.clientX - state.startX);
+    const dx = event.clientX - state.startX;
+    const dy = event.clientY - state.startY;
+    if (!state.locked) {
+      if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+      if (Math.abs(dy) > Math.abs(dx)) {
+        // Vertical intent — let the page scroll normally instead of dragging the strip.
+        state.dragging = false;
+        clearAlumniSafetyTimer();
+        return;
+      }
+      state.locked = true;
+    }
+    event.preventDefault();
+    const width = track.scrollWidth / 3;
+    let next = state.startOffset - dx;
+    while (next < 0) next += width;
+    while (next >= width * 2) next -= width;
+    state.offset = next;
+    track.style.transform = `translateX(${-next}px)`;
   }
 
   function handleAlumniPointerUp(event: PointerEvent<HTMLDivElement>) {
     const state = alumniState.current;
     if (state.pointerId !== event.pointerId) return;
     state.pointerId = null;
+    state.dragging = false;
+    state.locked = false;
     clearAlumniSafetyTimer();
-    if (event.pointerType === "mouse") {
-      state.dragging = false;
-    } else {
-      window.setTimeout(() => { state.dragging = false; }, 500);
-    }
   }
 
   useEffect(() => {

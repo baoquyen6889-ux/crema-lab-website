@@ -95,8 +95,7 @@
 
 .alumni-strip{padding:72px 0;background:var(--paper);overflow:hidden;border-bottom:1px solid var(--line)}
 .alumni-kicker{margin:0 0 32px;padding:0 4.25vw;color:var(--quiet);font-family:var(--font-heading),Arial,sans-serif;font-weight:600;font-size:9px;letter-spacing:.08em;text-transform:uppercase;text-align:center}
-.alumni-track{display:flex;align-items:center;gap:24px;overflow-x:auto;scrollbar-width:none;cursor:grab}
-.alumni-track::-webkit-scrollbar{display:none}
+.alumni-track{display:flex;align-items:center;gap:24px;width:max-content;cursor:grab;touch-action:pan-y;will-change:transform}
 .alumni-track:active{cursor:grabbing}
 .alumni-frame{position:relative;flex-shrink:0;width:340px;aspect-ratio:4/3;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--line);background:var(--paper-2)}
 
