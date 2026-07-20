@@ -73,7 +73,6 @@
 .instructor-timeline-text{font-size:13px;line-height:1.55;color:#5c5851;transition:color .4s ease}
 .instructor-timeline-item.is-active .instructor-timeline-text{color:var(--ink);font-weight:500}
 .instructor-signature{margin:40px 0 0;font-family:var(--font-display),Georgia,serif;font-style:italic;font-weight:500;font-size:clamp(24px,2.4vw,30px);line-height:1;color:var(--ink)}
-.instructor-signature-role{margin:6px 0 0;color:var(--quiet);font-size:10px;letter-spacing:.04em}
 .instructor-card-photo{position:relative;min-height:620px;overflow:hidden}
 .instructor-portrait{position:absolute;inset:0}
 
