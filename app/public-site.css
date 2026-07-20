@@ -107,7 +107,7 @@
 .registration-actions{display:grid;gap:28px;align-content:start}
 .contact-channels{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:8px}
 .contact-channel{--brand:var(--copper);position:relative;display:flex;align-items:center;justify-content:center;aspect-ratio:1;border:1px solid var(--line);border-radius:var(--radius-lg);background:#fff;color:var(--ink);opacity:.55;text-decoration:none;cursor:pointer;transition:opacity .2s ease,border-color .2s ease,color .2s ease}
-.contact-channel::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;box-shadow:0 0 0 0 transparent;pointer-events:none;animation:contactGlow 3.6s ease-in-out infinite}
+.contact-channel::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;box-shadow:0 0 0 0 transparent;pointer-events:none;animation:contactGlow 3.6s ease-in-out infinite;animation-delay:var(--delay,0s)}
 .contact-channel-icon{position:relative;display:flex;width:24px;height:24px}
 .contact-channel-icon svg{width:100%;height:100%}
 .contact-channel:hover,.contact-channel:focus-visible{opacity:1;border-color:var(--brand);color:var(--brand)}

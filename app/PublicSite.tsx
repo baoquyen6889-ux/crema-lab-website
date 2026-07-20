@@ -565,7 +565,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <div className="contact-channels">
               {contactChannels.map((channel, index) => {
                 const tileStyle = {
-                  animationDelay: `${index * 0.12}s`,
+                  "--delay": `${index * 0.12}s`,
                   ...(channel.color ? { "--brand": channel.color } : {}),
                 } as CSSProperties;
                 if (channel.isFormToggle) {
