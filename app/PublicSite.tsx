@@ -563,14 +563,18 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
 
           <div className="registration-actions">
             <div className="contact-channels">
-              {contactChannels.map((channel) => {
-                const brandStyle = channel.color ? ({ "--brand": channel.color } as CSSProperties) : undefined;
+              {contactChannels.map((channel, index) => {
+                const tileStyle = {
+                  animationDelay: `${index * 0.12}s`,
+                  ...(channel.color ? { "--brand": channel.color } : {}),
+                } as CSSProperties;
                 if (channel.isFormToggle) {
                   return (
                     <button
                       type="button"
                       key={channel.name}
                       className={`contact-channel contact-channel-toggle${showForm ? " is-active" : ""}`}
+                      style={tileStyle}
                       aria-expanded={showForm}
                       aria-controls="registration-form"
                       aria-label={channel.name}
@@ -588,7 +592,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                       key={channel.name}
                       className="contact-channel"
                       href={channel.href}
-                      style={brandStyle}
+                      style={tileStyle}
                       aria-label={channel.name}
                       title={channel.name}
                       {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
@@ -601,7 +605,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                   <span
                     key={channel.name}
                     className="contact-channel is-soon"
-                    style={brandStyle}
+                    style={tileStyle}
                     aria-label={channel.name}
                     title={channel.name}
                     aria-disabled="true"
