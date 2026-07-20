@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bánh Xe Giống Cà Phê — Crema Lab</title>
+<meta name="description" content="Atlas tra cứu tương tác các nhóm di truyền và giống cà phê Arabica & Robusta, dựa trên World Coffee Research Varieties Catalog.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F5F5; --ink:#1E1F1F; --coffee:#8B5E3C; --gold:#E1AD5F; --gold-ink:#3D1A06;
+  --line:rgba(30,31,31,0.14); --line-strong:rgba(30,31,31,0.28); --card-bg:#FFFFFF;
+  --radius:2px; --muted:#55564f;
+  --serif-display:"Be Vietnam Pro","Inter",sans-serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --accent:var(--coffee); --vi:#6b4a2a;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+a{color:var(--coffee);}
+a:hover{color:var(--ink);}
+.home-shortcut{position:fixed;z-index:9999;left:18px;bottom:18px;padding:10px 14px;
+  border:1px solid rgba(255,255,255,.16);background:#1b1915;color:#f5f0e8!important;
+  font-size:11px;font-weight:700;letter-spacing:.06em;text-decoration:none;box-shadow:0 8px 28px rgba(0,0,0,.2);}
+.home-shortcut:hover{background:var(--coffee);color:#fff!important;}
+h1,h2,h3,.display{font-family:var(--serif-display);letter-spacing:.01em;margin:0;font-weight:700;color:var(--ink);}
+.eyebrow{font-family:var(--sans);font-weight:700;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--coffee);}
+
+/* ---------- Header ---------- */
+.site-header{border-bottom:1px solid var(--line);padding:22px 32px;
+  display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.brand-mark{font-family:var(--serif-display);font-size:20px;letter-spacing:.08em;text-decoration:none;color:var(--ink);}
+.brand-mark span{color:var(--coffee);font-weight:500;}
+.site-header nav{font-size:12px;letter-spacing:.02em;font-weight:600;color:var(--muted);}
+.site-header nav a{margin-left:2px;}
+
+/* ---------- Hero ---------- */
+.hero{padding:32px 32px 20px;max-width:920px;}
+.hero h1{font-size:clamp(26px,4vw,40px);line-height:1.05;margin-top:8px;}
+.hero .lede{margin-top:10px;font-size:14px;max-width:640px;color:#34352f;}
+
+.mode-toggle{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;}
+.mode-btn{font-family:var(--sans);font-size:12.5px;letter-spacing:.01em;font-weight:600;
+  background:transparent;border:1px solid var(--line-strong);color:var(--ink);
+  padding:9px 18px;border-radius:var(--radius);cursor:pointer;
+  transition:background .15s,color .15s,border-color .15s;}
+.mode-btn:hover{border-color:var(--coffee);}
+.mode-btn.active{background:var(--ink);border-color:var(--ink);color:#fff;}
+
+.filter-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
+.filter-row input[type=text]{flex:1 1 240px;min-width:200px;padding:9px 12px;border:1px solid var(--line-strong);
+  border-radius:var(--radius);font-family:var(--sans);font-size:13px;background:#fff;}
+.filter-row select{flex:0 0 200px;padding:9px 10px;border:1px solid var(--line-strong);
+  border-radius:var(--radius);font-family:var(--sans);font-size:13px;background:#fff;color:var(--ink);cursor:pointer;}
+.filter-row input:focus,.filter-row select:focus{outline:none;border-color:var(--coffee);}
+
+.legend-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:14px;}
+.legend{display:flex;flex-wrap:wrap;gap:8px;}
+.legend-chip{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;
+  border:1px solid var(--line-strong);background:#fff;font-size:11.5px;font-weight:600;
+  cursor:pointer;user-select:none;transition:all .12s ease;}
+.legend-chip:hover{border-color:var(--coffee);}
+.legend-chip.dim{opacity:.35;}
+.legend-chip .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+
+.stats-line{font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap;}
+.stats-line b{color:var(--ink);}
+
+/* ---------- Stage ---------- */
+section.stage-section{padding:0 32px 8px;}
+.stage{border:1px solid var(--line);background:var(--card-bg);}
+.layout{display:flex;gap:0;align-items:stretch;min-height:720px;}
+.wheel-pane{flex:1 1 70%;position:relative;display:flex;align-items:center;justify-content:center;
+  padding:20px;background:var(--card-bg);}
+.wheel-inner{position:relative;width:100%;max-width:820px;}
+svg#wheelsvg{width:100%;height:auto;display:block;}
+.seg{cursor:pointer;stroke:#fff;stroke-width:1.4;transition:fill-opacity .15s ease,opacity .15s ease;}
+.seg.dim{opacity:.15;}
+.group-label.dim,.seg-label.dim{opacity:.15;}
+.seg-label{font-family:var(--sans);font-size:10.5px;font-weight:600;pointer-events:none;}
+.group-label{font-family:var(--serif-display);font-size:14px;font-weight:700;fill:#fff;pointer-events:none;}
+.center-title{font-family:var(--serif-display);fill:var(--ink);pointer-events:none;font-weight:800;}
+.center-sub{font-family:var(--sans);fill:#8a8b83;pointer-events:none;}
+
+aside#panelwrap{flex:1 1 30%;max-width:400px;border-left:1px solid var(--line);
+  background:var(--card-bg);padding:34px 26px;overflow-y:auto;}
+#panel{max-width:360px;margin:0 auto;}
+.placeholder{text-align:center;}
+.placeholder .lead{font-family:var(--serif-display);font-size:18px;font-weight:700;margin-bottom:12px;}
+.placeholder p{font-size:13.5px;line-height:1.7;color:var(--muted);text-align:left;}
+
+.tag{display:inline-block;color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;padding:4px 12px;border-radius:var(--radius);margin-bottom:14px;}
+#panel h2{--accent:var(--ink);margin:2px 0 0;font-size:25px;font-weight:800;letter-spacing:-.01em;
+  position:relative;padding-bottom:16px;}
+#panel h2::after{content:"";position:absolute;left:0;bottom:0;
+  width:56px;height:4px;background:var(--accent);}
+.origin-tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--vi);
+  font-weight:600;margin-top:10px;}
+.yield-row{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--ink);}
+.yield-swatch{width:16px;height:16px;border-radius:3px;border:1px solid var(--line-strong);flex-shrink:0;}
+.yield-scale{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;color:var(--muted);}
+.yield-scale .bar{flex:1;height:8px;border-radius:4px;background:linear-gradient(90deg,#f0e6da,#8B5E3C);max-width:160px;}
+.section-title{--accent:var(--muted);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent);margin:20px 0 8px;}
+.info-text{font-size:14px;line-height:1.75;color:#2b2822;margin:0;}
+.children-list{display:grid;grid-template-columns:1fr;gap:6px;margin-top:6px;max-height:320px;overflow-y:auto;}
+.children-list button{display:block;width:100%;text-align:left;background:#fafaf8;border:none;
+  border-left:3px solid transparent;padding:9px 12px;font-family:var(--sans);font-size:13px;
+  font-weight:600;color:var(--ink);cursor:pointer;transition:all .12s ease;}
+.children-list button:hover{border-left-color:var(--accent-color,var(--coffee));background:#f1efe9;}
+.meta-line{font-size:11.5px;color:#999;border-top:1px solid var(--line);padding-top:12px;margin-top:20px;line-height:1.6;}
+
+/* ---------- Fullscreen ---------- */
+#fsBtn{position:fixed;right:16px;top:16px;z-index:999;width:34px;height:34px;
+  display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);
+  border:1px solid var(--line-strong);border-radius:var(--radius);cursor:pointer;color:var(--ink);
+  padding:0;box-shadow:0 1px 3px rgba(30,31,31,.12);}
+#fsBtn:hover{border-color:var(--coffee);color:var(--coffee);}
+#fsBtn svg{width:18px;height:18px;display:block;}
+#fsIconShrink{display:none;}
+html:fullscreen,html:-webkit-full-screen{background:var(--bg);}
+
+/* ---------- History / Sources ---------- */
+.history-section,.sources{padding:26px 32px 10px;max-width:920px;}
+.history-section h3,.sources summary{cursor:default;font-family:var(--serif-display);font-weight:700;font-size:15px;}
+.sources summary{cursor:pointer;}
+.history-text{font-size:13px;line-height:1.75;color:#3a3b34;margin-top:10px;}
+.methodology{font-size:13px;line-height:1.7;color:#3a3b34;margin-top:10px;}
+.source-list{columns:2;column-gap:24px;font-size:12.5px;color:var(--muted);margin-top:10px;}
+.source-list li{margin-bottom:6px;break-inside:avoid;}
+
+.site-footer{padding:18px 32px 34px;font-size:11.5px;color:#8a8b83;border-top:1px solid var(--line);margin-top:20px;}
+
+@media (max-width:960px){
+  .layout{flex-direction:column;}
+  aside#panelwrap{max-width:100%;border-left:none;border-top:1px solid var(--line);}
+}
+</style>
+</head>
+<body>
+
+<a class="home-shortcut" href="/" aria-label="Quay về trang chủ Crema Lab">← Trang chủ</a>
+
+<button id="fsBtn" title="Toàn màn hình" onclick="toggleFS()">
+  <svg id="fsIconExpand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+  <svg id="fsIconShrink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>
+</button>
+
+<header class="site-header">
+  <a class="brand-mark" href="/" aria-label="Crema Lab — Trang chủ">CREMA LAB <span>— Coffee &amp; Training</span></a>
+  <nav><a href="#stage-section">Bánh xe</a> &nbsp;·&nbsp; <a href="#history-section">Lịch sử</a> &nbsp;·&nbsp; <a href="#sources">Nguồn tham khảo</a></nav>
+</header>
+
+<div class="hero">
+  <div class="eyebrow">Variety Reference</div>
+  <h1>Bánh Xe Giống Cà Phê</h1>
+  <p class="lede">Atlas tra cứu các nhóm di truyền và giống cà phê Arabica &amp; Robusta phổ biến toàn cầu — tổng hợp từ World Coffee Research Varieties Catalog (varieties.worldcoffeeresearch.org). Nhấp vào một lát cắt để xem chi tiết giống.</p>
+
+  <div class="mode-toggle" role="group" aria-label="Chọn loài">
+    <button type="button" class="mode-btn active" id="tab-arabica" onclick="switchSpecies('arabica')">Arabica</button>
+    <button type="button" class="mode-btn" id="tab-robusta" onclick="switchSpecies('robusta')">Robusta</button>
+  </div>
+
+  <div class="filter-row">
+    <input type="text" id="searchBox" placeholder="Tìm giống theo tên (vd: Geisha, Catimor, TR9...)">
+    <select id="countryFilter"><option value="">Tất cả quốc gia</option></select>
+  </div>
+
+  <div class="legend-row">
+    <div class="legend" id="legend"></div>
+    <div class="stats-line" id="statsLine"></div>
+  </div>
+  <div class="yield-scale"><span class="bar"></span> Sắc thái vòng ngoài: nhạt → đậm = năng suất thấp → cao (ước tính từ mô tả WCR)</div>
+</div>
+
+<section id="stage-section" class="stage-section">
+  <div class="stage">
+    <div class="layout">
+      <div class="wheel-pane">
+        <div class="wheel-inner">
+          <svg id="wheelsvg" viewBox="0 0 900 900"></svg>
+        </div>
+      </div>
+      <aside id="panelwrap">
+        <div id="panel">
+          <div class="placeholder">
+            <div class="lead">Chọn một vùng trên bánh xe</div>
+            <p>Vòng trong thể hiện <b>nhóm di truyền</b>, vòng ngoài thể hiện <b>từng giống cụ thể</b>. Nhấp vào nhóm hoặc giống để xem mô tả, hoặc dùng ô tìm kiếm / bộ lọc quốc gia phía trên để soi nhanh.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="history-section" class="history-section">
+  <h3 id="historyTitle">Lịch sử Arabica</h3>
+  <p class="history-text" id="historyText"></p>
+</section>
+
+<section id="sources" class="sources">
+  <details>
+    <summary>Về phương pháp phân loại &amp; nguồn dữ liệu</summary>
+    <p class="methodology">Dữ liệu được tổng hợp bằng cách tra <b>từng trang chi tiết của từng giống</b> trên World Coffee Research Varieties Catalog (không chỉ trang danh sách tổng quan), lấy đúng 2 trường chính thức của WCR: <b>"Genetic Description"</b> (nhóm di truyền) và <b>"Yield Potential"</b> (năng suất) — đây là bản sửa sau khi phát hiện phiên bản trước có nhiều chỗ suy đoán sai (vd. từng gán nhầm dòng Roubi là giống Việt Nam/nhóm Guinea, trong khi trang gốc ghi rõ Roubi phát hành ở Mexico/Philippines/Thái Lan/Nicaragua và nhóm di truyền là "Unknown"; hoặc Perdenia thực chất thuộc nhóm Congo và phát triển tại Ấn Độ chứ không phải "đa vùng"/Guinea như suy đoán ban đầu). Toàn bộ <b>47 giống Robusta</b> và <b>69 giống Arabica</b> hiện có trên trang gốc đều đã được tra riêng lẻ (ngoại trừ <b>Nemaya</b> — xuất hiện trên trang Arabica nhưng thực chất là giống <i>Robusta</i> dùng làm gốc ghép kháng tuyến trùng, không tính là giống Arabica). Với Robusta, trang chi tiết có trường "Country of release" tường minh nên số liệu quốc gia là chính xác theo nguồn. Với Arabica, các trang chi tiết KHÔNG có trường quốc gia tường minh — quốc gia hiển thị trong bánh xe được suy ra từ phần "Breeder"/"History" của từng trang, có thể không đầy đủ bằng dữ liệu Robusta. Bánh xe không còn gộp nhiều giống vào một lát cắt (mỗi lát = đúng 1 giống) để tránh sai lệch như trước.</p>
+    <ul class="source-list">
+      <li>World Coffee Research — Varieties Catalog: varieties.worldcoffeeresearch.org</li>
+      <li>WCR — Arabica Varieties Listing: varieties.worldcoffeeresearch.org/arabica/varieties</li>
+      <li>WCR — Robusta Varieties Listing: varieties.worldcoffeeresearch.org/robusta/varieties</li>
+      <li>WCR — History of Arabica / History of Robusta (varieties.worldcoffeeresearch.org)</li>
+    </ul>
+  </details>
+</section>
+
+<footer class="site-footer">Crema Lab — Coffee &amp; Training. Build drinks from system, not from guesswork. Tài liệu tham khảo nội bộ, cập nhật theo dữ liệu công khai của World Coffee Research.</footer>
+
+<script>
+/* ============ DATA ============
+   [tên, mô tả, quốc gia/khu vực, cấp năng suất]
+   Cấp năng suất (yield tier) được suy luận định tính từ mô tả năng suất do
+   WCR công bố cho từng giống (không phải số liệu kg/ha chính xác):
+   "very-low" | "low" | "medium" | "high" | "very-high" | null (chưa rõ)
+*/
+const YIELD_LABEL = {
+  "very-low":"Rất thấp", "low":"Thấp", "medium":"Trung bình",
+  "high":"Cao", "very-high":"Rất cao", "null":"Chưa rõ (WCR không công bố)"
+};
+const DATA = {
+  arabica: {
+    label:"ARABICA", sub:"C. arabica",
+    history:"Từ quê hương bản địa Ethiopia, cà phê Arabica bắt đầu lan rộng ra thế giới từ giữa thế kỷ 18. Lịch sử ban đầu chủ yếu là hậu duệ của Typica và Bourbon. Giữa thế kỷ 20, các nhà chọn giống bắt đầu giới thiệu các giống \"introgressed\" mang gen kháng bệnh rỉ sắt lá cà phê (coffee leaf rust). Gần đây hơn, các giống lai F1 với nền di truyền đa dạng đã được đưa vào sản xuất.",
+    groups: [
+      { name:"Bourbon", color:"#8B5E3C",
+        desc:"Nhánh \"Bourbon related\" theo phân loại chính thức của WCR — bắt nguồn từ đảo Bourbon (nay là Réunion), lan sang Mỹ Latinh và Đông Phi từ thế kỷ 18. Chất lượng xuất sắc ở cao độ lớn nhưng mẫn cảm rỉ sắt.",
+        varieties:[
+          ["Bourbon","Giống quan trọng bậc nhất, nổi tiếng chất lượng xuất sắc ở cao độ lớn.","Đa vùng","medium"],
+          ["Bourbon Mayaguez 139","Vigorous và năng suất cao, chất lượng tốt.","Rwanda","medium"],
+          ["Bourbon Mayaguez 71","Mẫn cảm bệnh chính, thích nghi cao độ trung bình.","Rwanda",null],
+          ["Catuai","Lai giữa Caturra và Mundo Novo — WCR xếp \"cả hai\" gốc Typica/Bourbon, gần Bourbon hơn qua Caturra. Cây gọn, chất lượng tiêu chuẩn.","Brazil","medium"],
+          ["Caturra","Đột biến lùn tự nhiên của Bourbon, chất lượng tiêu chuẩn, mẫn cảm rỉ sắt cao.","Brazil","medium"],
+          ["Jackson 2/1257","Sinh trưởng mạnh, năng suất cao, phổ biến tại Rwanda và Burundi.","Rwanda","high"],
+          ["K7","Chịu CBD, phổ biến tại Kenya và Tanzania.","Kenya","medium"],
+          ["KP423","Chịu hạn và rỉ sắt nhưng rất mẫn cảm CBD, phổ biến tại Uganda.","Uganda","high"],
+          ["Pacas","Đột biến Bourbon phát hiện tại El Salvador, chất lượng tiêu chuẩn.","El Salvador","medium"],
+          ["SL28","Chất lượng vượt trội, chịu hạn tốt nhưng mẫn cảm bệnh chính.","Kenya","low"],
+          ["Tekisic","Bourbon cải tiến chọn lọc tại El Salvador, chất lượng rất tốt ở cao độ lớn.","El Salvador","medium"],
+          ["Venecia","Rất mẫn cảm rỉ sắt, thích nghi vùng mưa nhiều nhờ thu hoạch muộn.","Costa Rica","medium"],
+          ["Villa Sarchi","Đột biến Bourbon, thích nghi tốt cao độ lớn và chịu gió mạnh.","Costa Rica","medium"]
+        ]},
+      { name:"Typica", color:"#A9714A",
+        desc:"Nhánh \"Typica related\" theo phân loại chính thức của WCR — dòng cổ điển nhất, lan từ Ethiopia qua Yemen, Ấn Độ, Java đến châu Mỹ từ thế kỷ 18. Chất lượng cao, thích nghi vùng lạnh, rất mẫn cảm rỉ sắt.",
+        varieties:[
+          ["Typica","Một trong những giống Arabica quan trọng nhất về văn hoá và di truyền, thích nghi tốt vùng lạnh, rất mẫn cảm rỉ sắt.","Đa vùng","low"],
+          ["BPL10 (Java)","Chịu rỉ sắt, sinh trưởng khỏe, canh tác giới hạn tại Java.","Indonesia","medium"],
+          ["Caripe","Chất lượng rất tốt, hạt lớn. Giống vùng quan trọng tại bang Monagas, Venezuela.","Venezuela","medium"],
+          ["Harar Rwanda","Chất lượng tốt nhưng mẫn cảm các bệnh chính và dễ chết yểu.","Rwanda","high"],
+          ["Maragogipe","Đột biến hạt rất lớn của Typica, năng suất thấp nhưng chất lượng tốt.","Brazil","low"],
+          ["Mibirizi","Chất lượng đặc biệt, chịu hạn, rất mẫn cảm bệnh chính.","Rwanda","medium"],
+          ["Mundo Novo","Lai tự nhiên giữa Typica và Bourbon — WCR xếp \"cả hai\" gốc, đặt ở đây theo tính vigorous đặc trưng Typica. Sinh trưởng mạnh, mẫn cảm bệnh chính.","Brazil","medium"],
+          ["Nyasaland","Chất lượng tốt, mẫn cảm bệnh chính — tên cũ của Malawi, cũng phổ biến tại Uganda.","Malawi","medium"],
+          ["Pacamara","Lai giữa Pacas và Maragogipe — WCR xếp \"cả hai\" gốc, đặt ở đây qua Maragogipe. Tiềm năng chất lượng đặc biệt, hạt lớn.","El Salvador","low"],
+          ["Pache","Cây gọn, chất lượng tốt nhưng mẫn cảm các bệnh chính.","Guatemala","medium"],
+          ["Pop3303/21","Chịu hạn, rỉ sắt và CBD, phổ biến tại Rwanda.","Rwanda","high"],
+          ["SL14","Giống cao, năng suất tốt, chịu hạn và lạnh.","Kenya","medium"],
+          ["SL34","Chất lượng đặc biệt nhưng rất mẫn cảm CBD.","Kenya","medium"]
+        ]},
+      { name:"Ethiopian Landrace", color:"#A89070",
+        desc:"Giống bản địa/hoang dã từ Ethiopia — cái nôi di truyền của Arabica. Nhóm này nhỏ hơn nhiều người nghĩ: theo phân loại chính thức của WCR chỉ có 3 giống trong catalog thuộc đúng nhóm này (Harar Rwanda và Nyasaland — dù tên gợi liên tưởng — thực ra được WCR xếp vào nhóm Bourbon–Typica).",
+        varieties:[
+          ["AB3 (Java)","Chất lượng ly tách cao, thích hợp nông lâm kết hợp, canh tác giới hạn tại Java.","Indonesia","medium"],
+          ["Geisha (Panama)","Chất lượng đặc biệt ở cao độ lớn, nổi tiếng toàn cầu nhờ hương hoa/trái cây đặc trưng.","Panama","low"],
+          ["Java","Chất lượng cao, chịu tốt các bệnh chính, yêu cầu phân bón thấp.","Cameroon","medium"]
+        ]},
+      { name:"Nhóm Catimor", color:"#E1AD5F", textOverride:"#3D1A06",
+        desc:"Giống lai giữa Caturra và Hybrido de Timor (Typica x Robusta tự nhiên) — mang gen kháng rỉ sắt, năng suất cao, phổ biến ở vùng thấp/trung bình.",
+        varieties:[
+          ["Anacafe 14","Năng suất rất cao, kháng rỉ, chất lượng tốt trên 1300m.","Guatemala","high"],
+          ["Catimor 129","Cây lùn/gọn, kháng rỉ sắt và CBD, phổ biến ở Malawi, Zambia, Zimbabwe.","Malawi","high"],
+          ["Catisic","Thích nghi vùng nóng nhất, đất chua.","El Salvador","high"],
+          ["Costa Rica 95","Thích nghi vùng nóng, đất chua.","Costa Rica","high"],
+          ["Fronton","Cho quả sớm, kháng rỉ sắt, chủ yếu tại Puerto Rico.","Puerto Rico","medium"],
+          ["IHCAFE 90","Thích nghi vùng thấp, cần bón phân nhiều.","Honduras","high"],
+          ["Kartika 1","Thích hợp nông lâm kết hợp, kháng rỉ sắt cao trong thử nghiệm toàn cầu.","Indonesia","medium"],
+          ["Lempira","Thích nghi vùng nóng và đất chua.","Honduras","high"],
+          ["Oro Azteca","Thích nghi vùng nóng, đất chua.","Mexico","high"],
+          ["T5175","Thích nghi vùng thấp, cần bón phân nhiều, giống không đồng nhất.","Costa Rica","high"],
+          ["T8667","Kháng rỉ, thích nghi vùng nóng/đất chua.","Costa Rica","high"]
+        ]},
+      { name:"Nhóm Sarchimor", color:"#1E1F1F",
+        desc:"Giống lai giữa Villa Sarchi và Hybrido de Timor — cũng mang gen kháng rỉ sắt như Catimor nhưng nền di truyền khác, thường thích nghi vùng trung bình.",
+        varieties:[
+          ["Cuscatleco","Kháng rỉ sắt và một số tuyến trùng, thích nghi cao độ trung bình.","El Salvador","medium"],
+          ["IAPAR 59","Kháng rỉ sắt và một số tuyến trùng, thích nghi cao độ trung bình.","Brazil","medium"],
+          ["IPR 103","Chịu nhiệt, hạn, đất nghèo dinh dưỡng tốt, năng suất cao đặc biệt vụ sớm.","Brazil","high"],
+          ["IPR 107","Kháng rỉ sắt rất tốt, phù hợp cao độ lớn và thu hoạch cơ giới.","Brazil","high"],
+          ["Limani","Giống hiếm gặp của Puerto Rico.","Puerto Rico","medium"],
+          ["Marsellesa","Độ chua nổi bật trong tách, thích nghi cao độ trung bình.","Nicaragua","high"],
+          ["Monte Claro","Cây gọn, chất lượng rất tốt, hạt lớn, chịu rỉ sắt và tuyến trùng.","Venezuela","high"],
+          ["Obata (Red)","Giống Brazil kháng rỉ, gần đây du nhập Costa Rica.","Brazil","high"],
+          ["Parainema","Thích nghi cao độ trung bình, kháng rỉ sắt và một số tuyến trùng.","Honduras","very-high"],
+          ["Paraiso","Kháng rỉ sắt, cây gọn, phát triển tại Brazil, gần đây du nhập Trung Mỹ.","Brazil","medium"],
+          ["T5296","Thích nghi cao độ trung bình, giống không đồng nhất.","Costa Rica","medium"]
+        ]},
+      { name:"Introgressed khác", color:"#C98A4B",
+        desc:"Các giống có gen kháng bệnh du nhập (introgressed) nhưng WCR xếp riêng ngoài hai nhóm Catimor/Sarchimor phổ biến — thường là các dòng chọn tạo khu vực Đông Phi hoặc Ấn Độ.",
+        varieties:[
+          ["Batian","Năng suất cao, chịu rỉ sắt, kháng CBD, chất lượng tốt.","Kenya","high"],
+          ["Catigua MG2","Khuyến nghị cho cà phê đặc sản, thích nghi rộng, chịu hạn tốt.","Brazil","high"],
+          ["RAB C15","Kháng rỉ và CBD, mới công bố tại Rwanda.","Rwanda","very-high"],
+          ["S4808","Dòng lai chọn tạo tại Ấn Độ, chưa thương mại hoá chính thức.","Ấn Độ","high"],
+          ["S795","Năng suất cao, trồng rộng rãi tại Ấn Độ.","Ấn Độ","high"],
+          ["Sln.5B","Kháng rỉ mạnh nhờ mang huyết thống cả Robusta và Liberica.","Ấn Độ","high"],
+          ["Sln.6","Thích nghi vùng nhiệt đới cao độ trung bình–lớn tại Ấn Độ, kháng rỉ tốt.","Ấn Độ","medium"]
+        ]},
+      { name:"F1 Hybrid", color:"#5C3D08",
+        desc:"Thế hệ lai F1 hiện đại (gồm cả \"introgressed\" và \"không introgressed\" theo WCR), thường cho năng suất và chất lượng vượt trội khi trồng đúng điều kiện, cần nhân giống bằng nuôi cấy mô để giữ đồng nhất.",
+        varieties:[
+          ["Casiopea","Chất lượng đặc biệt trên 1300m.","Trung Mỹ","high"],
+          ["Centroamericano","Chất lượng rất tốt trên 1300m nếu đất khoẻ, kháng rỉ.","Trung Mỹ","very-high"],
+          ["EC15 (MundoMex)","Năng suất sản xuất cao, hợp nông lâm kết hợp.","Nicaragua","high"],
+          ["Esperanza","Kháng rỉ, chất lượng rất tốt, thích nghi môi trường ẩm.","Costa Rica","very-high"],
+          ["Evaluna","Năng suất rất cao ở cao độ lớn.","Trung Mỹ","high"],
+          ["H3","Chất lượng rất tốt trên 1300m.","Trung Mỹ","high"],
+          ["Milenio","Kháng rỉ, chất lượng tốt trên 1300m, giống không đồng nhất.","Trung Mỹ","very-high"],
+          ["Mundo Maya","Chất lượng rất tốt trên 1300m, hợp nông lâm kết hợp.","Nicaragua","very-high"],
+          ["Nayarita","Năng suất cao ở cao độ lớn, chất lượng rất tốt.","Nicaragua","high"],
+          ["Ruiru 11","Giống lùn/gọn, chịu rỉ sắt và kháng CBD.","Kenya","very-high"],
+          ["Starmaya","Thích nghi cao độ trung bình, độ chua nổi bật trong tách.","Nicaragua","high"]
+        ]}
+    ]
+  },
+  robusta: {
+    label:"ROBUSTA", sub:"C. canephora",
+    history:"Cà phê Robusta có nguồn gốc từ các khu rừng Tây Phi cận Sahara. Sự đa dạng di truyền rộng lớn giúp loài này thích nghi với nhiều môi trường khác nhau. Canh tác thương mại bắt đầu khoảng năm 1870 tại Congo; sản xuất mở rộng nhanh chóng từ khoảng năm 1950, tập trung chủ yếu ở Brazil và Việt Nam. Là một loại cây trồng, Robusta còn khá \"trẻ\" và cả nông dân lẫn nhà chọn giống mới chỉ bắt đầu khám phá sự đa dạng và tiềm năng phong phú của nó.",
+    groups:[
+      { name:"Nhóm Guinea", color:"#8B5E3C",
+        desc:"Một trong 5 nhóm di truyền chính thức của WCR. Trong catalog hiện chỉ có 2 dòng Mexico (INIFAP) được xếp đúng nhóm này — phần lớn giống Robusta thương mại phổ biến (Việt Nam, Indonesia) thực ra thuộc nhóm Congo bên cạnh.",
+        varieties:[
+          ["INIFAP 00-24","Cây gọn, năng suất cao ở vùng khô, ven biển Chiapas.","Mexico",null],
+          ["INIFAP 97-15","Cây cao, nhiều thân, thích nghi rộng vùng Chiapas và Veracruz.","Mexico",null]
+        ]},
+      { name:"Nhóm Congo", color:"#E1AD5F", textOverride:"#3D1A06",
+        desc:"Nhóm di truyền có nguồn gốc lưu vực Congo — theo phân loại chính thức của WCR, đây mới là nhóm chứa phần lớn giống Robusta thương mại phổ biến nhất thế giới: toàn bộ dòng TR/Xanh Lùn (Việt Nam), BP/SA (Indonesia) và một số dòng INIFAP (Mexico).",
+        varieties:[
+          ["BP 534","Dòng vô tính phổ biến nhất, hợp nông lâm kết hợp.","Indonesia","low"],
+          ["BP 936","Thích nghi rộng, tối ưu vùng ẩm, hợp nông lâm kết hợp.","Indonesia","low"],
+          ["BP 939","Thích nghi rộng, tối ưu vùng khô, hợp nông lâm kết hợp.","Indonesia","low"],
+          ["INIFAP 00-28","Cây cao, quả/lá nhiều, năng suất cao nhất trong điều kiện Chiapas.","Mexico",null],
+          ["INIFAP 95-9","Cây cao, quả rất to, mẫn cảm mọt đục thân.","Mexico",null],
+          ["INIFAP 97-14","Cây cao, nhiều thân, mẫn cảm mọt đục thân và bệnh thán thư.","Mexico",null],
+          ["Perdenia","Cây khỏe, tán rộng, năng suất cao, hạt nhỏ — \"Old Robusta\".","Ấn Độ","medium"],
+          ["SA 237","Hợp nông lâm kết hợp, thích nghi vùng khô.","Indonesia","low"],
+          ["TR4","Năng suất cao, thích nghi rộng với nhiều môi trường.","Việt Nam","very-high"],
+          ["TR9","Năng suất và chất lượng rất cao, hạt to.","Việt Nam","high"],
+          ["TR11","Năng suất và chất lượng rất cao, sinh trưởng khỏe.","Việt Nam","high"],
+          ["TRS1","Thích nghi rộng, yêu cầu đầu tư trung bình.","Việt Nam","high"],
+          ["Xanh Lùn (TS5)","Cây lùn/gọn, năng suất rất cao, khá chịu hạn, chín muộn.","Việt Nam","high"]
+        ]},
+      { name:"Nhóm Guinea x Congo", color:"#1E1F1F",
+        desc:"Nhóm lai giữa dòng Guinea và Congo — theo phân loại chính thức của WCR, đây là nhóm của toàn bộ chương trình chọn giống Conilon/Robusta Brazil (EMBRAPA - BRS), không phải nhóm Congo như nhiều tài liệu phổ thông hay nhầm.",
+        varieties:[
+          ["BRS 1216","Năng suất rất cao, kháng tuyến trùng và rỉ sắt, thích nghi Tây Amazon.","Brazil","very-high"],
+          ["BRS 2299","Nổi bật khả năng chịu tuyến trùng nốt sần, năng suất rất cao.","Brazil","very-high"],
+          ["BRS 2314","Điểm cupping cao, được xếp loại \"fine robusta\".","Brazil","very-high"],
+          ["BRS 2336","Thích nghi tốt Tây Amazon, năng suất và kích cỡ hạt tốt.","Brazil","very-high"],
+          ["BRS 2357","Tán gọn, mật độ trồng cao, cho thêm một vụ trước khi trẻ hoá.","Brazil","high"],
+          ["BRS 3137","Chịu hạn và đất nghèo dinh dưỡng tốt.","Brazil","very-high"],
+          ["BRS 3193","Cành sơ cấp dài, đỉnh năng suất ở vụ thứ 2–3.","Brazil","high"],
+          ["BRS 3210","Thích nghi tốt Tây Amazon, năng suất và kích cỡ hạt tốt.","Brazil","very-high"],
+          ["BRS 3213","Thích nghi tốt Tây Amazon, năng suất và kích cỡ hạt tốt.","Brazil","very-high"],
+          ["BRS 3220","Thích nghi tốt Tây Amazon, năng suất và kích cỡ hạt tốt.","Brazil","very-high"]
+        ]},
+      { name:"Nhóm Guinea x Congensis", color:"#A89070",
+        desc:"Nhóm lai giữa Robusta và loài C. congensis — đại diện là các dòng Sln. tại Ấn Độ, thường dùng làm gốc ghép chống tuyến trùng.",
+        varieties:[
+          ["Sln.1R","Cây rất khoẻ, phát triển thành cây lớn.","Ấn Độ","medium"],
+          ["Sln.2R","Cây khoẻ, tán lớn, hạt to.","Ấn Độ","medium"],
+          ["Sln.3R","Cây gọn, phù hợp mật độ trồng cao.","Ấn Độ","medium"]
+        ]},
+      { name:"Nhóm Uganda", color:"#7A6A55",
+        desc:"Nhóm giống được chọn tạo tại Viện nghiên cứu NARO-Kituza, Uganda — nổi bật khả năng kháng bệnh héo cà phê (Coffee Wilt Disease - CWD), mối đe doạ lớn với Robusta Đông Phi.",
+        varieties:[
+          ["KR-1","Kháng bệnh héo cà phê (CWD) — NARO-Kituza.","Uganda","medium"],
+          ["KR-2","Kháng bệnh héo cà phê (CWD) — NARO-Kituza.","Uganda","medium"],
+          ["KR-3","Kháng bệnh héo cà phê (CWD) — NARO-Kituza.","Uganda","high"],
+          ["KR-4","Kháng bệnh héo cà phê (CWD) — NARO-Kituza.","Uganda","medium"],
+          ["KR-5","Kháng bệnh héo cà phê (CWD) — NARO-Kituza.","Uganda","medium"],
+          ["KR-6","Kháng bệnh héo cà phê (CWD) — NARO-Kituza.","Uganda","medium"],
+          ["KR-7","Kháng bệnh héo cà phê (CWD) — NARO-Kituza.","Uganda","medium"],
+          ["KR-8","Kháng bệnh héo cà phê (CWD) — NARO-Kituza.","Uganda","medium"],
+          ["KR-9","Kháng bệnh héo cà phê (CWD) — NARO-Kituza.","Uganda","medium"],
+          ["KR-10","Kháng bệnh héo cà phê (CWD) — NARO-Kituza.","Uganda","high"]
+        ]},
+      { name:"Chưa xác định nhóm (Roubi)", color:"#5A4A3A",
+        desc:"Dòng Roubi do Nestlé Research chọn tạo — bản thân trang WCR để trường \"Genetic Description\" là \"Unknown\" cho toàn bộ dòng này, nên mình tách thành nhóm riêng thay vì gán ép vào 1 trong 5 nhóm chính thức. Lưu ý: chỉ có 9 giống Roubi tồn tại (1, 2, 4, 5, 6, 7, 8, 9, 10) — không có \"Roubi 3\", và các giống phát hành ở Mexico/Philippines/Thái Lan/Nicaragua chứ không phải Việt Nam.",
+        varieties:[
+          ["Roubi 1","Kết hợp năng suất và chất lượng ly tách xuất sắc, được nông dân chấp nhận cao.","Mexico/Philippines","high"],
+          ["Roubi 2","Kết hợp năng suất và chất lượng ly tách xuất sắc, được nông dân chấp nhận cao.","Mexico/Philippines","high"],
+          ["Roubi 4","Năng suất cao kết hợp kích cỡ hạt lớn.","Thái Lan","high"],
+          ["Roubi 5","Năng suất cao kết hợp kích cỡ hạt lớn.","Thái Lan","high"],
+          ["Roubi 6","Năng suất và chất lượng ly tách cao.","Nicaragua","high"],
+          ["Roubi 7","Chất lượng ly tách rất tốt và năng suất cao.","Nicaragua","high"],
+          ["Roubi 8","Năng suất và chất lượng ly tách cao.","Nicaragua","high"],
+          ["Roubi 9","Năng suất và chất lượng ly tách cao.","Nicaragua","high"],
+          ["Roubi 10","Năng suất và chất lượng ly tách cao.","Nicaragua","high"]
+        ]}
+    ]
+  }
+};
+
+/* ============ RENDER ENGINE ============ */
+let currentSpecies = 'arabica';
+let activeGroupFilter = null;
+let selectedDAttr = null;
+const svgNS = "http://www.w3.org/2000/svg";
+const CX = 450, CY = 450, R0 = 92, R1 = 270, R2 = 430;
+
+function polar(cx, cy, r, angleDeg){
+  const a = (angleDeg - 90) * Math.PI / 180;
+  return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+}
+function arcPath(cx, cy, rInner, rOuter, startAngle, endAngle){
+  const a1 = polar(cx, cy, rOuter, startAngle), a2 = polar(cx, cy, rOuter, endAngle);
+  const a3 = polar(cx, cy, rInner, endAngle), a4 = polar(cx, cy, rInner, startAngle);
+  const largeArc = (endAngle - startAngle) > 180 ? 1 : 0;
+  return `M ${a1.x} ${a1.y} A ${rOuter} ${rOuter} 0 ${largeArc} 1 ${a2.x} ${a2.y} L ${a3.x} ${a3.y} A ${rInner} ${rInner} 0 ${largeArc} 0 ${a4.x} ${a4.y} Z`;
+}
+function lighten(hex, amt){
+  const c = hex.replace('#',''); const num = parseInt(c,16);
+  let r=(num>>16)+amt, g=((num>>8)&0x00FF)+amt, b=(num&0x0000FF)+amt;
+  r=Math.min(255,Math.max(0,r)); g=Math.min(255,Math.max(0,g)); b=Math.min(255,Math.max(0,b));
+  return "#"+(0x1000000+r*0x10000+g*0x100+b).toString(16).slice(1);
+}
+/* Màu vòng ngoài (giống) = sắc thái của màu nhóm, đậm/nhạt theo NĂNG SUẤT:
+   đậm hơn (gần màu gốc, thậm chí tối hơn) = năng suất cao hơn;
+   nhạt hơn = năng suất thấp hơn hoặc chưa có dữ liệu công bố. */
+const YIELD_SHADE = {
+  "very-low": 85, "low": 58, "medium": 34, "high": 8, "very-high": -18, "null": 34
+};
+function shadeForYield(baseColor, tier){
+  return lighten(baseColor, YIELD_SHADE[tier===null||tier===undefined ? "null" : tier]);
+}
+function readableTextColor(hex){
+  const c = hex.replace('#',''); const num = parseInt(c,16);
+  const r=(num>>16)&255, g=(num>>8)&255, b=num&255;
+  const lum = (0.299*r + 0.587*g + 0.114*b)/255;
+  return lum > 0.62 ? '#1E1F1F' : '#FFFFFF';
+}
+
+/* ---- hover/selected glow layer (halo + colored stroke, same technique as
+   the original SCA flavor wheel: white halo underneath, gold stroke = hover
+   preview, dark ink stroke = persistent selection) ---- */
+let glowLayerEl = null;
+function setGlow(dAttr, isSelected){
+  if(!glowLayerEl) return;
+  glowLayerEl.innerHTML = '';
+  if(!dAttr) return;
+  const halo = document.createElementNS(svgNS,'path');
+  halo.setAttribute('d', dAttr);
+  halo.setAttribute('fill','none');
+  halo.setAttribute('stroke','#FFFFFF');
+  halo.setAttribute('stroke-linejoin','round');
+  halo.setAttribute('stroke-width', isSelected ? 9 : 8);
+  halo.setAttribute('opacity', isSelected ? 1 : 0.6);
+  glowLayerEl.appendChild(halo);
+  const stroke = document.createElementNS(svgNS,'path');
+  stroke.setAttribute('d', dAttr);
+  stroke.setAttribute('fill','rgba(30,31,31,0.08)');
+  stroke.setAttribute('stroke', isSelected ? '#1E1F1F' : 'var(--gold)');
+  stroke.setAttribute('stroke-linejoin','round');
+  stroke.setAttribute('stroke-width', isSelected ? 5 : 4);
+  stroke.setAttribute('opacity', isSelected ? 1 : 0.85);
+  glowLayerEl.appendChild(stroke);
+}
+
+function renderPanel(name, desc, color, textColor, tagLabel, origin, children, yieldTier){
+  const panel = document.getElementById('panel');
+  const accent = color || '#8B5E3C';
+  let childrenHtml = '';
+  if(children && children.length){
+    childrenHtml = `<div class="section-title" style="--accent:${accent}">Các giống trong nhóm (${children.length})</div>
+      <div class="children-list">${children.map(c=>`<button style="--accent-color:${accent}" onclick="selectVariety('${c[0].replace(/'/g,"\\'")}')">${c[0]}</button>`).join('')}</div>`;
+  }
+  const originHtml = origin ? `<div class="origin-tag">📍 ${origin}</div>` : '';
+  let yieldHtml = '';
+  if(yieldTier !== undefined){
+    const key = yieldTier===null ? "null" : yieldTier;
+    const swatch = shadeForYield(accent, yieldTier);
+    yieldHtml = `<div class="section-title" style="--accent:${accent}">Năng suất (ước tính từ mô tả WCR)</div>
+      <div class="yield-row"><span class="yield-swatch" style="background:${swatch}"></span>${YIELD_LABEL[key]}</div>`;
+  }
+  panel.innerHTML = `
+    <span class="tag" style="background:${accent};color:${textColor||'#fff'}">${tagLabel}</span>
+    <h2 style="--accent:${accent}">${name}</h2>
+    ${originHtml}
+    <div class="section-title" style="--accent:${accent}">Mô tả</div>
+    <p class="info-text">${desc}</p>
+    ${yieldHtml}
+    ${childrenHtml}
+    <div class="meta-line">Nguồn: World Coffee Research — varieties.worldcoffeeresearch.org</div>
+  `;
+}
+window.selectVariety = function(name){
+  const data = DATA[currentSpecies];
+  for(const g of data.groups){
+    const v = g.varieties.find(x=>x[0]===name);
+    if(v){ renderPanel(v[0], v[1], g.color, g.textOverride, g.name.toUpperCase(), v[2], null, v[3]); return; }
+  }
+};
+
+function buildLegend(species){
+  const legend = document.getElementById('legend');
+  legend.innerHTML = '';
+  DATA[species].groups.forEach(g=>{
+    const chip = document.createElement('div');
+    chip.className = 'legend-chip';
+    chip.innerHTML = `<span class="dot" style="background:${g.color}"></span>${g.name}`;
+    chip.onclick = () => {
+      activeGroupFilter = (activeGroupFilter === g.name) ? null : g.name;
+      renderWheel(species);
+      buildLegend(species);
+      renderPanel(g.name, g.desc, g.color, g.textOverride, `NHÓM · ${g.varieties.length} giống`, null, g.varieties);
+    };
+    if(activeGroupFilter && activeGroupFilter !== g.name) chip.classList.add('dim');
+    legend.appendChild(chip);
+  });
+}
+
+function buildCountryFilter(species){
+  const sel = document.getElementById('countryFilter');
+  const countries = new Set();
+  DATA[species].groups.forEach(g => g.varieties.forEach(v => { if(v[2]) countries.add(v[2]); }));
+  const sorted = Array.from(countries).sort((a,b)=>a.localeCompare(b,'vi'));
+  sel.innerHTML = '<option value="">Tất cả quốc gia</option>' + sorted.map(c=>`<option value="${c}">${c}</option>`).join('');
+}
+
+/* Một số lát cắt gộp nhiều giống cùng dòng (vd "KR-1 → KR-10", "BRS 2336 /
+   3210 / 3213 / 3220") để bánh xe không quá vụn. Hàm này ước tính lại số
+   giống THỰC trong mỗi lát để dòng thống kê khớp đúng số lượng công bố trên
+   WCR, thay vì chỉ đếm số lát cắt hiển thị. */
+function estimateVarietyCount(name){
+  const arrow = name.match(/(\d+)\s*→\s*\D*(\d+)/);
+  if(arrow) return parseInt(arrow[2],10) - parseInt(arrow[1],10) + 1;
+  const range = name.match(/(\d+)\s*–\s*\D*(\d+)/);
+  if(range) return parseInt(range[2],10) - parseInt(range[1],10) + 1;
+  const slashParts = name.split(' / ');
+  if(slashParts.length > 1) return slashParts.length;
+  return 1;
+}
+function buildStats(species){
+  const data = DATA[species];
+  const groupCount = data.groups.length;
+  const rowCount = data.groups.reduce((sum,g)=>sum+g.varieties.length,0);
+  const distinctCount = data.groups.reduce((sum,g)=>sum+g.varieties.reduce((s2,v)=>s2+estimateVarietyCount(v[0]),0),0);
+  const note = distinctCount !== rowCount ? ` (${rowCount} lát cắt trên bánh xe)` : '';
+  document.getElementById('statsLine').innerHTML = `<b>${groupCount}</b> nhóm di truyền · <b>${distinctCount}</b> giống theo WCR${note}`;
+}
+
+function renderWheel(species, searchTerm, countryTerm){
+  const svg = document.getElementById('wheelsvg');
+  svg.innerHTML = '';
+  svg.setAttribute('viewBox','0 0 900 900');
+  const data = DATA[species];
+  const groups = data.groups;
+  const term = (searchTerm||'').trim().toLowerCase();
+  const country = countryTerm || '';
+
+  /* Góc của mỗi nhóm tỉ lệ theo SỐ GIỐNG trong nhóm đó (không chia đều
+     360°/số-nhóm nữa) — nhóm nhiều giống (vd Bourbon, Typica) chiếm phần
+     lớn hơn, nhóm ít giống (vd Ethiopian Landrace) tự nhiên nhỏ lại, giống
+     cách một bánh xe hương vị thật phản ánh tỉ trọng dữ liệu.
+     Có đặt SÀN GÓC TỐI THIỂU (MIN_GROUP_ANGLE) cho mỗi nhóm: nhóm quá ít
+     giống (vd Nhóm Guinea chỉ 2 giống, Guinea x Congensis chỉ 3) nếu chia
+     đúng tỉ lệ sẽ ra một lát quá mỏng, không đủ chỗ cho tên nhóm ở vòng
+     trong (chữ tràn ra ngoài lát của chính nó, trông như "lỗ hổng" trên
+     vòng tròn). Phần góc dư ra khi nâng sàn cho nhóm nhỏ sẽ được trừ lại
+     tỉ lệ từ các nhóm còn lại — tổng luôn đúng 360°, vòng tròn luôn khép kín. */
+  const totalVarieties = groups.reduce((s,g)=>s+g.varieties.length,0);
+  const MIN_GROUP_ANGLE = 30;
+  let rawAngles = groups.map(g=>(g.varieties.length/totalVarieties)*360);
+  const flooredIdx = new Set();
+  rawAngles.forEach((a,i)=>{ if(a < MIN_GROUP_ANGLE) flooredIdx.add(i); });
+  const flooredSum = MIN_GROUP_ANGLE * flooredIdx.size;
+  const remaining = 360 - flooredSum;
+  const nonFlooredTotal = groups.reduce((s,g,i)=> flooredIdx.has(i) ? s : s+g.varieties.length, 0);
+  const finalAngles = groups.map((g,i)=> flooredIdx.has(i) ? MIN_GROUP_ANGLE : (g.varieties.length/nonFlooredTotal)*remaining);
+  let cursor = 0;
+  const groupAngles = finalAngles.map(a=>{
+    const start = cursor, end = cursor+a;
+    cursor = end;
+    return {start, end};
+  });
+
+  groups.forEach((g, gi)=>{
+    const gStart = groupAngles[gi].start, gEnd = groupAngles[gi].end;
+
+    const groupHasMatch = g.varieties.some(v=>{
+      const nameOk = !term || v[0].toLowerCase().includes(term);
+      const countryOk = !country || v[2]===country;
+      return nameOk && countryOk;
+    });
+
+    const groupDim = (activeGroupFilter && activeGroupFilter !== g.name) || ((term||country) && !groupHasMatch);
+    const gD = arcPath(CX,CY,R0,R1,gStart+0.6,gEnd-0.6);
+    const inner = document.createElementNS(svgNS,'path');
+    inner.setAttribute('d', gD);
+    inner.setAttribute('fill', g.color);
+    inner.classList.add('seg');
+    if(groupDim) inner.classList.add('dim');
+    inner.addEventListener('mouseenter', ()=> setGlow(gD, false));
+    inner.addEventListener('mouseleave', ()=> setGlow(selectedDAttr, true));
+    inner.addEventListener('click', ()=> {
+      selectedDAttr = gD; setGlow(gD, true);
+      renderPanel(g.name, g.desc, g.color, g.textOverride, `NHÓM · ${g.varieties.length} giống`, null, g.varieties);
+    });
+    const t1 = document.createElementNS(svgNS,'title'); t1.textContent = g.name; inner.appendChild(t1);
+    svg.appendChild(inner);
+
+    const midAngle = (gStart+gEnd)/2;
+    const labelPos = polar(CX,CY,(R0+R1)/2, midAngle);
+    const label = document.createElementNS(svgNS,'text');
+    label.setAttribute('x', labelPos.x); label.setAttribute('y', labelPos.y);
+    label.setAttribute('text-anchor','middle'); label.setAttribute('dominant-baseline','middle');
+    label.classList.add('group-label');
+    if(groupDim) label.classList.add('dim');
+    if(g.textOverride) label.setAttribute('fill', g.textOverride);
+    const words = g.name.split(' ');
+    words.forEach((w,i)=>{
+      const tspan = document.createElementNS(svgNS,'tspan');
+      tspan.setAttribute('x', labelPos.x);
+      tspan.setAttribute('dy', i===0 ? (-(words.length-1)*8) : 16);
+      tspan.textContent = w;
+      label.appendChild(tspan);
+    });
+    svg.appendChild(label);
+
+    /* Nhóm nhiều giống (>6) được xếp thành 2 "hàng" lồng trong vòng ngoài —
+       2 giống dùng chung 1 khoảng góc nhưng ở 2 bán kính khác nhau, thay vì
+       kéo dài thành N lát mỏng riêng lẻ. Tên nào quá dài (khó đọc nếu bị ép
+       vào nửa dải bán kính) thì được cấp nguyên 1 khoảng góc full cả 2 hàng
+       luôn, thay vì ghép chung với giống khác — thứ tự gốc trong danh sách
+       vẫn được giữ nguyên, chỉ gộp/tách theo độ dài tên khi duyệt tuần tự. */
+    const useSubRings = g.varieties.length > 6;
+    const LONG_NAME_LEN = 15;
+    let slotList = [];
+    if(useSubRings){
+      let pending = null;
+      g.varieties.forEach(v=>{
+        const isLong = v[0].length > LONG_NAME_LEN;
+        if(isLong){
+          if(pending){ slotList.push([pending]); pending = null; }
+          slotList.push([v]);
+        } else if(pending){
+          slotList.push([pending, v]);
+          pending = null;
+        } else {
+          pending = v;
+        }
+      });
+      if(pending) slotList.push([pending]);
+    } else {
+      slotList = g.varieties.map(v=>[v]);
+    }
+    const slots = slotList.length;
+    const anglePerSlot = (gEnd-gStart)/slots;
+    const bandGap = 3;
+    const bandMid = (R1+2+R2)/2;
+
+    slotList.forEach((slotEntries, slotIndex)=>{
+    slotEntries.forEach((v, subRow)=>{
+      const vStart = gStart+slotIndex*anglePerSlot, vEnd = vStart+anglePerSlot;
+      const splitBand = slotEntries.length === 2;
+      const innerR = splitBand ? (subRow===0 ? R1+2 : bandMid+bandGap) : R1+2;
+      const outerR = splitBand ? (subRow===0 ? bandMid-bandGap : R2) : R2;
+
+      const vColor = shadeForYield(g.color, v[3]);
+      const vD = arcPath(CX,CY,innerR,outerR,vStart+0.4,vEnd-0.4);
+      const outer = document.createElementNS(svgNS,'path');
+      outer.setAttribute('d', vD);
+      outer.setAttribute('fill', vColor);
+      outer.classList.add('seg');
+      const nameOk = !term || v[0].toLowerCase().includes(term);
+      const countryOk = !country || v[2]===country;
+      const varietyDim = !(nameOk && countryOk) || (activeGroupFilter && activeGroupFilter !== g.name);
+      if(varietyDim) outer.classList.add('dim');
+      outer.addEventListener('mouseenter', ()=> setGlow(vD, false));
+      outer.addEventListener('mouseleave', ()=> setGlow(selectedDAttr, true));
+      outer.addEventListener('click', ()=>{
+        selectedDAttr = vD; setGlow(vD, true);
+        renderPanel(v[0], v[1], g.color, g.textOverride, g.name.toUpperCase(), v[2], null, v[3]);
+      });
+      const t2 = document.createElementNS(svgNS,'title'); t2.textContent = v[0]; outer.appendChild(t2);
+      svg.appendChild(outer);
+
+      /* Radial label: anchored ngay sát mép TRONG của dải bán kính (dù bên
+         trái hay bên phải wheel) để text luôn "từ trong" đi ra như nhau ở
+         cả hai phía — trước đây bên trái neo ở mép ngoài (text-anchor
+         "start" tại R2) khiến tên ngắn dồn hết ra rìa ngoài, mất cân đối so
+         với bên phải (neo mép trong). Giờ cả hai đều neo tại innerR, chỉ
+         khác chiều đọc (start/end) và góc xoay để chữ luôn thẳng, không lộn
+         ngược — chữ dài vẫn giãn ra tới gần outerR nhờ textLength. */
+      const availLen = (outerR - innerR) - 16;
+      const angNorm = ((vStart+vEnd)/2 + 360) % 360;
+      const aRad = (angNorm - 90) * Math.PI / 180;
+      const flip = Math.cos(aRad) < 0;
+      const anchorR = innerR + 10;
+      const rotateDeg = flip ? (angNorm - 90 + 180) : (angNorm - 90);
+      const lp = polar(CX, CY, anchorR, angNorm);
+      const txt = document.createElementNS(svgNS,'text');
+      txt.setAttribute('x', lp.x); txt.setAttribute('y', lp.y);
+      txt.classList.add('seg-label');
+      if(varietyDim) txt.classList.add('dim');
+      txt.setAttribute('text-anchor', flip ? 'end' : 'start');
+      txt.setAttribute('dominant-baseline','middle');
+      txt.setAttribute('transform', `rotate(${rotateDeg} ${lp.x} ${lp.y})`);
+      txt.setAttribute('fill', readableTextColor(vColor));
+      const approxWidth = v[0].length * 5.6;
+      if(approxWidth > availLen){
+        txt.setAttribute('textLength', availLen);
+        txt.setAttribute('lengthAdjust','spacingAndGlyphs');
+      }
+      txt.textContent = v[0];
+      svg.appendChild(txt);
+    });
+    });
+  });
+
+  const centerCircle = document.createElementNS(svgNS,'circle');
+  centerCircle.setAttribute('cx',CX); centerCircle.setAttribute('cy',CY); centerCircle.setAttribute('r',R0-4);
+  centerCircle.setAttribute('fill','#fff'); centerCircle.setAttribute('stroke','#eee'); centerCircle.setAttribute('stroke-width','2');
+  svg.appendChild(centerCircle);
+
+  const ct = document.createElementNS(svgNS,'text');
+  ct.setAttribute('x',CX); ct.setAttribute('y',CY-8); ct.setAttribute('text-anchor','middle');
+  ct.classList.add('center-title'); ct.setAttribute('font-size','19'); ct.textContent = data.label;
+  svg.appendChild(ct);
+  const cs = document.createElementNS(svgNS,'text');
+  cs.setAttribute('x',CX); cs.setAttribute('y',CY+14); cs.setAttribute('text-anchor','middle');
+  cs.classList.add('center-sub'); cs.setAttribute('font-size','11'); cs.setAttribute('font-style','italic');
+  cs.textContent = data.sub;
+  svg.appendChild(cs);
+
+  // top glow layer (hover/selected) — always last so it renders above segments
+  glowLayerEl = document.createElementNS(svgNS,'g');
+  glowLayerEl.setAttribute('id','glowLayer');
+  glowLayerEl.setAttribute('pointer-events','none');
+  svg.appendChild(glowLayerEl);
+  if(selectedDAttr) setGlow(selectedDAttr, true);
+}
+
+function applyFilters(){
+  renderWheel(currentSpecies, document.getElementById('searchBox').value, document.getElementById('countryFilter').value);
+}
+
+function switchSpecies(species){
+  currentSpecies = species;
+  activeGroupFilter = null;
+  selectedDAttr = null;
+  document.getElementById('tab-arabica').classList.toggle('active', species==='arabica');
+  document.getElementById('tab-robusta').classList.toggle('active', species==='robusta');
+  document.getElementById('searchBox').value='';
+  buildLegend(species);
+  buildCountryFilter(species);
+  buildStats(species);
+  renderWheel(species);
+  document.getElementById('panel').innerHTML = `<div class="placeholder">
+      <div class="lead">Chọn một vùng trên bánh xe</div>
+      <p>Vòng trong thể hiện <b>nhóm di truyền</b>, vòng ngoài thể hiện <b>từng giống cụ thể</b>. Nhấp vào nhóm hoặc giống để xem mô tả, hoặc dùng ô tìm kiếm / bộ lọc quốc gia phía trên để soi nhanh.</p>
+    </div>`;
+  document.getElementById('historyTitle').textContent = species==='arabica' ? 'Lịch sử Arabica' : 'Lịch sử Robusta';
+  document.getElementById('historyText').textContent = DATA[species].history;
+}
+document.getElementById('searchBox').addEventListener('input', applyFilters);
+document.getElementById('countryFilter').addEventListener('change', applyFilters);
+
+function toggleFS(){
+  if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
+  else{ document.exitFullscreen?.(); }
+}
+document.addEventListener('fullscreenchange', ()=>{
+  const on = !!document.fullscreenElement;
+  document.getElementById('fsIconExpand').style.display = on ? 'none':'block';
+  document.getElementById('fsIconShrink').style.display = on ? 'block':'none';
+});
+
+buildLegend('arabica');
+buildCountryFilter('arabica');
+buildStats('arabica');
+renderWheel('arabica');
+document.getElementById('historyText').textContent = DATA.arabica.history;
+</script>
+
+</body>
+</html>

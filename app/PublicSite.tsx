@@ -89,7 +89,7 @@ const contactChannels = [
   },
   {
     name: "Messenger",
-    href: null,
+    href: "https://m.me/cremalab.coffee",
     color: "#0866FF",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
@@ -99,7 +99,7 @@ const contactChannels = [
   },
   {
     name: "Facebook",
-    href: null,
+    href: "https://www.facebook.com/cremalab.coffee",
     color: "#0866FF",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
@@ -201,30 +201,33 @@ const stages = [
 const knowledgeTools = [
   {
     number: "01",
-    title: "BÁNH XE HƯƠNG VỊ CÀ PHÊ",
+    title: "COFFEE FLAVOR WHEEL",
     description:
       "Đi từ nhóm hương tổng quát đến mô tả cụ thể — gọi tên đúng điều bạn cảm nhận trong tách.",
     href: "/tools/flavor-wheel.html",
-    kind: "wheel",
+    image: "/images/tools/flavor-wheel-transparent.png",
     meta: "Công cụ tương tác · Song ngữ",
+    effect: "wheel",
   },
   {
     number: "02",
-    title: "BẢN ĐỒ VÙNG TRỒNG VIỆT NAM",
+    title: "VIETNAM COFFEE MAP",
     description:
       "Khám phá vùng trồng, độ cao, giống và sơ chế — hiểu vì sao mỗi vùng cho một hồ sơ hương vị riêng.",
     href: "/tools/vietnam-coffee-map.html",
-    kind: "map",
+    image: "/images/tools/vietnam-coffee-map-centered.png",
     meta: "Dữ liệu vùng trồng · Có nguồn",
+    effect: "map",
   },
   {
     number: "03",
-    title: "EXTRACTION LAB",
+    title: "COFFEE VARIETY WHEEL",
     description:
-      "Chỉnh Dose, Ratio, Grind size, Contact time — xem chúng ảnh hưởng thế nào đến dòng chảy và kết quả trong tách.",
-    href: "/tools/extraction-lab.html",
-    kind: "lab",
-    meta: "Mô phỏng tương tác · 3 tầng kiến thức",
+      "Tra cứu nhóm di truyền, nguồn gốc và đặc tính của các giống Arabica và Robusta phổ biến.",
+    href: "/tools/coffee-variety-wheel.html",
+    image: "/images/tools/coffee-variety-wheel-transparent.png",
+    meta: "Atlas giống · Dữ liệu WCR",
+    effect: "wheel",
   },
 ];
 
@@ -545,7 +548,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         <div className="tool-grid">
           {knowledgeTools.map((tool, index) => (
             <a
-              className="tool-card reveal spotlight"
+              className={`tool-card tool-card-${tool.effect} reveal spotlight`}
               key={tool.href}
               href={tool.href}
               target="_blank"
@@ -554,10 +557,14 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
               style={{ transitionDelay: `${index * 90}ms` }}
               onMouseMove={handleSpotlight}
             >
-              <div className={`tool-visual tool-${tool.kind}`} aria-hidden="true">
-                <span />
-                <span />
-                <span />
+              <div className="tool-visual" aria-hidden="true">
+                <Image
+                  src={tool.image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 760px) 82vw, 33vw"
+                  className="tool-thumbnail"
+                />
               </div>
               <div className="tool-card-copy">
                 <div className="tool-card-meta">

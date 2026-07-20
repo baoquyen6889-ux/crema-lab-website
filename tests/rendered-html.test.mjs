@@ -47,10 +47,13 @@ test("server-renders the Crema Lab brand and commercial website", async () => {
   assert.match(html, />Kiến thức</);
   assert.match(html, />Khóa học</);
   assert.match(html, />Tư vấn</);
-  assert.match(html, /Bánh xe hương vị cà phê/i);
-  assert.match(html, /Bản đồ vùng trồng Việt Nam/i);
+  assert.match(html, /Coffee Flavor Wheel/i);
+  assert.match(html, /Vietnam Coffee Map/i);
+  assert.match(html, /Coffee Variety Wheel/i);
   assert.match(html, /href="\/tools\/flavor-wheel\.html"/);
   assert.match(html, /href="\/tools\/vietnam-coffee-map\.html"/);
+  assert.match(html, /href="\/tools\/coffee-variety-wheel\.html"/);
+  assert.doesNotMatch(html, /href="\/tools\/extraction-lab\.html"/);
   assert.match(html, /Barista Foundation/);
   assert.match(html, /Khai giảng/);
   assert.match(html, /20\.07/);
@@ -60,25 +63,39 @@ test("server-renders the Crema Lab brand and commercial website", async () => {
   assert.match(html, /aria-label="Hotline"/);
   assert.match(html, /tel:0933066889/);
   assert.match(html, /zalo\.me\/0933066889/);
+  assert.match(html, /m\.me\/cremalab\.coffee/);
+  assert.match(html, /facebook\.com\/cremalab\.coffee/);
   assert.match(html, /aria-label="Điền form"/);
 });
 
-test("ships both standalone knowledge tools", async () => {
-  const [wheel, map, wheelFile, mapFile] = await Promise.all([
+test("ships all three standalone knowledge tools with page thumbnails", async () => {
+  const [wheel, map, variety, wheelFile, mapFile, varietyFile, wheelImage, mapImage, varietyImage] = await Promise.all([
     readFile(new URL("../public/tools/flavor-wheel.html", import.meta.url), "utf8"),
     readFile(new URL("../public/tools/vietnam-coffee-map.html", import.meta.url), "utf8"),
+    readFile(new URL("../public/tools/coffee-variety-wheel.html", import.meta.url), "utf8"),
     stat(new URL("../public/tools/flavor-wheel.html", import.meta.url)),
     stat(new URL("../public/tools/vietnam-coffee-map.html", import.meta.url)),
+    stat(new URL("../public/tools/coffee-variety-wheel.html", import.meta.url)),
+    stat(new URL("../public/images/tools/flavor-wheel-transparent.png", import.meta.url)),
+    stat(new URL("../public/images/tools/vietnam-coffee-map-centered.png", import.meta.url)),
+    stat(new URL("../public/images/tools/coffee-variety-wheel-transparent.png", import.meta.url)),
   ]);
 
   assert.match(wheel, /Bánh Xe Hương Vị Cà Phê/i);
   assert.match(map, /Bản Đồ Vùng Trồng Cà Phê Việt Nam/i);
+  assert.match(variety, /Bánh Xe Giống Cà Phê/i);
   assert.match(wheel, /class="home-shortcut" href="\/"/);
   assert.match(map, /class="home-shortcut" href="\/"/);
+  assert.match(variety, /class="home-shortcut" href="\/"/);
   assert.match(wheel, /class="brand-mark" href="\/"/);
   assert.match(map, /class="brand-mark" href="\/"/);
+  assert.match(variety, /class="brand-mark" href="\/"/);
   assert.ok(wheelFile.size > 1_000_000);
   assert.ok(mapFile.size > 100_000);
+  assert.ok(varietyFile.size > 50_000);
+  assert.ok(wheelImage.size > 50_000);
+  assert.ok(mapImage.size > 50_000);
+  assert.ok(varietyImage.size > 50_000);
 });
 
 test("opening carries one focus particle into the slower fruit-formation sequence", async () => {
@@ -202,6 +219,10 @@ test("uses a contemporary editorial system for the public Crema Lab site", async
   assert.match(styles, /course-stack-visual/);
   assert.match(styles, /\.system-strip/);
   assert.match(styles, /\.instructor-grid\{/);
+  assert.match(site, /tool-card-\$\{tool\.effect\}/);
+  assert.match(styles, /toolWheelSpin/);
+  assert.match(styles, /toolMapSweep/);
+  assert.match(styles, /@media\(hover:none\) and \(pointer:coarse\)/);
 });
 
 test("keeps the finished site free of starter preview artifacts", async () => {
