@@ -331,7 +331,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
   const [showForm, setShowForm] = useState(false);
   const rootRef = useRef<HTMLElement>(null);
   const alumniTrackRef = useRef<HTMLDivElement>(null);
-  const alumniState = useRef({ dragging: false, hovering: false, pointerId: null as number | null, startX: 0, startScroll: 0 });
+  const alumniState = useRef({ dragging: false, hovering: false, pointerId: null as number | null, startX: 0, startScroll: 0, safetyTimer: null as number | null });
 
   useEffect(() => {
     const track = alumniTrackRef.current;
@@ -358,6 +358,14 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
     return () => cancelAnimationFrame(raf);
   }, []);
 
+  function clearAlumniSafetyTimer() {
+    const state = alumniState.current;
+    if (state.safetyTimer !== null) {
+      window.clearTimeout(state.safetyTimer);
+      state.safetyTimer = null;
+    }
+  }
+
   function handleAlumniPointerDown(event: PointerEvent<HTMLDivElement>) {
     const track = alumniTrackRef.current;
     if (!track) return;
@@ -367,6 +375,10 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
     state.startX = event.clientX;
     state.startScroll = track.scrollLeft;
     if (event.pointerType === "mouse") track.setPointerCapture(event.pointerId);
+    // Safety net: some mobile browsers never fire pointerup/pointercancel once a
+    // touch turns into a page scroll, which would otherwise freeze auto-play forever.
+    clearAlumniSafetyTimer();
+    state.safetyTimer = window.setTimeout(() => { state.dragging = false; }, 4000);
   }
 
   function handleAlumniPointerMove(event: PointerEvent<HTMLDivElement>) {
@@ -381,6 +393,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
     const state = alumniState.current;
     if (state.pointerId !== event.pointerId) return;
     state.pointerId = null;
+    clearAlumniSafetyTimer();
     if (event.pointerType === "mouse") {
       state.dragging = false;
     } else {
