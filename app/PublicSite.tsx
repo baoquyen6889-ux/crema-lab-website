@@ -58,7 +58,6 @@ const alumniPhotos = [
 const instructor = {
   role: "Giảng viên",
   name: "Kỳ Long",
-  bio: "Tham gia nghề cà phê từ 2012, hoàn thành chứng chỉ SCA Professional.",
   timeline: [
     { year: "2012", text: "Bắt đầu hành trình cà phê" },
     { year: "2015", text: "Vô địch Vietnam Latte Art Competition" },
@@ -571,7 +570,6 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             </a>
           ))}
         </div>
-        <p className="tool-note">Các công cụ mở ở tab riêng để giữ nguyên không gian tương tác.</p>
       </section>
 
       <section className="instructor-section" id="instructor" aria-labelledby="instructor-heading">
@@ -581,7 +579,6 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <h2 id="instructor-heading">
               Học cùng <em>nhà vô địch</em>.
             </h2>
-            <p className="instructor-bio">{instructor.bio}</p>
             <ol className="instructor-timeline" ref={instructorTimelineRef}>
               {instructor.timeline.map((item) => (
                 <li className="instructor-timeline-item" key={item.year}>
