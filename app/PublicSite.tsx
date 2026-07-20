@@ -335,7 +335,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
 
   useEffect(() => {
     const track = alumniTrackRef.current;
-    if (!track || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!track) return;
 
     track.scrollLeft = track.scrollWidth / 3;
     const speed = 36;
