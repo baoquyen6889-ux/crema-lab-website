@@ -57,7 +57,10 @@ test("server-renders the Crema Lab brand and commercial website", async () => {
   assert.match(html, /id="dang-ky"/);
   assert.match(html, /id="instructor"/);
   assert.match(html, /nhà vô địch/);
-  assert.match(html, /Họ và tên/);
+  assert.match(html, /aria-label="Hotline"/);
+  assert.match(html, /tel:0933066889/);
+  assert.match(html, /zalo\.me\/0933066889/);
+  assert.match(html, /aria-label="Điền form"/);
 });
 
 test("ships both standalone knowledge tools", async () => {
