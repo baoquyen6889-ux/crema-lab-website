@@ -201,7 +201,7 @@ test("uses a contemporary editorial system for the public Crema Lab site", async
   assert.match(styles, /\.course-stack-card\{display:block;position:sticky/);
   assert.match(styles, /course-stack-visual/);
   assert.match(styles, /\.system-strip/);
-  assert.match(styles, /\.instructor-panel\{/);
+  assert.match(styles, /\.instructor-grid\{/);
 });
 
 test("keeps the finished site free of starter preview artifacts", async () => {

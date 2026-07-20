@@ -56,12 +56,15 @@ const alumniPhotos = [
 ];
 
 const instructor = {
-  role: "Người sáng lập & đào tạo",
+  role: "Giảng viên",
   name: "Kỳ Long",
   bio: "Tham gia nghề cà phê từ 2012, hoàn thành chứng chỉ SCA Professional.",
-  achievements: [
-    "Champion — Vietnam Super Barista Championship 2016",
-    "Champion — Vietnam Latte Art Competition 2015",
+  timeline: [
+    { year: "2012", text: "Bắt đầu hành trình cà phê" },
+    { year: "2015", text: "Vô địch Vietnam Latte Art Competition" },
+    { year: "2016", text: "Vô địch Vietnam Super Barista Championship" },
+    { year: "2019", text: "Hoàn thành khóa học SCA Professional" },
+    { year: "2026", text: "Thành lập CREMA LAB" },
   ],
 };
 
@@ -330,6 +333,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
   const [submitted, setSubmitted] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const rootRef = useRef<HTMLElement>(null);
+  const instructorTimelineRef = useRef<HTMLOListElement>(null);
   const alumniTrackRef = useRef<HTMLDivElement>(null);
   const alumniState = useRef({
     offset: 0,
@@ -451,6 +455,26 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const timeline = instructorTimelineRef.current;
+    if (!timeline) return;
+    const items = Array.from(timeline.querySelectorAll(".instructor-timeline-item"));
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      items.forEach((el) => el.classList.add("is-active"));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-active", entry.isIntersecting);
+        });
+      },
+      { rootMargin: "-42% 0px -42% 0px", threshold: 0 }
+    );
+    items.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   function handleSpotlight(event: MouseEvent<HTMLElement>) {
     const rect = event.currentTarget.getBoundingClientRect();
     event.currentTarget.style.setProperty("--mx", `${((event.clientX - rect.left) / rect.width) * 100}%`);
@@ -551,22 +575,26 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       </section>
 
       <section className="instructor-section" id="instructor" aria-labelledby="instructor-heading">
-        <div className="instructor-panel reveal">
-          <div className="instructor-tab">{instructor.role}</div>
-          <div className="instructor-body">
-            <div className="instructor-copy">
-              <h2 id="instructor-heading">
-                Học cùng <em>nhà vô địch</em>.
-              </h2>
-              <p className="instructor-bio">{instructor.bio}</p>
-              <ul className="instructor-achievements">
-                {instructor.achievements.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <p className="instructor-signature">{instructor.name}</p>
-              <p className="instructor-signature-role">{instructor.role}, Crema Lab</p>
-            </div>
+        <div className="instructor-grid">
+          <div className="instructor-card instructor-card-text reveal">
+            <span className="instructor-tab">{instructor.role}</span>
+            <h2 id="instructor-heading">
+              Học cùng <em>nhà vô địch</em>.
+            </h2>
+            <p className="instructor-bio">{instructor.bio}</p>
+            <ol className="instructor-timeline" ref={instructorTimelineRef}>
+              {instructor.timeline.map((item) => (
+                <li className="instructor-timeline-item" key={item.year}>
+                  <span className="instructor-timeline-dot" aria-hidden="true" />
+                  <span className="instructor-timeline-year">{item.year}</span>
+                  <span className="instructor-timeline-text">{item.text}</span>
+                </li>
+              ))}
+            </ol>
+            <p className="instructor-signature">{instructor.name}</p>
+            <p className="instructor-signature-role">{instructor.role}, Crema Lab</p>
+          </div>
+          <div className="instructor-card instructor-card-photo reveal">
             <div className="instructor-portrait">
               <Image
                 src="/images/instructor-ky-long.jpg"
