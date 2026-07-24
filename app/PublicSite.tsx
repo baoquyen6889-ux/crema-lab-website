@@ -679,10 +679,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                 style={{ backgroundColor: course.color }}
               >
                 <span>{course.number} — {course.title}</span>
-                <span className="course-tab-right">
-                  {course.comingSoon && <span className="course-tab-soon">Sắp ra mắt</span>}
-                  <span className="course-tab-level">{course.level}</span>
-                </span>
+                <span className="course-tab-level">{course.level}</span>
               </div>
               <div className="course-stack-body">
                 <div className="course-stack-copy">
@@ -694,6 +691,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                     <p className="course-description">{course.description}</p>
                   </div>
                   <div className="course-stat">
+                    {course.comingSoon && <span className="course-badge-soon">Sắp ra mắt</span>}
                     <strong style={{ color: course.color }}>{course.duration}</strong>
                     <span>{course.schedule}</span>
                   </div>
