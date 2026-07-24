@@ -285,6 +285,7 @@ const courses = [
       "Kiểm soát chiết xuất bằng dữ liệu và quan sát — pour-over, thông số và hiệu chỉnh để chủ động tạo hương vị mong muốn.",
     color: "#A89070",
     dark: true,
+    comingSoon: true,
     image: "/images/courses/brewing.jpg",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -297,7 +298,7 @@ const courses = [
   {
     number: "04",
     title: "Menu Coffee & Beverage",
-    level: "KẾT HỢP",
+    level: "PHÁT TRIỂN",
     duration: "5 buổi",
     format: "Tại Lab",
     khaiGiang: "31.08",
@@ -305,6 +306,7 @@ const courses = [
       "Xây dựng menu đồ uống có hệ thống — chuẩn hoá công thức, tính giá vốn và vận hành nhất quán.",
     color: "#1E1F1F",
     dark: false,
+    comingSoon: true,
     image: "/images/courses/menu-coffee-beverage.jpg",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -674,7 +676,10 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                 style={{ backgroundColor: course.color }}
               >
                 <span>{course.number} — {course.title}</span>
-                <span className="course-tab-level">{course.level}</span>
+                <span className="course-tab-right">
+                  {course.comingSoon && <span className="course-tab-soon">Sắp ra mắt</span>}
+                  <span className="course-tab-level">{course.level}</span>
+                </span>
               </div>
               <div className="course-stack-body">
                 <div className="course-stack-copy">

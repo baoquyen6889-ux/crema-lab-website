@@ -97,6 +97,9 @@
 .course-tab{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 48px;font:600 11px var(--font-heading),Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#f5f1e8}
 .course-tab.is-dark-text{color:#2b1a10}
 .course-tab-level{flex-shrink:0;width:96px;text-align:right;opacity:.8}
+.course-tab-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.course-tab-soon{position:relative;display:inline-flex;align-items:center;flex-shrink:0;padding:5px 11px;border-radius:999px;background:#fff;color:#1a1714;font-size:8px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;animation:courseTabSoonPulse 2.4s ease-in-out infinite}
+@keyframes courseTabSoonPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.6)}50%{box-shadow:0 0 0 7px rgba(255,255,255,0)}}
 .course-stack-body{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;gap:48px;height:380px;padding:40px 48px 48px}
 .course-stack-copy{display:flex;flex-direction:column;justify-content:space-between}
 .course-stack-copy h3{margin:0;color:var(--ink);font-weight:700;font-size:var(--text-h3);line-height:1;letter-spacing:-.015em;text-transform:uppercase}
