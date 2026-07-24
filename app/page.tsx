@@ -12,13 +12,16 @@ import "./experience-chapters.css";
 
 type Phase = "idle" | "enter" | "explore" | "chapter";
 
+// Temporarily disabled site-wide (desktop + mobile) per request. Flip back to
+// true to restore the WebGL intro without touching anything else below.
+const EXPERIENCE_MODE_ENABLED = false;
+
 export default function Home() {
   const [reduced, setReduced] = useState(false);
   const [engaged, setEngaged] = useState(false);
   const [interfaceReady, setInterfaceReady] = useState(false);
   const [phase, setPhase] = useState<Phase>("idle");
   const [experienceChapter, setExperienceChapter] = useState<1 | 2 | 3>(1);
-  const [isMobile, setIsMobile] = useState(false);
   const transitionTimer = useRef<number | null>(null);
   const scrollGate = useRef(false);
   const touchOrigin = useRef<number | null>(null);
@@ -26,15 +29,6 @@ export default function Home() {
   useEffect(() => {
     setReduced(matchMedia("(prefers-reduced-motion: reduce)").matches || localStorage.getItem("crema-reduced-motion") === "true");
     return () => { if (transitionTimer.current) window.clearTimeout(transitionTimer.current); };
-  }, []);
-
-  useEffect(() => {
-    // Experience Mode (the WebGL intro) is temporarily disabled on mobile.
-    const mq = matchMedia("(max-width: 760px)");
-    setIsMobile(mq.matches);
-    const handler = (event: MediaQueryListEvent) => setIsMobile(event.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
   }, []);
 
   const enter = useCallback(() => {
@@ -64,7 +58,7 @@ export default function Home() {
   });
 
   useEffect(() => {
-    if (isMobile) return;
+    if (!EXPERIENCE_MODE_ENABLED) return;
     const isEditableTarget = (target: EventTarget | null) => target instanceof Element && Boolean(target.closest("input, select, textarea, [role='slider']"));
     const move = (direction: 1 | -1) => {
       if (scrollGate.current) return;
@@ -120,9 +114,9 @@ export default function Home() {
       window.removeEventListener("touchend", onTouchEnd);
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [enter, experienceChapter, explore, interfaceReady, isMobile, phase, reduced, restart]);
+  }, [enter, experienceChapter, explore, interfaceReady, phase, reduced, restart]);
 
-  if (isMobile) {
+  if (!EXPERIENCE_MODE_ENABLED) {
     return <main className="crema-site">
       <PublicSite onExperience={restart} />
     </main>;

@@ -243,6 +243,7 @@ const courses = [
       "Nắm nguyên lý espresso, sữa và quy trình pha chế — hiểu đúng để tự điều chỉnh, không phụ thuộc công thức.",
     color: "#9D5429",
     dark: false,
+    link: "/documents/barista-foundation-crema-lab.pdf",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M5 8h14" />
@@ -263,6 +264,7 @@ const courses = [
       "Kiểm soát kết cấu sữa, nhiệt độ và lực rót — làm chủ từng đường latte art thay vì phụ thuộc may rủi.",
     color: "#E1AD5F",
     dark: true,
+    link: "/documents/latte-art-control-crema-lab.pdf",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M4 18c3-8 6-8 8-14 2 6 5 6 8 14" />
