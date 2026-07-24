@@ -511,12 +511,37 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         <span className="public-nav-meta">HCM · VI</span>
       </header>
 
-      <section className="public-intro" aria-labelledby="public-heading">
-        <p className="intro-statement" id="public-heading">
-          Flavor is not a formula.
-          <br />
-          <em>It is a system.</em>
-        </p>
+      <section className="public-intro coffee-clock-hero" aria-labelledby="public-heading">
+        <div className="coffee-clock-copy">
+          <span className="coffee-clock-kicker">CREMA LAB · TIME 01</span>
+          <p className="intro-statement" id="public-heading">
+            Coffee takes time
+            <br />
+            <em>to understand.</em>
+          </p>
+          <div className="coffee-clock-meta" aria-hidden="true">
+            <span>60 SEC</span>
+            <span>ONE FULL ROTATION</span>
+          </div>
+        </div>
+
+        <figure className="coffee-clock-figure">
+          <div className="coffee-clock-saucer">
+            <Image
+              src="/images/coffee-clock-topdown-v6.png"
+              alt="Tách cà phê nhìn từ trên xuống trên dĩa gốm nâu"
+              fill
+              priority
+              sizes="(max-width: 760px) 88vw, 50vw"
+            />
+          </div>
+          <div className="coffee-clock-cup-mask" aria-hidden="true">
+            <div className="coffee-clock-cup" />
+          </div>
+          <figcaption className="sr-only">
+            Dĩa đứng yên, tách cà phê và hình tim xoay một vòng mỗi phút như kim đồng hồ.
+          </figcaption>
+        </figure>
       </section>
 
       <div className="system-strip" aria-label="Chuỗi biến số cà phê">
@@ -790,21 +815,30 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </div>
       </section>
 
-      <footer className="public-footer">
-        <a className="brand footer-brand" href="#website" aria-label="Crema Lab — về đầu trang">
-          <span className="brand-mark" aria-hidden="true">
-            <Image src="/images/crema-lab-logo.png" alt="" width={64} height={64} />
-          </span>
-          <span><strong>CREMA</strong><small>LAB</small></span>
-        </a>
-        <nav aria-label="Điều hướng cuối trang">
-          {navigation.map(([, label, href]) => <a key={href} href={href}>{label}</a>)}
-        </nav>
-        <button type="button" onClick={onExperience}>Xem lại trải nghiệm mở đầu</button>
-        <div className="footer-statement">
-          <small>CREMA LAB · 2026</small>
-          <p>Flavor is not a formula.<br /><em>It is a system.</em></p>
+      <footer className="public-footer" aria-label="Cuối trang Crema Lab">
+        <div className="footer-top">
+          <nav aria-label="Điều hướng cuối trang">
+            {navigation.map(([, label, href]) => <a key={href} href={href}>{label}</a>)}
+          </nav>
+          <button type="button" onClick={onExperience}>
+            <span>Xem lại trải nghiệm mở đầu</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+          <div className="footer-statement">
+            <small>CREMA LAB · 2026</small>
+            <p>Coffee takes time<br /><em>to understand.</em></p>
+          </div>
         </div>
+        <a
+          className="footer-wordmark reveal"
+          href="#website"
+          aria-label="Crema Lab — về đầu trang"
+        >
+          <span className="footer-wordmark-text" aria-hidden="true">
+            <span className="footer-wordmark-crema">CREMA</span>
+            <span className="footer-wordmark-lab">LAB</span>
+          </span>
+        </a>
       </footer>
 
       <nav className="mobile-tabbar" aria-label="Điều hướng nhanh">

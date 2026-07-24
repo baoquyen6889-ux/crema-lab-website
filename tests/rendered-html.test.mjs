@@ -40,8 +40,9 @@ test("server-renders the Crema Lab brand and commercial website", async () => {
   const html = await response.text();
   assert.match(html, /<title>Crema Lab — The Unseen World of Coffee<\/title>/i);
   assert.match(html, /id="website"/);
-  assert.match(html, /Flavor is not a formula/);
-  assert.match(html, /It is a system/);
+  assert.match(html, /Coffee takes time/);
+  assert.match(html, /to understand\./);
+  assert.match(html, /coffee-clock-topdown-v6\.png/);
   assert.match(html, /Origin/);
   assert.match(html, /Extraction/);
   assert.match(html, />Kiến thức</);
@@ -65,6 +66,10 @@ test("server-renders the Crema Lab brand and commercial website", async () => {
   assert.match(html, /zalo\.me\/0933066889/);
   assert.match(html, /m\.me\/cremalab\.coffee/);
   assert.match(html, /facebook\.com\/cremalab\.coffee/);
+  assert.match(html, /aria-label="Cuối trang Crema Lab"/);
+  assert.match(html, /footer-wordmark/);
+  assert.match(html, /footer-wordmark-crema/);
+  assert.match(html, /footer-wordmark-lab/);
   assert.match(html, /aria-label="Điền form"/);
 });
 
@@ -212,16 +217,25 @@ test("uses a contemporary editorial system for the public Crema Lab site", async
     readFile(new URL("../app/public-site.css", import.meta.url), "utf8"),
   ]);
   assert.match(site, /intro-statement/);
+  assert.match(site, /coffee-clock-cup/);
+  assert.match(site, /Coffee takes time/);
   assert.match(site, /system-strip/);
+  assert.match(site, /footer-top/);
   assert.match(site, /footer-statement/);
   assert.match(styles, /\.intro-statement\{/);
+  assert.match(styles, /@keyframes coffeeClockTurn/);
+  assert.match(styles, /animation:coffeeClockTurn 60s linear infinite/);
   assert.match(styles, /\.course-stack-card\{display:block;position:sticky/);
   assert.match(styles, /course-stack-visual/);
   assert.match(styles, /\.system-strip/);
+  assert.match(styles, /\.footer-top\{/);
   assert.match(styles, /\.instructor-grid\{/);
   assert.match(site, /tool-card-\$\{tool\.effect\}/);
   assert.match(styles, /toolWheelSpin/);
   assert.match(styles, /toolMapSweep/);
+  assert.doesNotMatch(site, /footer-brand/);
+  assert.match(styles, /\.footer-wordmark-crema/);
+  assert.match(styles, /\.footer-wordmark-lab/);
   assert.match(styles, /@media\(hover:none\) and \(pointer:coarse\)/);
 });
 
