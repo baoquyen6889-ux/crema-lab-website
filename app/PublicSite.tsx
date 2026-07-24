@@ -157,8 +157,15 @@ const stages = [
     label: "Origin",
     icon: (
       <svg viewBox="0 0 24 24" fill="none">
-        <path d="M12 2.6c-5.2.9-8.6 5-8.6 9.4 0 4.9 3.9 9 8.6 9s8.6-4.1 8.6-9c0-4.4-3.4-8.5-8.6-9.4Z" fill="currentColor" />
-        <path d="M12 5.4c-2.7 2.4-4.2 5.1-4.2 7.6 0 2.9 1.7 5.5 4.2 7.1 2.5-1.6 4.2-4.2 4.2-7.1 0-2.5-1.5-5.2-4.2-7.6Z" fill="var(--night)" />
+        <ellipse cx="12" cy="12" rx="6.3" ry="9.5" fill="currentColor" transform="rotate(28 12 12)" />
+        <path
+          d="M12.6 4c-2.7 2-2.7 4.6-.3 6.7 2.4 2.1 2.4 4.5-.3 6.7-2 1.7-2.8 3.7-2.5 5.6"
+          stroke="var(--night)"
+          strokeWidth="1.7"
+          strokeLinecap="round"
+          fill="none"
+          transform="rotate(28 12 12)"
+        />
       </svg>
     ),
   },
