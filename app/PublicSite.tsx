@@ -236,9 +236,8 @@ const courses = [
     number: "01",
     title: "Barista Foundation",
     level: "NỀN TẢNG",
-    duration: "6 buổi",
-    format: "Tại Lab",
-    khaiGiang: "20.07",
+    duration: "4 ngày · 8 buổi · 24 giờ",
+    schedule: "Khai giảng: Liên hệ",
     description:
       "Nắm nguyên lý espresso, sữa và quy trình pha chế — hiểu đúng để tự điều chỉnh, không phụ thuộc công thức.",
     color: "#9D5429",
@@ -258,9 +257,8 @@ const courses = [
     number: "02",
     title: "Latte Art Control",
     level: "KỸ THUẬT",
-    duration: "4 buổi",
-    format: "Tại Lab",
-    khaiGiang: "03.08",
+    duration: "5 ngày · 10 buổi · 30 giờ",
+    schedule: "Khai giảng: Liên hệ",
     description:
       "Kiểm soát kết cấu sữa, nhiệt độ và lực rót — làm chủ từng đường latte art thay vì phụ thuộc may rủi.",
     color: "#E1AD5F",
@@ -278,9 +276,8 @@ const courses = [
     number: "03",
     title: "Brewing",
     level: "MỞ RỘNG",
-    duration: "4 buổi",
-    format: "Tại Lab",
-    khaiGiang: "17.08",
+    duration: "3 ngày · 6 buổi · 18 giờ",
+    schedule: "Khai giảng: Liên hệ",
     description:
       "Kiểm soát chiết xuất bằng dữ liệu và quan sát — pour-over, thông số và hiệu chỉnh để chủ động tạo hương vị mong muốn.",
     color: "#A89070",
@@ -299,9 +296,8 @@ const courses = [
     number: "04",
     title: "Menu Coffee & Beverage",
     level: "PHÁT TRIỂN",
-    duration: "5 buổi",
-    format: "Tại Lab",
-    khaiGiang: "31.08",
+    duration: "5 ngày · 10 buổi · 30 giờ",
+    schedule: "Khai giảng: Liên hệ",
     description:
       "Xây dựng menu đồ uống có hệ thống — chuẩn hoá công thức, tính giá vốn và vận hành nhất quán.",
     color: "#1E1F1F",
@@ -320,9 +316,8 @@ const courses = [
     number: "05",
     title: "Barista Operation",
     level: "VẬN HÀNH",
-    duration: "6 buổi",
-    format: "Riêng 1:1 · 1:2",
-    khaiGiang: "Linh hoạt",
+    duration: "3 ngày · 21 giờ chuyên sâu",
+    schedule: "Khai giảng linh hoạt · 1:1 hoặc 1:2 cập nhật",
     description:
       "Từ quầy bar đến vận hành kinh doanh — chuẩn bị mở quán, xây dựng menu nền và chuẩn hoá vận hành quầy bar thực tế.",
     color: "#4A2E12",
@@ -668,7 +663,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
               style={{
                 top: `calc(88px + ${index * 64}px)`,
                 zIndex: index + 1,
-              }}
+                "--card-accent": course.color,
+              } as CSSProperties}
               {...(course.link ? { href: course.link, target: "_blank", rel: "noopener noreferrer" } : {})}
             >
               <div
@@ -684,12 +680,15 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
               <div className="course-stack-body">
                 <div className="course-stack-copy">
                   <div>
-                    <h3>{course.title}</h3>
+                    <h3>
+                      {course.title}
+                      <span className="course-arrow" aria-hidden="true">→</span>
+                    </h3>
                     <p className="course-description">{course.description}</p>
                   </div>
                   <div className="course-stat">
                     <strong style={{ color: course.color }}>{course.duration}</strong>
-                    <span>Khai giảng {course.khaiGiang} · {course.format}</span>
+                    <span>{course.schedule}</span>
                   </div>
                 </div>
                 <div className="course-stack-visual" aria-hidden="true" style={{ color: course.color }}>

@@ -56,8 +56,8 @@ test("server-renders the Crema Lab brand and commercial website", async () => {
   assert.match(html, /href="\/tools\/coffee-variety-wheel\.html"/);
   assert.doesNotMatch(html, /href="\/tools\/extraction-lab\.html"/);
   assert.match(html, /Barista Foundation/);
-  assert.match(html, /Khai giảng/);
-  assert.match(html, /20\.07/);
+  assert.match(html, /Khai giảng: Liên hệ/);
+  assert.match(html, /8 buổi/);
   assert.match(html, /id="dang-ky"/);
   assert.match(html, /id="instructor"/);
   assert.match(html, /nhà vô địch/);
