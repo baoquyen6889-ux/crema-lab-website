@@ -506,7 +506,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
           <span className="brand-mark" aria-hidden="true">
             <Image src="/images/crema-lab-logo.png" alt="" width={64} height={64} priority />
           </span>
-          <span>
+          <span className="brand-word">
             <strong>CREMA</strong>
             <small>LAB</small>
           </span>
@@ -520,20 +520,22 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
           ))}
         </nav>
         <span className="public-nav-meta">HCM · VI</span>
+        <svg className="public-nav-curve" viewBox="0 0 400 28" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 0H166C180 0 182 20 200 20C218 20 220 0 234 0H400V28H0V0Z" />
+        </svg>
       </header>
 
       <section className="public-intro coffee-clock-hero" aria-labelledby="public-heading">
         <div className="coffee-clock-copy">
-          <span className="coffee-clock-kicker">CREMA LAB · TIME 01</span>
+          <span className="coffee-clock-kicker">XIN CHÀO</span>
           <p className="intro-statement" id="public-heading">
             Coffee takes time
             <br />
             <em>to understand.</em>
           </p>
-          <div className="coffee-clock-meta" aria-hidden="true">
-            <span>60 SEC</span>
-            <span>ONE FULL ROTATION</span>
-          </div>
+          <p className="coffee-clock-subline">
+            Cảm ơn bạn đã dành thời gian để bắt đầu hành trình hiểu cà phê cùng Crema Lab.
+          </p>
         </div>
 
         <figure className="coffee-clock-figure">
