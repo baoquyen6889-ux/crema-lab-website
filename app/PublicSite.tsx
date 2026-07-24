@@ -156,9 +156,9 @@ const stages = [
   {
     label: "Origin",
     icon: (
-      <svg viewBox="0 0 24 24" fill="currentColor">
-        <circle cx="9" cy="15" r="5.5" />
-        <circle cx="15.5" cy="10" r="5.5" />
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M12 2.6c-5.2.9-8.6 5-8.6 9.4 0 4.9 3.9 9 8.6 9s8.6-4.1 8.6-9c0-4.4-3.4-8.5-8.6-9.4Z" fill="currentColor" />
+        <path d="M12 5.4c-2.7 2.4-4.2 5.1-4.2 7.6 0 2.9 1.7 5.5 4.2 7.1 2.5-1.6 4.2-4.2 4.2-7.1 0-2.5-1.5-5.2-4.2-7.6Z" fill="var(--night)" />
       </svg>
     ),
   },
@@ -166,7 +166,8 @@ const stages = [
     label: "Processing",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2.2c3.4 4.4 6.8 8.5 6.8 12.3a6.8 6.8 0 1 1-13.6 0c0-3.8 3.4-7.9 6.8-12.3Z" />
+        <circle cx="12" cy="12" r="5" />
+        <path d="M12 1v3M12 20v3M23 12h-3M4 12H1M19.8 4.2l-2.1 2.1M6.3 17.7l-2.1 2.1M19.8 19.8l-2.1-2.1M6.3 6.3 4.2 4.2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
       </svg>
     ),
   },
@@ -182,8 +183,7 @@ const stages = [
     label: "Extraction",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M3.5 4h17L18 10.5H6L3.5 4Z" />
-        <path d="M6.6 12.5h10.8l-1.3 7.4a2.4 2.4 0 0 1-2.4 2h-3.4a2.4 2.4 0 0 1-2.4-2l-1.3-7.4Z" />
+        <path d="M12 2.5c3.6 4.6 7 8.9 7 12.8a7 7 0 1 1-14 0c0-3.9 3.4-8.2 7-12.8Z" />
       </svg>
     ),
   },
