@@ -244,6 +244,7 @@ const courses = [
     color: "#9D5429",
     dark: false,
     link: "/documents/barista-foundation-crema-lab.pdf",
+    image: "/images/courses/barista-foundation.jpg",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M5 8h14" />
@@ -265,6 +266,7 @@ const courses = [
     color: "#E1AD5F",
     dark: true,
     link: "/documents/latte-art-control-crema-lab.pdf",
+    image: "/images/courses/latte-art-control.jpg",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M4 18c3-8 6-8 8-14 2 6 5 6 8 14" />
@@ -283,6 +285,7 @@ const courses = [
       "Kiểm soát chiết xuất bằng dữ liệu và quan sát — pour-over, thông số và hiệu chỉnh để chủ động tạo hương vị mong muốn.",
     color: "#A89070",
     dark: true,
+    image: "/images/courses/brewing.jpg",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M5 4h14l-4 8H9L5 4Z" />
@@ -302,6 +305,7 @@ const courses = [
       "Xây dựng menu đồ uống có hệ thống — chuẩn hoá công thức, tính giá vốn và vận hành nhất quán.",
     color: "#1E1F1F",
     dark: false,
+    image: "/images/courses/menu-coffee-beverage.jpg",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M4 6h9M4 10h9M4 14h6" />
@@ -322,6 +326,7 @@ const courses = [
     color: "#4A2E12",
     dark: false,
     link: "/documents/barista-operation-crema-lab.pdf",
+    image: "/images/courses/barista-operation.jpg",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M4 9l1-5h14l1 5" />
@@ -683,8 +688,14 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                   </div>
                 </div>
                 <div className="course-stack-visual" aria-hidden="true" style={{ color: course.color }}>
-                  <span className="course-stack-icon">{course.icon}</span>
-                  <small>Ảnh khóa học · sắp cập nhật</small>
+                  {course.image ? (
+                    <Image src={course.image} alt="" fill sizes="(max-width: 1100px) 45vw, 420px" style={{ objectFit: "cover" }} />
+                  ) : (
+                    <>
+                      <span className="course-stack-icon">{course.icon}</span>
+                      <small>Ảnh khóa học · sắp cập nhật</small>
+                    </>
+                  )}
                 </div>
               </div>
             </CardTag>
