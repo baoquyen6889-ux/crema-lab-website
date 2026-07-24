@@ -521,7 +521,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </nav>
         <span className="public-nav-meta">HCM · VI</span>
         <svg className="public-nav-curve" viewBox="0 0 400 34" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0 4H172C172 4 176 30 200 30C224 30 228 4 228 4H400" />
+          <path d="M0 4H176A24 24 0 0 0 224 4H400" />
         </svg>
       </header>
 
