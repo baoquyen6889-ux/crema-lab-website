@@ -9,15 +9,15 @@ type PublicSiteProps = {
 };
 
 const navigation = [
-  ["01", "Kiến thức", "#knowledge-lab"],
+  ["01", "Kiến thức", "#kien-thuc"],
   ["02", "Khóa học", "#khoa-hoc"],
-  ["03", "Tư vấn", "#dang-ky"],
+  ["03", "Tư vấn", "#tu-van"],
 ];
 
 const mobileNav = [
   {
     label: "Kiến thức",
-    href: "#knowledge-lab",
+    href: "#kien-thuc",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
         <path d="M4 4.8A2.8 2.8 0 0 1 6.8 2H12v20H6.8A2.8 2.8 0 0 1 4 19.2V4.8Z" />
@@ -37,7 +37,7 @@ const mobileNav = [
   },
   {
     label: "Tư vấn",
-    href: "#dang-ky",
+    href: "#tu-van",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
         <path d="M4 5.8A2.8 2.8 0 0 1 6.8 3h10.4A2.8 2.8 0 0 1 20 5.8v7.4a2.8 2.8 0 0 1-2.8 2.8H9.4L4 20V5.8Z" />
@@ -524,7 +524,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
   }
 
   return (
-    <main id="website" className="public-site" ref={rootRef}>
+    <main id="xin-chao" className="public-site" ref={rootRef}>
       <header className="public-nav">
         <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
           <defs>
@@ -558,7 +558,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         >
           <path className="curve-line" d={buildNavCurvePath(navCurveSize.width, navCurveSize.height)} />
         </svg>
-        <a className="brand-badge" href="#website" aria-label="Crema Lab — về đầu trang">
+        <a className="brand-badge" href="#xin-chao" aria-label="Crema Lab — về đầu trang">
           <Image src="/images/crema-lab-logo.png" alt="" width={42} height={42} priority />
         </a>
       </header>
@@ -609,7 +609,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </span>
       </div>
 
-      <section className="knowledge-section" id="knowledge-lab" aria-labelledby="knowledge-heading">
+      <section className="knowledge-section" id="kien-thuc" aria-labelledby="knowledge-heading">
         <div className="section-heading reveal">
           <div>
             <p className="section-kicker">Kiến thức</p>
@@ -775,7 +775,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </div>
       </section>
 
-      <section className="registration-section" id="dang-ky" aria-labelledby="register-heading">
+      <section className="registration-section" id="tu-van" aria-labelledby="register-heading">
         <div className="registration-panel reveal">
           <div className="registration-copy">
             <span className="registration-badge">Tư vấn</span>
@@ -893,7 +893,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </div>
         <a
           className="footer-wordmark reveal"
-          href="#website"
+          href="#xin-chao"
           aria-label="Crema Lab — về đầu trang"
         >
           <span className="footer-wordmark-text" aria-hidden="true">

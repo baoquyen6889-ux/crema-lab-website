@@ -26,10 +26,25 @@ const bodyFont = Inter({
 });
 
 
+const ogTitle = "CREMA LAB — Coffee & Training";
+const ogDescription =
+  "Hiểu cà phê là một hành trình cần thời gian — từ nguyên lý đến khả năng tự hiệu chỉnh chất lượng.";
+
 export const metadata: Metadata = {
   title: "Crema Lab — The Unseen World of Coffee",
   description: "Hệ thống nghiên cứu, đào tạo và khám phá cà phê — từ những biến số vô hình đến trải nghiệm trong ly.",
   icons: { icon: "/favicon-logo.png" },
+  openGraph: {
+    title: ogTitle,
+    description: ogDescription,
+    images: [{ url: "/images/og-cover.jpg", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: ogTitle,
+    description: ogDescription,
+    images: ["/images/og-cover.jpg"],
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

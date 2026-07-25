@@ -39,7 +39,7 @@ test("server-renders the Crema Lab brand and commercial website", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>Crema Lab — The Unseen World of Coffee<\/title>/i);
-  assert.match(html, /id="website"/);
+  assert.match(html, /id="xin-chao"/);
   assert.match(html, /Coffee takes time/);
   assert.match(html, /to understand\./);
   assert.match(html, /coffee-clock-topdown-v6\.png/);
@@ -58,7 +58,7 @@ test("server-renders the Crema Lab brand and commercial website", async () => {
   assert.match(html, /Barista Foundation/);
   assert.match(html, /Khai giảng: Liên hệ/);
   assert.match(html, /8 buổi/);
-  assert.match(html, /id="dang-ky"/);
+  assert.match(html, /id="tu-van"/);
   assert.match(html, /id="instructor"/);
   assert.match(html, /nhà vô địch/);
   assert.match(html, /aria-label="Hotline"/);
