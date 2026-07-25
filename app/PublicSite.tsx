@@ -342,10 +342,24 @@ const courses = [
   },
 ];
 
+function buildNavCurvePath(width: number, height: number) {
+  const dipWidth = 130;
+  const half = dipWidth / 2;
+  const center = width / 2;
+  const left = center - half;
+  const right = center + half;
+  const depth = Math.max(height - 2, 0);
+  const cp1 = half * 0.35;
+  const cp2 = half * 0.4;
+  return `M0 0H${left}C${left + cp1} 0 ${center - cp2} ${depth} ${center} ${depth}C${center + cp2} ${depth} ${right - cp1} 0 ${right} 0H${width}`;
+}
+
 export default function PublicSite({ onExperience }: PublicSiteProps) {
   const [submitted, setSubmitted] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const rootRef = useRef<HTMLElement>(null);
+  const navCurveRef = useRef<SVGSVGElement>(null);
+  const [navCurveSize, setNavCurveSize] = useState({ width: 1440, height: 36 });
   const instructorTimelineRef = useRef<HTMLOListElement>(null);
   const alumniTrackRef = useRef<HTMLDivElement>(null);
   const alumniState = useRef({
@@ -359,6 +373,16 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
     startOffset: 0,
     safetyTimer: null as number | null,
   });
+
+  useEffect(() => {
+    const svg = navCurveRef.current;
+    if (!svg) return;
+    const update = () => setNavCurveSize({ width: svg.clientWidth, height: svg.clientHeight });
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(svg);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const track = alumniTrackRef.current;
@@ -523,11 +547,16 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
           </nav>
         </div>
 
-        <svg className="public-nav-curve public-nav-curve-desktop" width="100%" height="36" viewBox="0 0 1000 36" preserveAspectRatio="none" aria-hidden="true">
-          <path className="curve-line" d="M0 0H453C469 0 481 36 500 36C519 36 531 0 547 0H1000" />
-        </svg>
-        <svg className="public-nav-curve public-nav-curve-mobile" width="100%" height="33" viewBox="0 0 1000 33" preserveAspectRatio="none" aria-hidden="true">
-          <path className="curve-line" d="M0 0H353C404 0 441 33 500 33C559 33 596 0 647 0H1000" />
+        <svg
+          ref={navCurveRef}
+          className="public-nav-curve"
+          width="100%"
+          height="100%"
+          viewBox={`0 0 ${navCurveSize.width} ${navCurveSize.height}`}
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path className="curve-line" d={buildNavCurvePath(navCurveSize.width, navCurveSize.height)} />
         </svg>
         <a className="brand-badge" href="#website" aria-label="Crema Lab — về đầu trang">
           <Image src="/images/crema-lab-logo.png" alt="" width={42} height={42} priority />
