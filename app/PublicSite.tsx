@@ -348,7 +348,7 @@ function buildNavCurvePath(width: number, height: number) {
   const center = width / 2;
   const left = center - half;
   const right = center + half;
-  const depth = Math.max(height - 2, 0);
+  const depth = Math.max(height * 0.45, 0);
   const cp1 = half * 0.35;
   const cp2 = half * 0.4;
   return `M0 0H${left}C${left + cp1} 0 ${center - cp2} ${depth} ${center} ${depth}C${center + cp2} ${depth} ${right - cp1} 0 ${right} 0H${width}`;
