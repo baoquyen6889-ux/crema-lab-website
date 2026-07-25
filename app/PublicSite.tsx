@@ -665,9 +665,9 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <h2 id="courses-heading">HỌC ĐỂ TỰ ĐIỀU CHỈNH.</h2>
           </div>
           <p>
-            Mỗi khóa đi từ nguyên lý đến thực hành — hiểu biến số, tự quyết định
-            trong tình huống thật. Học phí và lịch khai giảng được tư vấn theo
-            lộ trình phù hợp, không có mức giá chung.
+            Từ nguyên lý đến thực hành, mỗi khóa học giúp bạn hiểu biến số, tự
+            tin đưa ra quyết định và thích ứng với tình huống thực tế. Học phí
+            và lịch học được tư vấn theo lộ trình phù hợp với từng học viên.
           </p>
         </div>
 
