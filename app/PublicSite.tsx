@@ -523,11 +523,11 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
           </nav>
         </div>
 
-        <svg className="public-nav-curve public-nav-curve-desktop" width="110" height="36" viewBox="0 0 110 36" aria-hidden="true">
-          <path className="curve-line" d="M0 0C19 0 33 34 55 34C77 34 91 0 110 0" />
+        <svg className="public-nav-curve public-nav-curve-desktop" width="100%" height="36" viewBox="0 0 1000 36" preserveAspectRatio="none" aria-hidden="true">
+          <path className="curve-line" d="M0 0H453C469 0 481 36 500 36C519 36 531 0 547 0H1000" />
         </svg>
-        <svg className="public-nav-curve public-nav-curve-mobile" width="100" height="33" viewBox="0 0 100 33" aria-hidden="true">
-          <path className="curve-line" d="M0 0C18 0 30 31 50 31C70 31 82 0 100 0" />
+        <svg className="public-nav-curve public-nav-curve-mobile" width="100%" height="33" viewBox="0 0 1000 33" preserveAspectRatio="none" aria-hidden="true">
+          <path className="curve-line" d="M0 0H353C404 0 441 33 500 33C559 33 596 0 647 0H1000" />
         </svg>
         <a className="brand-badge" href="#website" aria-label="Crema Lab — về đầu trang">
           <Image src="/images/crema-lab-logo.png" alt="" width={42} height={42} priority />
