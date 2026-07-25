@@ -244,7 +244,7 @@ const courses = [
     title: "Barista Foundation",
     level: "NỀN TẢNG",
     duration: "4 ngày · 8 buổi · 24 giờ",
-    schedule: "Khai giảng: Liên hệ",
+    schedule: "8.000.000đ/học viên · Tối đa 6 học viên/lớp",
     description:
       "Nắm nguyên lý espresso, sữa và quy trình pha chế — hiểu đúng để tự điều chỉnh, không phụ thuộc công thức.",
     color: "#9D5429",
@@ -265,7 +265,7 @@ const courses = [
     title: "Latte Art Control",
     level: "KỸ THUẬT",
     duration: "5 ngày · 10 buổi · 30 giờ",
-    schedule: "Khai giảng: Liên hệ",
+    schedule: "9.000.000đ/học viên · Riêng 1:1: 14.000.000đ",
     description:
       "Kiểm soát kết cấu sữa, nhiệt độ và lực rót — làm chủ từng đường latte art thay vì phụ thuộc may rủi.",
     color: "#E1AD5F",
@@ -324,7 +324,7 @@ const courses = [
     title: "Barista Operation",
     level: "VẬN HÀNH",
     duration: "3 ngày · 21 giờ chuyên sâu",
-    schedule: "Khai giảng linh hoạt · 1:1 hoặc 1:2 cập nhật",
+    schedule: "Riêng 1:1: 12.000.000đ · Riêng 1:2: 18.000.000đ/2 học viên",
     description:
       "Từ quầy bar đến vận hành kinh doanh — chuẩn bị mở quán, xây dựng menu nền và chuẩn hoá vận hành quầy bar thực tế.",
     color: "#4A2E12",
