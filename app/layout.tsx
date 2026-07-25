@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: ogTitle,
     description: ogDescription,
-    images: [{ url: "/images/og-cover.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/images/og-cover.jpg", width: 1200, height: 700 }],
   },
   twitter: {
     card: "summary_large_image",
