@@ -513,6 +513,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
           </defs>
         </svg>
         <div className="public-nav-bar">
+          <span className="public-nav-meta">HCM · VI</span>
           <nav aria-label="Điều hướng chính">
             {navigation.map(([, label, href]) => (
               <a key={href} href={href}>
@@ -520,7 +521,6 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
               </a>
             ))}
           </nav>
-          <span className="public-nav-meta">HCM · VI</span>
         </div>
 
         <svg className="public-nav-curve public-nav-curve-desktop" width="100%" height="36" viewBox="0 0 1000 36" preserveAspectRatio="none" aria-hidden="true">
