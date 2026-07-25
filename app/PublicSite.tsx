@@ -511,15 +511,17 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </nav>
         <span className="public-nav-meta">HCM · VI</span>
 
+        <svg className="public-nav-curve public-nav-curve-desktop" viewBox="0 0 1000 38" preserveAspectRatio="none" aria-hidden="true">
+          <path className="curve-fill" d="M0 0V1H453C469 1 481 36 500 36C519 36 531 1 547 1H1000V0Z" />
+          <path className="curve-line" pathLength={1000} d="M0 1H453C469 1 481 36 500 36C519 36 531 1 547 1H1000" />
+        </svg>
+        <svg className="public-nav-curve public-nav-curve-mobile" viewBox="0 0 1000 35" preserveAspectRatio="none" aria-hidden="true">
+          <path className="curve-fill" d="M0 0V1H353C404 1 441 33 500 33C559 33 596 1 647 1H1000V0Z" />
+          <path className="curve-line" pathLength={1000} d="M0 1H353C404 1 441 33 500 33C559 33 596 1 647 1H1000" />
+        </svg>
         <a className="brand-badge" href="#website" aria-label="Crema Lab — về đầu trang">
-          <Image src="/images/crema-lab-logo.png" alt="" width={82} height={82} priority />
+          <Image src="/images/crema-lab-logo.png" alt="" width={42} height={42} priority />
         </a>
-        <svg className="public-nav-curve public-nav-curve-desktop" viewBox="0 0 210 66" preserveAspectRatio="xMidYMin meet" aria-hidden="true">
-          <path d="M0 1C60 1 80 65 105 65C130 65 150 1 210 1" />
-        </svg>
-        <svg className="public-nav-curve public-nav-curve-mobile" viewBox="0 0 150 50" preserveAspectRatio="xMidYMin meet" aria-hidden="true">
-          <path d="M0 1C42 1 58 49 75 49C92 49 108 1 150 1" />
-        </svg>
       </header>
 
       <section className="public-intro coffee-clock-hero" aria-labelledby="public-heading">
