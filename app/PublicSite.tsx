@@ -502,22 +502,32 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
   return (
     <main id="website" className="public-site" ref={rootRef}>
       <header className="public-nav">
-        <nav aria-label="Điều hướng chính">
-          {navigation.map(([, label, href]) => (
-            <a key={href} href={href}>
-              {label}
-            </a>
-          ))}
-        </nav>
-        <span className="public-nav-meta">HCM · VI</span>
-
-        <svg className="public-nav-curve public-nav-curve-desktop" viewBox="0 0 1000 38" preserveAspectRatio="none" aria-hidden="true">
-          <path className="curve-fill" d="M0 0V1H453C469 1 481 36 500 36C519 36 531 1 547 1H1000V0Z" />
-          <path className="curve-line" pathLength={1000} d="M0 1H453C469 1 481 36 500 36C519 36 531 1 547 1H1000" />
+        <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
+          <defs>
+            <clipPath id="navClipDesktop" clipPathUnits="objectBoundingBox">
+              <path d="M0,0 L1,0 L1,0.6667 L0.547,0.6667 C0.531,0.6667 0.519,1 0.5,1 C0.481,1 0.469,0.6667 0.453,0.6667 L0,0.6667 Z" />
+            </clipPath>
+            <clipPath id="navClipMobile" clipPathUnits="objectBoundingBox">
+              <path d="M0,0 L1,0 L1,0.6598 L0.647,0.6598 C0.596,0.6598 0.559,1 0.5,1 C0.441,1 0.404,0.6598 0.353,0.6598 L0,0.6598 Z" />
+            </clipPath>
+          </defs>
         </svg>
-        <svg className="public-nav-curve public-nav-curve-mobile" viewBox="0 0 1000 35" preserveAspectRatio="none" aria-hidden="true">
-          <path className="curve-fill" d="M0 0V1H353C404 1 441 33 500 33C559 33 596 1 647 1H1000V0Z" />
-          <path className="curve-line" pathLength={1000} d="M0 1H353C404 1 441 33 500 33C559 33 596 1 647 1H1000" />
+        <div className="public-nav-bar">
+          <nav aria-label="Điều hướng chính">
+            {navigation.map(([, label, href]) => (
+              <a key={href} href={href}>
+                {label}
+              </a>
+            ))}
+          </nav>
+          <span className="public-nav-meta">HCM · VI</span>
+        </div>
+
+        <svg className="public-nav-curve public-nav-curve-desktop" viewBox="0 0 1000 36" preserveAspectRatio="none" aria-hidden="true">
+          <path className="curve-line" pathLength={1000} d="M0 0H453C469 0 481 36 500 36C519 36 531 0 547 0H1000" />
+        </svg>
+        <svg className="public-nav-curve public-nav-curve-mobile" viewBox="0 0 1000 33" preserveAspectRatio="none" aria-hidden="true">
+          <path className="curve-line" pathLength={1000} d="M0 0H353C404 0 441 33 500 33C559 33 596 0 647 0H1000" />
         </svg>
         <a className="brand-badge" href="#website" aria-label="Crema Lab — về đầu trang">
           <Image src="/images/crema-lab-logo.png" alt="" width={42} height={42} priority />
