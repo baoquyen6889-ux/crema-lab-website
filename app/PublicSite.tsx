@@ -523,11 +523,11 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
           <span className="public-nav-meta">HCM · VI</span>
         </div>
 
-        <svg className="public-nav-curve public-nav-curve-desktop" viewBox="0 0 1000 36" preserveAspectRatio="none" aria-hidden="true">
-          <path className="curve-line" pathLength={1000} d="M0 0H453C469 0 481 36 500 36C519 36 531 0 547 0H1000" />
+        <svg className="public-nav-curve public-nav-curve-desktop" width="100%" height="36" viewBox="0 0 1000 36" preserveAspectRatio="none" aria-hidden="true">
+          <path className="curve-line" d="M0 0H453C469 0 481 36 500 36C519 36 531 0 547 0H1000" />
         </svg>
-        <svg className="public-nav-curve public-nav-curve-mobile" viewBox="0 0 1000 33" preserveAspectRatio="none" aria-hidden="true">
-          <path className="curve-line" pathLength={1000} d="M0 0H353C404 0 441 33 500 33C559 33 596 0 647 0H1000" />
+        <svg className="public-nav-curve public-nav-curve-mobile" width="100%" height="33" viewBox="0 0 1000 33" preserveAspectRatio="none" aria-hidden="true">
+          <path className="curve-line" d="M0 0H353C404 0 441 33 500 33C559 33 596 0 647 0H1000" />
         </svg>
         <a className="brand-badge" href="#website" aria-label="Crema Lab — về đầu trang">
           <Image src="/images/crema-lab-logo.png" alt="" width={42} height={42} priority />
