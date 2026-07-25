@@ -587,8 +587,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <h2 id="knowledge-heading">HỌC QUA KHÁM PHÁ.</h2>
           </div>
           <p>
-            Ba công cụ trực quan giúp dữ liệu cà phê phức tạp trở nên dễ hiểu và
-            dùng được ngay.
+            Khám phá kiến thức cà phê qua những nội dung trực quan, dễ hiểu và
+            có thể ứng dụng ngay.
           </p>
         </div>
 
