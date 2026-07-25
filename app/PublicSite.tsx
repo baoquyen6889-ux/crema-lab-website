@@ -354,10 +354,30 @@ function buildNavCurvePath(width: number, height: number) {
   return `M0 0H${left}C${left + cp1} 0 ${center - cp2} ${depth} ${center} ${depth}C${center + cp2} ${depth} ${right - cp1} 0 ${right} 0H${width}`;
 }
 
+function buildNavClipPath(navWidth: number, navHeight: number, curveHeight: number) {
+  const dipWidth = 130;
+  const half = dipWidth / 2;
+  const cp1 = half * 0.35;
+  const cp2 = half * 0.4;
+  const barHeight = navHeight - curveHeight;
+  const buffer = 3;
+  const flatY = Math.min((barHeight + buffer) / navHeight, 1);
+  const centerPx = navWidth / 2;
+  const leftX = (centerPx - half) / navWidth;
+  const rightX = (centerPx + half) / navWidth;
+  const leftCp1 = (centerPx - half + cp1) / navWidth;
+  const leftCp2 = (centerPx - cp2) / navWidth;
+  const rightCp2 = (centerPx + cp2) / navWidth;
+  const rightCp1 = (centerPx + half - cp1) / navWidth;
+  return `M0,0 L1,0 L1,${flatY} L${rightX},${flatY} C${rightCp1},${flatY} ${rightCp2},1 0.5,1 C${leftCp2},1 ${leftCp1},${flatY} ${leftX},${flatY} L0,${flatY} Z`;
+}
+
 export default function PublicSite({ onExperience }: PublicSiteProps) {
   const [submitted, setSubmitted] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const rootRef = useRef<HTMLElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const [navSize, setNavSize] = useState({ width: 1440, height: 108 });
   const navCurveRef = useRef<SVGSVGElement>(null);
   const [navCurveSize, setNavCurveSize] = useState({ width: 1440, height: 36 });
   const instructorTimelineRef = useRef<HTMLOListElement>(null);
@@ -381,6 +401,16 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
     update();
     const observer = new ResizeObserver(update);
     observer.observe(svg);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const update = () => setNavSize({ width: nav.clientWidth, height: nav.clientHeight });
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(nav);
     return () => observer.disconnect();
   }, []);
 
@@ -525,14 +555,11 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
 
   return (
     <main id="xin-chao" className="public-site" ref={rootRef}>
-      <header className="public-nav">
+      <header className="public-nav" ref={navRef}>
         <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
           <defs>
-            <clipPath id="navClipDesktop" clipPathUnits="objectBoundingBox">
-              <path d="M0,0 L1,0 L1,0.7037 L0.547,0.7037 C0.531,0.7037 0.519,1 0.5,1 C0.481,1 0.469,0.7037 0.453,0.7037 L0,0.7037 Z" />
-            </clipPath>
-            <clipPath id="navClipMobile" clipPathUnits="objectBoundingBox">
-              <path d="M0,0 L1,0 L1,0.701 L0.647,0.701 C0.596,0.701 0.559,1 0.5,1 C0.441,1 0.404,0.701 0.353,0.701 L0,0.701 Z" />
+            <clipPath id="navClip" clipPathUnits="objectBoundingBox">
+              <path d={buildNavClipPath(navSize.width, navSize.height, navCurveSize.height)} />
             </clipPath>
           </defs>
         </svg>
