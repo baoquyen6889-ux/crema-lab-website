@@ -529,10 +529,10 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
           <defs>
             <clipPath id="navClipDesktop" clipPathUnits="objectBoundingBox">
-              <path d="M0,0 L1,0 L1,0.6667 L0.547,0.6667 C0.531,0.6667 0.519,1 0.5,1 C0.481,1 0.469,0.6667 0.453,0.6667 L0,0.6667 Z" />
+              <path d="M0,0 L1,0 L1,0.7037 L0.61,0.7037 C0.58,0.7037 0.53,1 0.5,1 C0.47,1 0.42,0.7037 0.39,0.7037 L0,0.7037 Z" />
             </clipPath>
             <clipPath id="navClipMobile" clipPathUnits="objectBoundingBox">
-              <path d="M0,0 L1,0 L1,0.6598 L0.647,0.6598 C0.596,0.6598 0.559,1 0.5,1 C0.441,1 0.404,0.6598 0.353,0.6598 L0,0.6598 Z" />
+              <path d="M0,0 L1,0 L1,0.701 L0.75,0.701 C0.68,0.701 0.56,1 0.5,1 C0.44,1 0.32,0.701 0.25,0.701 L0,0.701 Z" />
             </clipPath>
           </defs>
         </svg>
