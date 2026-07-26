@@ -499,6 +499,15 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
     setSubmitted(true);
   }
 
+  function handleAnchorNav(event: MouseEvent<HTMLAnchorElement>) {
+    const href = event.currentTarget.getAttribute("href");
+    if (!href || !href.startsWith("#")) return;
+    const target = document.getElementById(href.slice(1));
+    if (!target) return;
+    event.preventDefault();
+    target.scrollIntoView();
+  }
+
   return (
     <main id="xin-chao" className="public-site" ref={rootRef}>
       <header className="public-nav">
@@ -506,13 +515,13 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
           <span className="public-nav-meta">HCM · VI</span>
           <nav aria-label="Điều hướng chính">
             {navigation.map(([, label, href]) => (
-              <a key={href} href={href}>
+              <a key={href} href={href} onClick={handleAnchorNav}>
                 {label}
               </a>
             ))}
           </nav>
         </div>
-        <a className="brand-badge" href="#xin-chao" aria-label="Crema Lab — về đầu trang">
+        <a className="brand-badge" href="#xin-chao" onClick={handleAnchorNav} aria-label="Crema Lab — về đầu trang">
           <Image src="/images/crema-lab-logo.png" alt="" width={42} height={42} priority />
         </a>
       </header>
@@ -834,7 +843,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       <footer className="public-footer" aria-label="Cuối trang Crema Lab">
         <div className="footer-top">
           <nav aria-label="Điều hướng cuối trang">
-            {navigation.map(([, label, href]) => <a key={href} href={href}>{label}</a>)}
+            {navigation.map(([, label, href]) => <a key={href} href={href} onClick={handleAnchorNav}>{label}</a>)}
           </nav>
           <button type="button" onClick={onExperience}>
             <span>Xem lại trải nghiệm mở đầu</span>
@@ -848,6 +857,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         <a
           className="footer-wordmark reveal"
           href="#xin-chao"
+          onClick={handleAnchorNav}
           aria-label="Crema Lab — về đầu trang"
         >
           <span className="footer-wordmark-text" aria-hidden="true">
@@ -859,7 +869,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
 
       <nav className="mobile-tabbar" aria-label="Điều hướng nhanh">
         {mobileNav.map((item) => (
-          <a key={item.href} href={item.href}>
+          <a key={item.href} href={item.href} onClick={handleAnchorNav}>
             <span className="mobile-tabbar-icon" aria-hidden="true">{item.icon}</span>
             {item.label}
           </a>
