@@ -63,7 +63,7 @@
 @keyframes stripMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .stage-icon{display:flex;align-items:center;justify-content:center;width:26px;height:26px;flex-shrink:0}.stage-icon svg{width:26px;height:26px;color:currentColor}
 
-.knowledge-section,.courses-section,.registration-section,.instructor-section{padding:125px 4.25vw 132px}.section-heading{max-width:var(--content-max);margin-inline:auto;margin-bottom:68px;display:grid;grid-template-columns:1.55fr .65fr;gap:10vw;align-items:end}.section-heading h2{margin:0;max-width:930px;font-weight:700;font-size:var(--text-h1);line-height:1.08;letter-spacing:-.02em;text-transform:uppercase}.section-heading>p{margin:0 0 3px;color:var(--quiet);font-size:11px;line-height:1.78}
+.knowledge-section,.courses-section,.registration-section,.instructor-section{padding:125px 4.25vw 132px}.section-heading{max-width:var(--content-max);margin-inline:auto;margin-bottom:68px;display:grid;grid-template-columns:1.55fr .65fr;gap:10vw;align-items:end}.section-heading h2{margin:0;max-width:930px;font-weight:600;font-size:var(--text-h2);line-height:1.1;letter-spacing:-.02em;text-transform:uppercase}.section-heading>p{margin:0 0 3px;color:var(--quiet);font-size:11px;line-height:1.78}
 
 
 .instructor-section{background:var(--paper)}
