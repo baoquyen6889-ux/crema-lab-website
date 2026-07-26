@@ -31,6 +31,7 @@ const ogDescription =
   "Hiểu cà phê là một hành trình cần thời gian — từ nguyên lý đến khả năng tự hiệu chỉnh chất lượng.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://crema-lab-website.vercel.app"),
   title: "Crema Lab — The Unseen World of Coffee",
   description: ogDescription,
   icons: { icon: "/favicon-logo.png" },
