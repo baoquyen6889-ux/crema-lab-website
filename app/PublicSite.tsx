@@ -2,7 +2,15 @@
 
 import { CSSProperties, FormEvent, MouseEvent, PointerEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import "./public-site.css";
+
+const sectionIds = ["kien-thuc", "khoa-hoc", "tu-van"];
+
+function pathToSectionId(pathname: string) {
+  const slug = pathname.replace(/^\/|\/$/g, "");
+  return sectionIds.includes(slug) ? slug : "xin-chao";
+}
 
 type PublicSiteProps = {
   onExperience: () => void;
@@ -343,6 +351,7 @@ const courses = [
 ];
 
 export default function PublicSite({ onExperience }: PublicSiteProps) {
+  const pathname = usePathname();
   const [submitted, setSubmitted] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const rootRef = useRef<HTMLElement>(null);
@@ -499,13 +508,21 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
     setSubmitted(true);
   }
 
+  useEffect(() => {
+    document.getElementById(pathToSectionId(pathname))?.scrollIntoView();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function handleAnchorNav(event: MouseEvent<HTMLAnchorElement>) {
     const href = event.currentTarget.getAttribute("href");
     if (!href || !href.startsWith("#")) return;
-    const target = document.getElementById(href.slice(1));
+    const id = href.slice(1);
+    const target = document.getElementById(id);
     if (!target) return;
     event.preventDefault();
     target.scrollIntoView();
+    const path = id === "xin-chao" ? "/" : `/${id}`;
+    if (window.location.pathname !== path) window.history.pushState(null, "", path);
   }
 
   return (
