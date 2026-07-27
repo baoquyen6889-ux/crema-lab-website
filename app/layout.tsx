@@ -32,7 +32,7 @@ const ogDescription =
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://crema-lab-website.vercel.app"),
-  title: "Crema Lab — The Unseen World of Coffee",
+  title: "Crema Lab — Coffee & Training",
   description: ogDescription,
   icons: { icon: "/favicon-logo.png" },
   openGraph: {

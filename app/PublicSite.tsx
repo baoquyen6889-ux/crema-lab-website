@@ -218,7 +218,7 @@ const knowledgeTools = [
     number: "01",
     title: "COFFEE FLAVOR WHEEL",
     description:
-      "Đi từ nhóm hương tổng quát đến mô tả cụ thể — gọi tên đúng điều bạn cảm nhận trong tách.",
+      "Khám phá bản đồ hương vị chuẩn SCA ngay trên bản gốc — giải nghĩa song ngữ từ nhóm hương đến mô tả cụ thể.",
     href: "/tools/flavor-wheel.html",
     image: "/images/tools/flavor-wheel-transparent.png",
     meta: "Công cụ tương tác · Song ngữ",
@@ -559,7 +559,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         <figure className="coffee-clock-figure">
           <div className="coffee-clock-saucer">
             <Image
-              src="/images/coffee-clock-topdown-v6.png"
+              src="/images/coffee-clock-saucer-only.png"
               alt="Tách cà phê nhìn từ trên xuống trên dĩa gốm nâu"
               fill
               priority
@@ -577,11 +577,15 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
 
       <div className="system-strip" aria-label="Chuỗi biến số cà phê">
         <div className="system-strip-track" aria-hidden="true">
-          {[...stages, ...stages].map((stage, index) => (
-            <span key={index}>
-              <span className="stage-icon">{stage.icon}</span>
-              {stage.label}
-            </span>
+          {[0, 1].map((copyIndex) => (
+            <div className="system-strip-group" key={copyIndex}>
+              {stages.map((stage) => (
+                <span key={`${copyIndex}-${stage.label}`}>
+                  <span className="stage-icon">{stage.icon}</span>
+                  {stage.label}
+                </span>
+              ))}
+            </div>
           ))}
         </div>
         <span className="sr-only">
@@ -675,8 +679,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
           </div>
           <p>
             Từ nguyên lý đến thực hành, mỗi khóa học giúp bạn hiểu biến số, tự
-            tin đưa ra quyết định và thích ứng với tình huống thực tế. Học phí
-            và lịch học được tư vấn theo lộ trình phù hợp với từng học viên.
+            tin đưa ra quyết định và thích ứng với tình huống thực tế.
           </p>
         </div>
 

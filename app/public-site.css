@@ -51,15 +51,15 @@
 .intro-statement em{font-style:italic;color:var(--copper)}
 .coffee-clock-figure{position:relative;width:min(48vw,calc(100svh - 128px),700px);aspect-ratio:1;justify-self:end;margin:0}.coffee-clock-figure:before{content:"";position:absolute;z-index:-1;left:13%;right:6%;bottom:-3%;height:12%;border-radius:50%;background:rgba(75,43,26,.16);filter:blur(24px)}
 .coffee-clock-saucer{position:absolute;inset:-14%;overflow:hidden;clip-path:circle(33.7% at 50% 50%);filter:drop-shadow(0 30px 28px rgba(78,45,25,.16))}.coffee-clock-saucer img{object-fit:cover;display:block}
-.coffee-clock-cup-mask{position:absolute;z-index:2;left:50%;top:50%;width:43.8%;aspect-ratio:1;overflow:hidden;border-radius:50%;transform:translate(-50%,-50%);-webkit-mask-image:radial-gradient(circle,#000 0 95%,rgba(0,0,0,.9) 97%,transparent 100%);mask-image:radial-gradient(circle,#000 0 95%,rgba(0,0,0,.9) 97%,transparent 100%)}
-.coffee-clock-cup{position:absolute;inset:0;border-radius:50%;background:url("/images/coffee-clock-topdown-v6.png") 50% 50%/292.25% 292.25% no-repeat;animation:coffeeClockTurn 60s linear infinite;will-change:transform}
+.coffee-clock-cup-mask{position:absolute;z-index:2;left:50%;top:50%;width:43.8%;aspect-ratio:1;overflow:hidden;border-radius:50%;transform:translate(-50%,-50%)}
+.coffee-clock-cup{position:absolute;inset:0;border-radius:50%;background:url("/images/coffee-clock-cup-pixel-perfect.png") 50% 50%/100% 100% no-repeat;animation:coffeeClockTurn 60s linear infinite;transform-origin:50% 50%;will-change:transform}
 @keyframes coffeeClockTurn{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .system-strip{height:78px;overflow:hidden;background:var(--night);color:#cbc9c1;border-bottom:1px solid #2d2e29}
 .system-strip-track{display:flex;align-items:center;height:100%;width:max-content;animation:stripMarquee 26s linear infinite}
-.system-strip:hover .system-strip-track{animation-play-state:paused}
-.system-strip-track>span{display:flex;align-items:center;gap:14px;padding:0 4.25vw;height:100%;font:600 13px var(--font-heading),Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.system-strip-group{display:flex;align-items:center;justify-content:space-around;flex-shrink:0;min-width:100vw;width:max-content;height:100%}
+.system-strip-group>span{display:flex;align-items:center;gap:14px;padding:0 4.25vw;height:100%;font:600 13px var(--font-heading),Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
 @keyframes stripMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .stage-icon{display:flex;align-items:center;justify-content:center;width:26px;height:26px;flex-shrink:0}.stage-icon svg{width:26px;height:26px;color:currentColor}
 

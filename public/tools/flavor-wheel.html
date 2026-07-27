@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bánh Xe Hương Vị Cà Phê — Crema Lab</title>
-<meta name="description" content="Atlas tra cứu tương tác về hương vị cà phê: SCA Coffee Taster's Flavor Wheel với lớp tương tác đo trực tiếp từ ảnh gốc, giải thích khoa học song ngữ Anh–Việt.">
+<title>SCA Coffee Taster's Flavor Wheel — Crema Lab</title>
+<meta name="description" content="Khám phá bản đồ hương vị cà phê chuẩn SCA ngay trên bản gốc — giải nghĩa song ngữ Anh–Việt qua 3 vòng: 9 nhóm chính, 27 nhóm phụ, 74 mô tả cụ thể.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crema-lab-website.vercel.app/tools/flavor-wheel.html">
-<meta property="og:title" content="Bánh Xe Hương Vị Cà Phê — Crema Lab">
-<meta property="og:description" content="Atlas tra cứu tương tác về hương vị cà phê: SCA Coffee Taster's Flavor Wheel với lớp tương tác đo trực tiếp từ ảnh gốc, giải thích khoa học song ngữ Anh–Việt.">
+<meta property="og:title" content="SCA Coffee Taster's Flavor Wheel — Crema Lab">
+<meta property="og:description" content="Khám phá bản đồ hương vị cà phê chuẩn SCA ngay trên bản gốc — giải nghĩa song ngữ Anh–Việt qua 3 vòng: 9 nhóm chính, 27 nhóm phụ, 74 mô tả cụ thể.">
 <meta property="og:image" content="https://crema-lab-website.vercel.app/images/tools/og-flavor-wheel.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Bánh Xe Hương Vị Cà Phê — Crema Lab">
-<meta name="twitter:description" content="Atlas tra cứu tương tác về hương vị cà phê: SCA Coffee Taster's Flavor Wheel với lớp tương tác đo trực tiếp từ ảnh gốc, giải thích khoa học song ngữ Anh–Việt.">
+<meta name="twitter:title" content="SCA Coffee Taster's Flavor Wheel — Crema Lab">
+<meta name="twitter:description" content="Khám phá bản đồ hương vị cà phê chuẩn SCA ngay trên bản gốc — giải nghĩa song ngữ Anh–Việt qua 3 vòng: 9 nhóm chính, 27 nhóm phụ, 74 mô tả cụ thể.">
 <meta name="twitter:image" content="https://crema-lab-website.vercel.app/images/tools/og-flavor-wheel.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,8 +52,8 @@ h1,h2,h3,.display{font-family:var(--serif-display);letter-spacing:.01em;margin:0
 @media (max-width:600px){.site-header{padding-right:56px;}}
 
 /* ---------- Hero ---------- */
-.hero{padding:36px 32px 22px;max-width:780px;}
-.hero h1{font-size:clamp(28px,4.4vw,44px);line-height:1.05;margin-top:8px;}
+.hero{padding:36px 32px 22px;max-width:920px;}
+.hero h1{font-size:clamp(16px,4.4vw,44px);line-height:1.05;margin-top:8px;white-space:nowrap;}
 .hero .lede{margin-top:10px;font-size:14.5px;max-width:600px;color:#34352f;}
 
 .mode-toggle{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;}
@@ -71,10 +71,10 @@ h1,h2,h3,.display{font-family:var(--serif-display);letter-spacing:.01em;margin:0
   padding:0;box-shadow:0 1px 3px rgba(30,31,31,.12);}
 #fsBtn:hover{border-color:var(--coffee);color:var(--coffee);}
 #fsBtn svg{width:18px;height:18px;display:block;}
-#fsIconShrink{display:none;}
+#fsBtn #fsIconShrink{display:none;}
 html:fullscreen,html:-webkit-full-screen{background:var(--bg);}
 body:fullscreen,body:-webkit-full-screen{background:var(--bg);overflow-y:auto;}
-@media (max-width:600px){#fsBtn{right:8px;top:8px;width:30px;height:30px;}#fsBtn svg{width:16px;height:16px;}}
+@media (max-width:600px){#fsBtn{display:none;}}
 
 /* ---------- Stage (wheel + panel card) ---------- */
 section.stage-section{padding:0 32px 8px;}
@@ -151,6 +151,7 @@ aside#panelwrap{flex:1 1 38%;max-width:440px;border-left:1px solid var(--line);
 .placeholder{text-align:center;}
 .placeholder .lead{font-family:var(--serif-display);font-size:18px;font-weight:700;margin-bottom:12px;}
 .placeholder p{font-size:13.5px;line-height:1.7;color:var(--muted);text-align:left;}
+.placeholder ul{font-size:13.5px;line-height:1.7;color:var(--muted);text-align:left;margin:10px 0;padding-left:20px;}
 
 .backbtn{display:inline-block;background:none;border:none;color:var(--coffee);
   font-size:13px;cursor:pointer;padding:0 0 16px;font-weight:600;font-family:var(--sans);}
@@ -186,6 +187,11 @@ aside#panelwrap{flex:1 1 38%;max-width:440px;border-left:1px solid var(--line);
 #gamepanel{max-width:370px;margin:0 auto;text-align:center;}
 .game-intro .lead{font-family:var(--serif-display);font-size:18px;font-weight:700;margin-bottom:10px;}
 .game-intro p{font-size:13.5px;line-height:1.7;color:var(--muted);text-align:left;}
+.game-intro p + p{margin-top:10px;}
+.game-intro .game-note{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);}
+.game-intro .game-note p,.game-intro .game-note ul{font-size:12.5px;line-height:1.7;color:var(--muted);text-align:left;}
+.game-intro .game-note ul{margin:8px 0;padding-left:18px;}
+.game-intro .game-note li+li{margin-top:4px;}
 .game-counter{margin-top:20px;font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;}
 .game-counter b{color:var(--coffee);}
 
@@ -317,8 +323,8 @@ footer.site-footer{padding:22px 32px 36px;font-size:11.5px;color:#8a8b83;}
 
 <div class="hero">
   <div class="eyebrow">Sensory Reference</div>
-  <h1>Bánh Xe Hương Vị Cà Phê</h1>
-  <p class="lede">SCA Coffee Taster's Flavor Wheel — ảnh gốc thật, lớp tương tác đo trực tiếp từ ảnh bằng phân tích pixel. Giải thích khoa học song ngữ Anh–Việt cho cả 3 vòng: 9 nhóm lớn, 27 nhóm phụ, 74 mô tả cụ thể.</p>
+  <h1>SCA Coffee Taster's Flavor Wheel</h1>
+  <p class="lede">Khám phá bản đồ hương vị cà phê chuẩn SCA.</p>
   <div class="mode-toggle" role="group" aria-label="Chế độ xem">
     <button type="button" class="mode-btn active" id="modeExploreBtn">Tra cứu</button>
     <button type="button" class="mode-btn" id="modeG1Btn" title="Quay vòng 1, đoán nội dung vòng 2 và vòng 3">Game 1 · Nhận diện</button>
@@ -570,12 +576,12 @@ const DATA = {
           ]},
         { name:"Chemical", vi:"Hoá chất", info:"Hợp chất lưu huỳnh và hydrocarbon — hầu như luôn là lỗi, từ nhiễm hoá chất, bao bì kém đến khiếm khuyết giống (potato defect).",
           children:[
-            { name:"Rubber", vi:"Cao su", info:"Methanethiol, hợp chất lưu huỳnh cùng họ với mùi trứng thối — điển hình ở robusta sơ chế hoặc bảo quản kém.", compounds:["Methanethiol"] },
-            { name:"Skunky", vi:"Chồn hôi", info:"Thiol bay hơi mạnh — đúng như tên gọi, mùi giống chồn hôi xịt, dấu hiệu lên men lỗi nặng." },
-            { name:"Petroleum", vi:"Dầu mỏ", info:"Hydrocarbon mạch dài, gần như chắc chắn đến từ ô nhiễm trong đóng gói hoặc vận chuyển, không phải từ bản thân hạt." },
-            { name:"Medicinal", vi:"Y tế / Thuốc", info:"Hợp chất chlorophenolic gợi mùi băng cá nhân hoặc thuốc sát trùng — một lỗi rất dễ nhận ra ngay từ ngụm đầu." },
+            { name:"Bitter", vi:"Đắng", info:"Vị đắng quen thuộc đến từ caffeine và các quinide — sản phẩm của axit chlorogenic bị 'nướng cháy' khi rang đậm tay." },
             { name:"Salty", vi:"Mặn", info:"Đây là vị (taste) chứ không phải mùi — hiếm gặp, thường liên quan đến khoáng chất trong nước pha." },
-            { name:"Bitter", vi:"Đắng", info:"Vị đắng quen thuộc đến từ caffeine và các quinide — sản phẩm của axit chlorogenic bị 'nướng cháy' khi rang đậm tay." }
+            { name:"Medicinal", vi:"Y tế / Thuốc", info:"Hợp chất chlorophenolic gợi mùi băng cá nhân hoặc thuốc sát trùng — một lỗi rất dễ nhận ra ngay từ ngụm đầu." },
+            { name:"Petroleum", vi:"Dầu mỏ", info:"Hydrocarbon mạch dài, gần như chắc chắn đến từ ô nhiễm trong đóng gói hoặc vận chuyển, không phải từ bản thân hạt." },
+            { name:"Skunky", vi:"Chồn hôi", info:"Thiol bay hơi mạnh — đúng như tên gọi, mùi giống chồn hôi xịt, dấu hiệu lên men lỗi nặng." },
+            { name:"Rubber", vi:"Cao su", info:"Methanethiol, hợp chất lưu huỳnh cùng họ với mùi trứng thối — điển hình ở robusta sơ chế hoặc bảo quản kém.", compounds:["Methanethiol"] }
           ]}
       ]},
     { name:"Roasted", vi:"Rang", color:"#a06a37",
@@ -993,8 +999,14 @@ function showRoot(){
   document.getElementById("panel").innerHTML = `
     <div class="placeholder">
       <div class="lead">Chọn một vùng trên bánh xe</div>
-      <p><b>Đây là ảnh gốc thật</b> — quét từ file PDF trong folder SCA của bạn, không phải bản vẽ lại. Lớp tương tác nằm đè lên trên, toạ độ được đo trực tiếp từ ảnh bằng phân tích pixel.</p>
-      <p style="margin-top:14px"><b>Cách đọc:</b> vòng trong cùng = 9 nhóm gốc, vòng giữa = 27 nhóm phụ, vòng ngoài cùng = mô tả cụ thể (mỗi vòng là một dải bán kính riêng, đúng như ảnh gốc). Cả 3 vòng đều bấm trực tiếp được.</p>
+      <p><b>Cách đọc Flavor Wheel</b> — bắt đầu từ vòng trong cùng với 9 nhóm hương vị gốc, sau đó di chuyển dần ra ngoài:</p>
+      <ul>
+        <li><b>Vòng trong:</b> 9 nhóm hương vị chính</li>
+        <li><b>Vòng giữa:</b> 27 nhóm hương vị phụ</li>
+        <li><b>Vòng ngoài:</b> các mô tả hương vị cụ thể</li>
+      </ul>
+      <p>Khi cảm nhận cà phê, hãy xác định nhóm hương tổng quát trước, sau đó đi dần ra ngoài để gọi tên hương vị chính xác hơn.</p>
+      <p style="margin-top:14px"><b>Mẹo nhỏ:</b> không cần cố tìm thật nhiều hương vị — hãy bắt đầu với điều bạn cảm nhận rõ nhất.</p>
     </div>`;
 }
 
@@ -1002,19 +1014,28 @@ function showRoot(){
 const fsBtn = document.getElementById("fsBtn");
 const fsIconExpand = document.getElementById("fsIconExpand");
 const fsIconShrink = document.getElementById("fsIconShrink");
+const fsDocEl = document.documentElement;
+// Safari (kể cả iPad) chỉ có bản webkit-prefixed của Fullscreen API; nếu không
+// có API nào thì ẩn hẳn nút thay vì để một nút bấm không phản ứng gì.
+const fsSupported = !!(fsDocEl.requestFullscreen || fsDocEl.webkitRequestFullscreen);
+if(!fsSupported) fsBtn.style.display = "none";
+function fsCurrent(){ return document.fullscreenElement || document.webkitFullscreenElement || null; }
 fsBtn.addEventListener("click", () => {
-  if(!document.fullscreenElement){
-    document.documentElement.requestFullscreen().catch(()=>{});
+  if(!fsCurrent()){
+    if(fsDocEl.requestFullscreen) fsDocEl.requestFullscreen().catch(()=>{});
+    else fsDocEl.webkitRequestFullscreen();
   } else {
-    document.exitFullscreen().catch(()=>{});
+    if(document.exitFullscreen) document.exitFullscreen().catch(()=>{});
+    else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
   }
 });
-document.addEventListener("fullscreenchange", () => {
-  const isFs = !!document.fullscreenElement;
+["fullscreenchange","webkitfullscreenchange"].forEach(ev => document.addEventListener(ev, () => {
+  const isFs = !!fsCurrent();
   fsIconExpand.style.display = isFs ? "none" : "block";
   fsIconShrink.style.display = isFs ? "block" : "none";
-  fsBtn.title = isFs ? "Thoát toàn màn hình" : "Phóng to toàn màn hình";
-});
+  fsBtn.title = isFs ? "Thoát toàn màn hình" : "Xem toàn màn hình";
+  fsBtn.setAttribute("aria-label", fsBtn.title);
+}));
 
 showRoot();
 
@@ -1591,9 +1612,27 @@ let currentChallenge = null;
 let currentGameMode = "g1"; // 'g1' | 'g2' | 'g3' -- which of the 3 separate games is active
 
 const GAME_INTRO_TEXT = {
-  g1: "Vòng 2 và vòng 3 đang bị làm mờ. Bấm <b>QUAY</b> — một viền sáng sẽ chạy quanh 9 nhóm lớn ở vòng 1 rồi dừng lại ở một nhóm ngẫu nhiên. Nhiệm vụ của bạn là đoán xem bên trong nhóm đó có những nhóm phụ (vòng 2) và mô tả cụ thể (vòng 3) nào, trước khi bấm xem đáp án — lúc đó cả chuỗi 3 cấp sẽ hiện rõ trên bánh xe.",
-  g2: "Vòng 3 đang bị làm mờ, vòng 2 luôn hiện rõ. Bấm <b>QUAY</b> — viền sáng chạy quanh vòng 1 trước, dừng ở một nhóm lớn, rồi chạy tiếp quanh các nhóm phụ bên trong vòng 2 và dừng lại lần nữa — ra đúng 2 kết quả. Nhiệm vụ của bạn là đoán giống, sơ chế, mức rang và cách pha (những yếu tố thực sự quyết định hương vị) có khả năng tạo ra cả 2 nhóm hương đó, trước khi bấm xem gợi ý.",
-  g3: "Bấm <b>QUAY</b> — viền sáng lần lượt chạy qua vòng 1, vòng 2 rồi vòng 3, nhưng mỗi vòng quay ĐỘC LẬP trên toàn bộ phạm vi riêng của nó, nên 3 kết quả có thể thuộc 3 nhóm khác nhau trên bánh xe. Bạn sẽ nhận được một bảng kết quả tổng hợp cả 3 cấp cùng gợi ý hồ sơ cà phê (vùng trồng, giống, sơ chế, mức rang, cách pha) — dùng bảng đó để đề xuất cách kết hợp/pha chế sáng tạo, cho một món đồ uống thể hiện được cả 3 hương vị cùng lúc, theo các điều kiện ngẫu nhiên đi kèm."
+  g1: `
+    <p><b>Trên bánh xe:</b> vòng 2 và vòng 3 đang bị làm mờ.</p>
+    <p><b>Khi bấm QUAY:</b> viền sáng chạy quanh 9 nhóm lớn ở vòng 1 rồi dừng lại ở một nhóm ngẫu nhiên.</p>
+    <p><b>Nhiệm vụ:</b> đoán xem bên trong nhóm đó có những nhóm phụ (vòng 2) và mô tả cụ thể (vòng 3) nào, rồi bấm xem đáp án — cả chuỗi 3 cấp sẽ hiện rõ trên bánh xe.</p>`,
+  g2: `
+    <p><b>Trên bánh xe:</b> vòng 3 đang bị làm mờ, vòng 1 và vòng 2 hiện rõ.</p>
+    <p><b>Khi bấm QUAY:</b> viền sáng dừng ở một nhóm lớn (vòng 1), rồi dừng tiếp ở một nhóm phụ (vòng 2) — cho ra 2 kết quả.</p>
+    <p><b>Nhiệm vụ:</b> đoán giống, sơ chế, mức rang và cách pha (những yếu tố thực sự quyết định hương vị) có khả năng tạo ra cả 2 nhóm hương đó, rồi bấm xem gợi ý.</p>`,
+  g3: `
+    <p><b>Trên bánh xe:</b> cả 3 vòng đều hiện rõ ngay từ đầu.</p>
+    <p><b>Khi bấm QUAY:</b> viền sáng lần lượt dừng ở vòng 1, vòng 2 rồi vòng 3 — mỗi vòng quay độc lập, nên 3 kết quả có thể thuộc 3 nhóm khác nhau trên bánh xe.</p>
+    <p><b>Nhiệm vụ:</b> từ bảng kết quả tổng hợp cả 3 cấp (kèm gợi ý vùng trồng, giống, sơ chế, mức rang, cách pha), đề xuất một món đồ uống sáng tạo thể hiện được cả 3 hương vị cùng lúc.</p>
+    <div class="game-note">
+      <p><b>Lưu ý:</b> các hương thuộc nhóm lỗi cà phê không xuất hiện trong vòng quay này:</p>
+      <ul>
+        <li><b>Vòng 1:</b> toàn bộ nhóm Other (Chemical · hoá chất, Papery/Musty · giấy/mốc)</li>
+        <li><b>Vòng 2:</b> Burnt (cháy), Raw (sống), Beany (đậu sống)</li>
+        <li><b>Vòng 3:</b> Under-ripe (chưa chín), Ashy (tro), Acrid (khét), Butyric Acid, Isovaleric Acid, Overripe (chín nẫu)</li>
+      </ul>
+      <p>Game sáng tạo chỉ dùng những hương tích cực.</p>
+    </div>`
 };
 
 function renderGameIntro(){
@@ -1601,7 +1640,7 @@ function renderGameIntro(){
   gp.innerHTML = `
     <div class="game-intro">
       <div class="lead">Quay để nhận thử thách</div>
-      <p>${GAME_INTRO_TEXT[currentGameMode]}</p>
+      ${GAME_INTRO_TEXT[currentGameMode]}
     </div>
     ${gameCompletedCount > 0 ? `<div class="game-counter">Đã hoàn thành <b>${gameCompletedCount}</b> thử thách trong phiên này.</div>` : ""}
   `;
