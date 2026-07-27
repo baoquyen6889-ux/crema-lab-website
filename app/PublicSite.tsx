@@ -509,7 +509,18 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
   }
 
   useEffect(() => {
-    document.getElementById(pathToSectionId(pathname))?.scrollIntoView();
+    const id = pathToSectionId(pathname);
+    if (id === "xin-chao") return;
+    // Nhảy thẳng (không smooth — smooth bị huỷ giữa chừng khi trang đang load),
+    // rồi nhảy lại sau khi ảnh phía trên load xong làm lệch layout.
+    const jump = () => document.getElementById(id)?.scrollIntoView({ behavior: "instant" });
+    jump();
+    const timer = window.setTimeout(jump, 500);
+    window.addEventListener("load", jump, { once: true });
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("load", jump);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
