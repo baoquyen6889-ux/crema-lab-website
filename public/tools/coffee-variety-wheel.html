@@ -134,8 +134,24 @@ aside#panelwrap{flex:1 1 30%;max-width:400px;border-left:1px solid var(--line);
   padding:0;box-shadow:0 1px 3px rgba(30,31,31,.12);}
 #fsBtn:hover{border-color:var(--coffee);color:var(--coffee);}
 #fsBtn svg{width:18px;height:18px;display:block;}
-#fsIconShrink{display:none;}
+#fsBtn #fsIconShrink{display:none;}
 html:fullscreen,html:-webkit-full-screen{background:var(--bg);}
+/* Chế độ trình chiếu: ẩn phần phụ, thu gọn hero và giới hạn bánh xe theo chiều
+   cao màn hình — đồng bộ với Flavor Wheel. */
+:fullscreen .site-header,:fullscreen .hero .eyebrow,:fullscreen .hero .lede,:fullscreen .home-shortcut{display:none;}
+:fullscreen .hero{padding:14px 32px 8px;}
+:fullscreen .layout{min-height:0;}
+:fullscreen .wheel-inner{max-width:min(820px,calc(100vh - 210px));}
+:-webkit-full-screen .site-header,:-webkit-full-screen .hero .eyebrow,:-webkit-full-screen .hero .lede,:-webkit-full-screen .home-shortcut{display:none;}
+:-webkit-full-screen .hero{padding:14px 32px 8px;}
+:-webkit-full-screen .layout{min-height:0;}
+:-webkit-full-screen .wheel-inner{max-width:min(820px,calc(100vh - 210px));}
+@media (max-width:600px){
+  .site-header{padding:14px 20px;}
+  .brand-mark{font-size:14px;letter-spacing:.06em;}
+  .site-header nav{font-size:11px;}
+  #fsBtn{display:none;}
+}
 
 /* ---------- History / Sources ---------- */
 .history-section,.sources{padding:26px 32px 10px;max-width:920px;}
@@ -156,7 +172,7 @@ html:fullscreen,html:-webkit-full-screen{background:var(--bg);}
 </head>
 <body>
 
-<a class="home-shortcut" href="/" aria-label="Quay về trang chủ Crema Lab">← Trang chủ</a>
+<a class="home-shortcut" href="/kien-thuc" aria-label="Quay về mục Kiến thức trên trang chủ">← Kiến thức</a>
 
 <button id="fsBtn" title="Toàn màn hình" onclick="toggleFS()">
   <svg id="fsIconExpand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
@@ -789,15 +805,29 @@ function switchSpecies(species){
 document.getElementById('searchBox').addEventListener('input', applyFilters);
 document.getElementById('countryFilter').addEventListener('change', applyFilters);
 
+// Safari (kể cả iPad) chỉ có bản webkit-prefixed của Fullscreen API; nếu không
+// có API nào thì ẩn hẳn nút thay vì để một nút bấm không phản ứng gì.
+const fsDocEl = document.documentElement;
+const fsSupported = !!(fsDocEl.requestFullscreen || fsDocEl.webkitRequestFullscreen);
+if(!fsSupported) document.getElementById('fsBtn').style.display = 'none';
+function fsCurrent(){ return document.fullscreenElement || document.webkitFullscreenElement || null; }
 function toggleFS(){
-  if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
-  else{ document.exitFullscreen?.(); }
+  if(!fsCurrent()){
+    if(fsDocEl.requestFullscreen) fsDocEl.requestFullscreen().catch(()=>{});
+    else fsDocEl.webkitRequestFullscreen();
+  } else {
+    if(document.exitFullscreen) document.exitFullscreen().catch(()=>{});
+    else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+  }
 }
-document.addEventListener('fullscreenchange', ()=>{
-  const on = !!document.fullscreenElement;
+['fullscreenchange','webkitfullscreenchange'].forEach(ev => document.addEventListener(ev, ()=>{
+  const on = !!fsCurrent();
   document.getElementById('fsIconExpand').style.display = on ? 'none':'block';
   document.getElementById('fsIconShrink').style.display = on ? 'block':'none';
-});
+  const btn = document.getElementById('fsBtn');
+  btn.title = on ? 'Thoát toàn màn hình' : 'Toàn màn hình';
+  btn.setAttribute('aria-label', btn.title);
+}));
 
 buildLegend('arabica');
 buildCountryFilter('arabica');

@@ -119,9 +119,6 @@ h1, h2, h3, .display {
   box-shadow: 0 8px 28px rgba(0,0,0,0.2);
 }
 .home-shortcut:hover { background: var(--coffee); color: #fff !important; }
-@media (max-width: 600px) {
-  .site-header { padding-right: 56px; }
-}
 .brand-mark {
   font-family: var(--serif-display);
   font-size: 20px;
@@ -135,12 +132,13 @@ h1, h2, h3, .display {
 /* ---------- Hero ---------- */
 .hero {
   padding: 40px 32px 24px;
-  max-width: 780px;
+  max-width: 920px;
 }
 .hero h1 {
-  font-size: clamp(32px, 5vw, 52px);
+  font-size: clamp(16px, 4vw, 48px);
   line-height: 1.02;
   margin-top: 8px;
+  white-space: nowrap;
 }
 .hero .lede {
   margin-top: 10px;
@@ -314,6 +312,19 @@ section { padding: 0 32px; }
 .fullscreen-toggle .icon-compress { display: none; }
 .fullscreen-toggle.is-fullscreen .icon-expand { display: none; }
 .fullscreen-toggle.is-fullscreen .icon-compress { display: block; }
+@media (max-width: 600px) {
+  .site-header { padding: 14px 20px; }
+  .brand-mark { font-size: 14px; letter-spacing: 0.06em; }
+  .site-header nav { font-size: 11px; }
+  .fullscreen-toggle { display: none; }
+}
+/* Chế độ trình chiếu: ẩn phần phụ, thu gọn hero — đồng bộ với Flavor Wheel.
+   (fullscreen được gọi trên <html> nên dùng :fullscreen làm gốc descendant.) */
+html:fullscreen, html:-webkit-full-screen { background: var(--bg); }
+:fullscreen .site-header, :fullscreen .hero .eyebrow, :fullscreen .hero .lede, :fullscreen .home-shortcut { display: none; }
+:fullscreen .hero { padding: 14px 32px 8px; }
+:-webkit-full-screen .site-header, :-webkit-full-screen .hero .eyebrow, :-webkit-full-screen .hero .lede, :-webkit-full-screen .home-shortcut { display: none; }
+:-webkit-full-screen .hero { padding: 14px 32px 8px; }
 @media (max-width: 880px) {
   .fullscreen-toggle { right: 8px; top: 8px; width: 30px; height: 30px; }
   .fullscreen-toggle svg { width: 16px; height: 16px; }
@@ -650,7 +661,7 @@ footer.site-footer {
 </style>
 </head>
 <body>
-<a class="home-shortcut" href="/" aria-label="Quay về trang chủ Crema Lab">← Trang chủ</a>
+<a class="home-shortcut" href="/kien-thuc" aria-label="Quay về mục Kiến thức trên trang chủ">← Kiến thức</a>
 <a class="skip-link" href="#map-section">Bỏ qua đến bản đồ</a>
 
 <button type="button" class="fullscreen-toggle" id="fullscreen-toggle" aria-label="Xem toàn màn hình" title="Xem toàn màn hình">
