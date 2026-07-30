@@ -937,6 +937,27 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             {item.label}
           </a>
         ))}
+        <button
+          type="button"
+          className="mobile-theme-toggle"
+          aria-label={theme === "dark" ? "Chuyển sang giao diện sáng" : "Chuyển sang giao diện tối"}
+          aria-pressed={theme === "dark"}
+          onClick={() => setTheme((current) => current === "dark" ? "light" : "dark")}
+        >
+          <span className="mobile-tabbar-icon" aria-hidden="true">
+            {theme === "dark" ? (
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="12" r="4.5" />
+                <path d="M11 1h2v3h-2V1Zm0 19h2v3h-2v-3ZM1 11h3v2H1v-2Zm19 0h3v2h-3v-2ZM4.22 2.8l2.12 2.12-1.42 1.42L2.8 4.22 4.22 2.8Zm12.44 14.86 2.12 2.12-1.42 1.42-2.12-2.12 1.42-1.42ZM19.78 4.22l-2.12 2.12-1.42-1.42 2.12-2.12 1.42 1.42ZM6.34 19.08 4.22 21.2 2.8 19.78l2.12-2.12 1.42 1.42Z" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.2 15.2A8.7 8.7 0 0 1 8.8 3.8 8.7 8.7 0 1 0 20.2 15.2Z" />
+              </svg>
+            )}
+          </span>
+          Giao diện
+        </button>
       </nav>
     </main>
   );
