@@ -354,6 +354,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
   const pathname = usePathname();
   const [submitted, setSubmitted] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [themeReady, setThemeReady] = useState(false);
   const rootRef = useRef<HTMLElement>(null);
   const instructorTimelineRef = useRef<HTMLOListElement>(null);
   const alumniTrackRef = useRef<HTMLDivElement>(null);
@@ -368,6 +370,24 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
     startOffset: 0,
     safetyTimer: null as number | null,
   });
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("crema-theme");
+    const preferredTheme =
+      savedTheme === "light" || savedTheme === "dark"
+        ? savedTheme
+        : matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+    setTheme(preferredTheme);
+    setThemeReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!themeReady) return;
+    localStorage.setItem("crema-theme", theme);
+    document.documentElement.dataset.cremaTheme = theme;
+  }, [theme, themeReady]);
 
   useEffect(() => {
     const track = alumniTrackRef.current;
@@ -537,17 +557,29 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
   }
 
   return (
-    <main id="xin-chao" className="public-site" ref={rootRef}>
+    <main id="xin-chao" className="public-site" data-theme={theme} ref={rootRef}>
       <header className="public-nav">
         <div className="public-nav-bar">
           <span className="public-nav-meta">HCM · VI</span>
-          <nav aria-label="Điều hướng chính">
-            {navigation.map(([, label, href]) => (
-              <a key={href} href={href} onClick={handleAnchorNav}>
-                {label}
-              </a>
-            ))}
-          </nav>
+          <div className="public-nav-actions">
+            <nav aria-label="Điều hướng chính">
+              {navigation.map(([, label, href]) => (
+                <a key={href} href={href} onClick={handleAnchorNav}>
+                  {label}
+                </a>
+              ))}
+            </nav>
+            <button
+              type="button"
+              className="theme-toggle"
+              aria-label={theme === "dark" ? "Chuyển sang giao diện sáng" : "Chuyển sang giao diện tối"}
+              aria-pressed={theme === "dark"}
+              title={theme === "dark" ? "Giao diện sáng" : "Giao diện tối"}
+              onClick={() => setTheme((current) => current === "dark" ? "light" : "dark")}
+            >
+              <span aria-hidden="true">{theme === "dark" ? "☀" : "☾"}</span>
+            </button>
+          </div>
         </div>
         <a className="brand-badge" href="#xin-chao" onClick={handleAnchorNav} aria-label="Crema Lab — về đầu trang">
           <Image src="/images/crema-lab-logo.png" alt="" width={42} height={42} priority />
