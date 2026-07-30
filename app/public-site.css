@@ -71,7 +71,7 @@
 @keyframes coffeeClockTurn{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.system-strip{height:78px;overflow:hidden;background:var(--night);color:#cbc9c1;border-bottom:1px solid #2d2e29}
+.system-strip{height:78px;overflow:hidden;background:var(--night);color:#cbc9c1}
 .system-strip-track{display:flex;align-items:center;height:100%;width:max-content;animation:stripMarquee 26s linear infinite}
 .system-strip-group{display:flex;align-items:center;justify-content:space-around;flex-shrink:0;min-width:100vw;width:max-content;height:100%}
 .system-strip-group>span{display:flex;align-items:center;gap:14px;padding:0 4.25vw;height:100%;font:600 13px var(--font-heading),Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
