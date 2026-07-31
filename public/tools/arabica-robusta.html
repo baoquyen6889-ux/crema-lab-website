@@ -70,7 +70,9 @@ section.identity-section{padding:6px 32px 8px;max-width:920px;}
   border-left:4px solid var(--coffee);transition:border-color .2s;
   display:flex;align-items:center;gap:26px;}
 .identity-card.is-robusta{border-left-color:var(--robusta);}
-.identity-card .id-bean{flex:0 0 auto;width:112px;height:auto;display:block;}
+/* Giữ đúng tương quan thật: hạt Robusta nhỏ hơn Arabica ~10–15%. */
+.identity-card .id-bean{flex:0 0 auto;width:112px;height:auto;display:block;transition:width .2s;}
+.identity-card.is-robusta .id-bean{width:98px;}
 .identity-card .id-body{flex:1 1 auto;min-width:0;}
 .identity-card .id-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
 .identity-card h2{font-size:20px;}
@@ -347,7 +349,9 @@ const AGRO_ROWS = [
   { key: "pest", label: "KHÁNG SÂU BỆNH", a: "Thấp", r: "Cao", af: 0.28, rf: 0.82,
     info: "Bộ gen tứ bội và nền di truyền hẹp hơn khiến Arabica dễ tổn thương trước sâu bệnh — đặc biệt bệnh gỉ sắt lá cà phê (coffee leaf rust) — hơn Robusta." },
   { key: "yield", label: "SẢN LƯỢNG", a: "Thấp hơn", r: "Cao ~30–40%", af: 0.38, rf: 0.8,
-    info: "Robusta cho sản lượng mỗi cây cao hơn đáng kể, một phần vì cây khoẻ hơn, ít rụng trái do sâu bệnh và chịu được mật độ trồng dày hơn." }
+    info: "Robusta cho sản lượng mỗi cây cao hơn đáng kể, một phần vì cây khoẻ hơn, ít rụng trái do sâu bệnh và chịu được mật độ trồng dày hơn." },
+  { key: "size", label: "KÍCH THƯỚC HẠT", a: "Lớn hơn", r: "Nhỏ hơn 10–15%", af: 0.82, rf: 0.7,
+    info: "Cách phân biệt nhanh nhất bằng mắt thường: hạt Arabica dài, dáng oval và rãnh giữa cong lượn hình chữ S; hạt Robusta nhỏ hơn khoảng 10–15%, tròn hơn và rãnh giữa gần như thẳng." }
 ];
 
 const SENSORY_ROWS = [

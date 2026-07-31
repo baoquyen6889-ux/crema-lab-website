@@ -370,6 +370,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
   const rootRef = useRef<HTMLElement>(null);
   const instructorTimelineRef = useRef<HTMLOListElement>(null);
   const alumniTrackRef = useRef<HTMLDivElement>(null);
+  const toolGridRef = useRef<HTMLDivElement>(null);
+  const [activeTool, setActiveTool] = useState(0);
   const alumniState = useRef({
     offset: 0,
     dragging: false,
@@ -399,6 +401,60 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
     localStorage.setItem("crema-theme", theme);
     document.documentElement.dataset.cremaTheme = theme;
   }, [theme, themeReady]);
+
+  // Carousel vòng tròn: bấm trái ở thẻ đầu quay về thẻ cuối và ngược lại.
+  const scrollToTool = (index: number) => {
+    const grid = toolGridRef.current;
+    if (!grid) return;
+    const total = knowledgeTools.length;
+    const target = ((index % total) + total) % total;
+    const card = grid.children[target] as HTMLElement | undefined;
+    if (card) grid.scrollTo({ left: card.offsetLeft - grid.offsetLeft, behavior: "smooth" });
+  };
+
+  // Dải mờ mép phải chỉ hiện khi còn thẻ chưa lộ (vd. thẻ 4 trở đi), tắt khi
+  // đã kéo tới cuối để thẻ cuối không bị mờ oan. Đồng thời theo dõi thẻ đang
+  // ở đầu khung nhìn để chấm chỉ vị trí khớp cả khi người dùng tự kéo.
+  useEffect(() => {
+    const grid = toolGridRef.current;
+    if (!grid) return;
+
+    const sync = () => {
+      const remaining = grid.scrollWidth - grid.clientWidth - grid.scrollLeft;
+      grid.classList.toggle("has-overflow", remaining > 8);
+
+      const cards = Array.from(grid.children) as HTMLElement[];
+      if (!cards.length) return;
+
+      // Ở cuối dải, thẻ cuối đã hiện nhưng không thể trôi tới mép trái được nữa
+      // (container hết chỗ cuộn) — khi đó cho sáng luôn chấm cuối cho khớp với
+      // thứ người dùng đang nhìn thấy.
+      if (remaining <= 8) {
+        setActiveTool(cards.length - 1);
+        return;
+      }
+
+      let nearest = 0;
+      let best = Infinity;
+      cards.forEach((card, i) => {
+        const distance = Math.abs(card.offsetLeft - grid.offsetLeft - grid.scrollLeft);
+        if (distance < best) {
+          best = distance;
+          nearest = i;
+        }
+      });
+      setActiveTool(nearest);
+    };
+
+    sync();
+    grid.addEventListener("scroll", sync, { passive: true });
+    const observer = new ResizeObserver(sync);
+    observer.observe(grid);
+    return () => {
+      grid.removeEventListener("scroll", sync);
+      observer.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     const track = alumniTrackRef.current;
@@ -659,7 +715,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
           </p>
         </div>
 
-        <div className="tool-grid">
+        <div className="tool-grid" ref={toolGridRef}>
           {knowledgeTools.map((tool, index) => (
             <a
               className={`tool-card tool-card-${tool.effect}${tool.pending ? " tool-card-pending" : ""} reveal spotlight`}
@@ -689,6 +745,20 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                 <p>{tool.description}</p>
               </div>
             </a>
+          ))}
+        </div>
+
+        <div className="tool-nav" role="tablist" aria-label="Chọn công cụ">
+          {knowledgeTools.map((tool, index) => (
+            <button
+              type="button"
+              key={tool.href}
+              role="tab"
+              className={`tool-nav-dot${index === activeTool ? " is-active" : ""}`}
+              aria-label={tool.title}
+              aria-selected={index === activeTool}
+              onClick={() => scrollToTool(index)}
+            />
           ))}
         </div>
       </section>
