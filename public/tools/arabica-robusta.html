@@ -72,7 +72,10 @@ h1,h2,h3,.display{font-family:var(--serif-display);letter-spacing:.01em;margin:0
 /* Cùng lưới 2 cột với .compare-bars nên hạt nằm thẳng trên đúng cột số của nó */
 .beans-hero{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:10px;
   padding:6px 8px 20px;margin-bottom:16px;border-bottom:1px solid var(--line);}
-.bean-figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:10px;}
+/* Đẩy xuống đáy ô lưới: hai hạt tựa trên cùng một đường, nhờ đó hai dòng tên
+   cũng thẳng hàng dù hạt Robusta thấp hơn. */
+.bean-figure{margin:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:flex-end;gap:10px;}
 .bean-figure img{width:clamp(84px,11vw,132px);height:auto;display:block;
   filter:drop-shadow(0 12px 18px rgba(60,38,20,.16));}
 /* Robusta nhỏ hơn Arabica ~12% — giữ đúng tương quan thật */
@@ -89,12 +92,8 @@ h1,h2,h3,.display{font-family:var(--serif-display);letter-spacing:.01em;margin:0
 /* ---------- Identity card ---------- */
 section.identity-section{padding:6px 32px 8px;max-width:920px;}
 .identity-card{border:1px solid var(--line);background:var(--card-bg);padding:22px 26px;
-  border-left:4px solid var(--ara);transition:border-color .2s;
-  display:flex;align-items:center;gap:26px;}
+  border-left:4px solid var(--ara);transition:border-color .2s;}
 .identity-card.is-robusta{border-left-color:var(--robusta);}
-/* Giữ đúng tương quan thật: hạt Robusta nhỏ hơn Arabica ~10–15%. */
-.identity-card .id-bean{flex:0 0 auto;width:112px;height:auto;display:block;transition:width .2s;}
-.identity-card.is-robusta .id-bean{width:98px;}
 .identity-card .id-body{flex:1 1 auto;min-width:0;}
 .identity-card .id-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
 .identity-card h2{font-size:20px;}
@@ -163,20 +162,16 @@ html:fullscreen,html:-webkit-full-screen{background:var(--bg);}
   .brand-mark{font-size:14px;letter-spacing:.06em;}
   .site-header nav{font-size:11px;}
   #fsBtn{display:none;}
-  /* Hai cột cạnh nhau làm thanh chỉ còn ~30px trên màn hẹp — xếp dọc, mỗi loài
-     một dòng đủ rộng, kèm nhãn ARA/ROB vì đã mất thế đối xứng trái–phải. */
-  .compare-pane{padding:22px 18px;}
-  .compare-bars{grid-template-columns:1fr;gap:8px;}
-  .cb::before{order:1;flex:0 0 30px;font-size:9.5px;font-weight:800;letter-spacing:.05em;color:var(--muted);}
-  .cb-a::before{content:"ARA";}
-  .cb-r::before{content:"ROB";}
-  .cb .cb-track{order:2;}
-  .cb .cb-val{order:3;text-align:left;min-width:72px;}
-  .cb-a .cb-fill{right:auto;left:0;}
-  /* Ảnh hạt + chữ nằm ngang trên màn hẹp làm cột chữ bị bóp còn vài từ mỗi
-     dòng — xếp dọc lại, và thu nhỏ hạt vì đã có hạt lớn ở khung so sánh. */
-  .identity-card{flex-direction:column;align-items:flex-start;gap:14px;}
-  .identity-card .id-bean,.identity-card.is-robusta .id-bean{width:72px;}
+  /* Giữ nguyên thế đối xứng trái–phải như desktop: hạt vẫn đứng trên đúng cột
+     số của mình, nên không cần nhắc lại tên loài ở từng dòng. Chỉ bóp nhỏ chữ
+     và khoảng cách để hai thanh vẫn đủ chỗ trên màn hẹp. */
+  .compare-pane{padding:18px 14px;}
+  .compare-bars{gap:6px;}
+  .cb{gap:4px;}
+  .cb-val{font-size:10px;min-width:auto;}
+  .cb-track{height:5px;}
+  .compare-label{font-size:10.5px;}
+  .compare-row{padding:7px 4px;}
 }
 
 /* ---------- Cherry anatomy (gấp lại được, mặc định đóng cho gọn) ---------- */
@@ -204,11 +199,6 @@ section.cherry-section{padding:28px 32px 10px;max-width:1160px;}
   font-size:10.5px;font-weight:800;display:flex;align-items:center;justify-content:center;}
 .cherry-legend-row .txt b{font-size:13px;}
 .cherry-legend-row .txt small{display:block;color:var(--muted);font-size:11.5px;margin-top:1px;line-height:1.45;}
-.bean-shapes{display:flex;gap:14px;padding:18px 20px 20px;flex-wrap:wrap;}
-.bean-shape-card{flex:1 1 240px;border:1px solid var(--line);background:#faf9f6;padding:14px 16px;}
-.bean-shape-card h4{font-size:13.5px;font-weight:800;margin-bottom:3px;}
-.bean-shape-card .sub{font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ara-ink);font-weight:700;}
-.bean-shape-card p{font-size:12px;color:var(--muted);line-height:1.6;margin:6px 0 0;}
 
 /* ---------- World share (nằm trong khung so sánh) ---------- */
 .world-bar{display:flex;height:26px;border-radius:var(--radius);overflow:hidden;margin-top:2px;
@@ -266,7 +256,6 @@ section.world-section{padding:22px 32px 10px;max-width:920px;}
 
 <section class="identity-section">
   <div class="identity-card" id="identityCard">
-    <img class="id-bean" id="idBean" src="/images/tools/bean-arabica.png" alt="" width="378" height="520">
     <div class="id-body">
       <div class="id-head">
         <h2 id="idName">Arabica</h2>
@@ -347,7 +336,6 @@ section.world-section{padding:22px 32px 10px;max-width:920px;}
     </div>
     <div class="cherry-legend" id="cherryLegend"></div>
   </div>
-  <div class="bean-shapes" id="beanShapes"></div>
  </details>
 </section>
 
@@ -374,7 +362,7 @@ section.world-section{padding:22px 32px 10px;max-width:920px;}
 /* ============ DATA ============ */
 const SPECIES = {
   arabica: {
-    name: "Arabica", sci: "Coffea arabica", accentClass: "", bean: "/images/tools/bean-arabica.png",
+    name: "Arabica", sci: "Coffea arabica", accentClass: "",
     text: "Loài lai tự nhiên giữa tổ tiên của Robusta (Coffea canephora) và Coffea eugenioides, xuất hiện ở cao nguyên Ethiopia. Bộ gen tứ bội (2n = 44) và cơ chế tự thụ phấn giúp Arabica ổn định di truyền qua nhiều thế hệ, nhưng cũng khiến nó nhạy cảm hơn với sâu bệnh và cần độ cao lớn để phát triển tốt.",
     stats: [
       { v: "2n = 44", l: "Bộ nhiễm sắc thể" },
@@ -383,7 +371,7 @@ const SPECIES = {
     ]
   },
   robusta: {
-    name: "Robusta", sci: "Coffea canephora", accentClass: "is-robusta", bean: "/images/tools/bean-robusta.png",
+    name: "Robusta", sci: "Coffea canephora", accentClass: "is-robusta",
     text: "Loài lưỡng bội (2n = 22), tự bất thụ — bắt buộc giao phấn chéo giữa các cây khác nhau để đậu trái, nhờ đó giữ được sự đa dạng di truyền cao. Khả năng kháng sâu bệnh tốt và phát triển được ở độ cao thấp giúp Robusta cho năng suất cao hơn, hiện chiếm thị phần đang tăng dần trên thế giới.",
     stats: [
       { v: "2n = 22", l: "Bộ nhiễm sắc thể" },
@@ -430,11 +418,6 @@ const CHERRY_LAYERS = [
   { n: 6, c: "#9c8a52", t: "#fff", vi: "Nhân", en: "bean" }
 ];
 
-const BEAN_SHAPES = [
-  { title: "Flat Bean", sub: "Nhân dẹt", d: "Hai nhân úp mặt phẳng vào nhau bên trong một trái — dạng phổ biến nhất, chiếm phần lớn sản lượng." },
-  { title: "Peaberry", sub: "Culi · Bi", d: "Một nhân tròn duy nhất phát triển trong trái (thay vì hai) — hiếm hơn, thường được phân loại và bán riêng." }
-];
-
 /* ============ RENDER ============ */
 function renderCompareRow(row, group){
   return `
@@ -455,12 +438,6 @@ document.getElementById("cherryLegend").innerHTML = CHERRY_LAYERS.map(l => `
     <span class="txt"><b>${l.vi}</b><small>${l.en}</small></span>
   </div>`).join("");
 
-document.getElementById("beanShapes").innerHTML = BEAN_SHAPES.map(b => `
-  <div class="bean-shape-card">
-    <span class="sub">${b.sub}</span>
-    <h4>${b.title}</h4>
-    <p>${b.d}</p>
-  </div>`).join("");
 
 /* ============ INTERACTION ============ */
 function renderIdentity(sp){
@@ -469,7 +446,6 @@ function renderIdentity(sp){
   document.getElementById("idSci").textContent = s.sci;
   document.getElementById("idText").textContent = s.text;
   document.getElementById("idStats").innerHTML = s.stats.map(st => `<div class="id-stat"><b>${st.v}</b><span>${st.l}</span></div>`).join("");
-  document.getElementById("idBean").src = s.bean;
   const card = document.getElementById("identityCard");
   card.className = "identity-card" + (s.accentClass ? " " + s.accentClass : "");
 }
