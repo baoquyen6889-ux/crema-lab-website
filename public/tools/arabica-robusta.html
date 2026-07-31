@@ -1,20 +1,38 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+<!-- Nền tối đi theo công tắc giao diện của trang chính: crema-lab lưu lựa chọn
+     vào localStorage["crema-theme"]. Công cụ mở ở tab riêng nhưng cùng origin
+     nên đọc lại được ngay khi tải, và sự kiện `storage` giúp tab công cụ đang
+     mở đổi theo ngay lúc người dùng bấm công tắc ở tab kia. -->
+<script>
+(function(){
+  var root = document.documentElement;
+  function apply(v){
+    if(v === 'dark'){ root.setAttribute('data-crema-theme','dark'); }
+    else { root.removeAttribute('data-crema-theme'); }
+  }
+  try{ apply(localStorage.getItem('crema-theme')); }catch(e){}
+  window.addEventListener('storage', function(e){
+    if(e.key === 'crema-theme'){ apply(e.newValue); }
+  });
+})();
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arabica &amp; Robusta — Crema Lab</title>
-<meta name="description" content="So sánh trực quan Arabica &amp; Robusta — đặc tính nông học, hồ sơ hương vị và cấu tạo trái cà phê, theo giáo án Barista Foundation của Crema Lab.">
+<meta name="description" content="Hai loài trên cùng một trục: đặc tính nông học, hồ sơ hương vị, cấu tạo trái.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crema-lab-website.vercel.app/tools/arabica-robusta.html">
 <meta property="og:title" content="Arabica &amp; Robusta — Crema Lab">
-<meta property="og:description" content="So sánh trực quan Arabica &amp; Robusta — đặc tính nông học, hồ sơ hương vị và cấu tạo trái cà phê, theo giáo án Barista Foundation của Crema Lab.">
+<meta property="og:description" content="Hai loài trên cùng một trục: đặc tính nông học, hồ sơ hương vị, cấu tạo trái.">
 <meta property="og:image" content="https://crema-lab-website.vercel.app/images/tools/og-arabica-robusta.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Arabica &amp; Robusta — Crema Lab">
-<meta name="twitter:description" content="So sánh trực quan Arabica &amp; Robusta — đặc tính nông học, hồ sơ hương vị và cấu tạo trái cà phê, theo giáo án Barista Foundation của Crema Lab.">
+<meta name="twitter:description" content="Hai loài trên cùng một trục: đặc tính nông học, hồ sơ hương vị, cấu tạo trái.">
 <meta name="twitter:image" content="https://crema-lab-website.vercel.app/images/tools/og-arabica-robusta.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,7 +74,7 @@ h1,h2,h3,.display{font-family:var(--serif-display);letter-spacing:.01em;margin:0
 
 /* ---------- Hero ---------- */
 .hero{padding:32px 32px 20px;max-width:920px;}
-.hero h1{font-size:clamp(16px,4.4vw,40px);line-height:1.05;margin-top:8px;white-space:nowrap;}
+.hero h1{font-size:clamp(18px,4.4vw,44px);line-height:1.05;margin-top:8px;white-space:nowrap;}
 .hero .lede{margin-top:10px;font-size:14px;max-width:640px;color:#34352f;}
 
 .mode-toggle{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;}
@@ -239,6 +257,38 @@ section.world-section{padding:22px 32px 10px;max-width:920px;}
   .cherry-layout{flex-direction:column;}
   .cherry-diagram svg{width:100%;height:auto;max-width:320px;}
 }
+
+/* ================= Nền tối (đồng bộ với công tắc của trang chính) ================= */
+html[data-crema-theme="dark"]{
+  color-scheme:dark;
+  --bg:#13110f; --ink:#eee9df; --card-bg:#1b1815;
+  --line:rgba(238,233,223,.16); --line-strong:rgba(238,233,223,.34);
+  --muted:#a8a099; --coffee:#ca7449;
+}
+html[data-crema-theme="dark"] body{background:var(--bg);color:var(--ink);}
+html[data-crema-theme="dark"] #fsBtn{background:rgba(30,26,23,.94);}
+
+/* Hai tông chữ phụ dùng chung cho cả trang khi ở nền tối. */
+html[data-crema-theme="dark"]{
+  --ara-ink:#e1ad5f; --rob:#a06f45; --rob-ink:#d29a6d; --robusta:#6b4a30;
+}
+html[data-crema-theme="dark"] .hero .lede,
+html[data-crema-theme="dark"] .identity-card p,
+html[data-crema-theme="dark"] #panel .info-text,
+html[data-crema-theme="dark"] .world-note,
+html[data-crema-theme="dark"] .methodology{color:#c6bdb3;}
+html[data-crema-theme="dark"] .compare-label small,
+html[data-crema-theme="dark"] #panel h3 em,
+html[data-crema-theme="dark"] .site-footer{color:#8f877e;}
+html[data-crema-theme="dark"] .compare-row:hover,
+html[data-crema-theme="dark"] .compare-row.active,
+html[data-crema-theme="dark"] .cherry-details>summary:hover{background:rgba(238,233,223,.06);}
+html[data-crema-theme="dark"] #panel .panel-vs>div{background:rgba(238,233,223,.05);}
+html[data-crema-theme="dark"] .cb-track{background:rgba(238,233,223,.14);}
+html[data-crema-theme="dark"] .cherry-legend-row .num{border-color:var(--line);}
+html[data-crema-theme="dark"] .mode-btn.active[data-species="robusta"]{color:#f3ece2;}
+/* Nhãn lấy nền theo --muted nên ở nền tối nó sáng lên — chữ phải đảo sang tối. */
+html[data-crema-theme="dark"] #panel .tag{color:#13110f;}
 </style>
 </head>
 <body>
@@ -258,7 +308,7 @@ section.world-section{padding:22px 32px 10px;max-width:920px;}
 <div class="hero">
   <div class="eyebrow">Species Reference</div>
   <h1>Arabica &amp; Robusta</h1>
-  <p class="lede">So sánh trực quan hai loài chiếm gần như toàn bộ sản lượng cà phê thế giới — đặc tính nông học, hồ sơ hương vị và vì sao chúng khác nhau đến vậy. Theo giáo án <b>Barista Foundation</b> — Crema Lab.</p>
+  <p class="lede">Hai loài trên cùng một trục: đặc tính nông học, hồ sơ hương vị, cấu tạo trái.</p>
 </div>
 
 <section id="stage-section" class="stage-section">

@@ -1,20 +1,38 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+<!-- Nền tối đi theo công tắc giao diện của trang chính: crema-lab lưu lựa chọn
+     vào localStorage["crema-theme"]. Công cụ mở ở tab riêng nhưng cùng origin
+     nên đọc lại được ngay khi tải, và sự kiện `storage` giúp tab công cụ đang
+     mở đổi theo ngay lúc người dùng bấm công tắc ở tab kia. -->
+<script>
+(function(){
+  var root = document.documentElement;
+  function apply(v){
+    if(v === 'dark'){ root.setAttribute('data-crema-theme','dark'); }
+    else { root.removeAttribute('data-crema-theme'); }
+  }
+  try{ apply(localStorage.getItem('crema-theme')); }catch(e){}
+  window.addEventListener('storage', function(e){
+    if(e.key === 'crema-theme'){ apply(e.newValue); }
+  });
+})();
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bánh Xe Giống Cà Phê — Crema Lab</title>
-<meta name="description" content="Atlas tra cứu tương tác các nhóm di truyền và giống cà phê Arabica & Robusta, dựa trên World Coffee Research Varieties Catalog.">
+<title>Coffee Variety Wheel — Crema Lab</title>
+<meta name="description" content="Nhóm di truyền, nguồn gốc và đặc tính giống Arabica, Robusta theo dữ liệu WCR.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crema-lab-website.vercel.app/tools/coffee-variety-wheel.html">
-<meta property="og:title" content="Bánh Xe Giống Cà Phê — Crema Lab">
-<meta property="og:description" content="Atlas tra cứu tương tác các nhóm di truyền và giống cà phê Arabica & Robusta, dựa trên World Coffee Research Varieties Catalog.">
+<meta property="og:title" content="Coffee Variety Wheel — Crema Lab">
+<meta property="og:description" content="Nhóm di truyền, nguồn gốc và đặc tính giống Arabica, Robusta theo dữ liệu WCR.">
 <meta property="og:image" content="https://crema-lab-website.vercel.app/images/tools/og-coffee-variety-wheel.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Bánh Xe Giống Cà Phê — Crema Lab">
-<meta name="twitter:description" content="Atlas tra cứu tương tác các nhóm di truyền và giống cà phê Arabica & Robusta, dựa trên World Coffee Research Varieties Catalog.">
+<meta name="twitter:title" content="Coffee Variety Wheel — Crema Lab">
+<meta name="twitter:description" content="Nhóm di truyền, nguồn gốc và đặc tính giống Arabica, Robusta theo dữ liệu WCR.">
 <meta name="twitter:image" content="https://crema-lab-website.vercel.app/images/tools/og-coffee-variety-wheel.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,7 +70,7 @@ h1,h2,h3,.display{font-family:var(--serif-display);letter-spacing:.01em;margin:0
 
 /* ---------- Hero ---------- */
 .hero{padding:32px 32px 20px;max-width:920px;}
-.hero h1{font-size:clamp(26px,4vw,40px);line-height:1.05;margin-top:8px;}
+.hero h1{font-size:clamp(18px,4.4vw,44px);line-height:1.05;margin-top:8px;white-space:nowrap;}
 .hero .lede{margin-top:10px;font-size:14px;max-width:640px;color:#34352f;}
 
 .mode-toggle{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;}
@@ -168,6 +186,35 @@ html:fullscreen,html:-webkit-full-screen{background:var(--bg);}
   .layout{flex-direction:column;}
   aside#panelwrap{max-width:100%;border-left:none;border-top:1px solid var(--line);}
 }
+
+/* ================= Nền tối (đồng bộ với công tắc của trang chính) ================= */
+html[data-crema-theme="dark"]{
+  color-scheme:dark;
+  --bg:#13110f; --ink:#eee9df; --card-bg:#1b1815;
+  --line:rgba(238,233,223,.16); --line-strong:rgba(238,233,223,.34);
+  --muted:#a8a099; --coffee:#ca7449; --vi:#d09a6b;
+}
+html[data-crema-theme="dark"] body{background:var(--bg);color:var(--ink);}
+html[data-crema-theme="dark"] #fsBtn{background:rgba(30,26,23,.94);}
+
+html[data-crema-theme="dark"] .hero .lede,
+html[data-crema-theme="dark"] .info-text,
+html[data-crema-theme="dark"] .history-text,
+html[data-crema-theme="dark"] .methodology{color:#c6bdb3;}
+html[data-crema-theme="dark"] .site-footer{color:#8f877e;}
+html[data-crema-theme="dark"] .center-sub{fill:#8f877e;}
+html[data-crema-theme="dark"] .mode-btn.active{color:#13110f;}
+html[data-crema-theme="dark"] .filter-row input[type=text],
+html[data-crema-theme="dark"] .filter-row select,
+html[data-crema-theme="dark"] .legend-chip{background:#1b1815;color:var(--ink);}
+html[data-crema-theme="dark"] .filter-row select option{background:#1b1815;color:var(--ink);}
+html[data-crema-theme="dark"] .children-list button{background:rgba(238,233,223,.05);color:var(--ink);}
+html[data-crema-theme="dark"] .children-list button:hover{background:rgba(238,233,223,.1);}
+html[data-crema-theme="dark"] .yield-scale .bar{background:linear-gradient(90deg,rgba(238,233,223,.16),#8B5E3C);}
+/* Khe giữa các ô bánh xe và lõi giữa lấy đúng màu nền trang, nếu không vòng
+   trắng sẽ nổi bật hơn cả dữ liệu. */
+html[data-crema-theme="dark"] .seg{stroke:var(--bg);}
+html[data-crema-theme="dark"] svg#wheelsvg circle{fill:var(--card-bg);stroke:var(--line-strong);}
 </style>
 </head>
 <body>
@@ -186,8 +233,8 @@ html:fullscreen,html:-webkit-full-screen{background:var(--bg);}
 
 <div class="hero">
   <div class="eyebrow">Variety Reference</div>
-  <h1>Bánh Xe Giống Cà Phê</h1>
-  <p class="lede">Atlas tra cứu các nhóm di truyền và giống cà phê Arabica &amp; Robusta phổ biến toàn cầu — tổng hợp từ World Coffee Research Varieties Catalog (varieties.worldcoffeeresearch.org). Nhấp vào một lát cắt để xem chi tiết giống.</p>
+  <h1>Coffee Variety Wheel</h1>
+  <p class="lede">Nhóm di truyền, nguồn gốc và đặc tính giống Arabica, Robusta.</p>
 
   <div class="mode-toggle" role="group" aria-label="Chọn loài">
     <button type="button" class="mode-btn active" id="tab-arabica" onclick="switchSpecies('arabica')">Arabica</button>

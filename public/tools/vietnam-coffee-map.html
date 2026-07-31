@@ -1,20 +1,38 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+<!-- Nền tối đi theo công tắc giao diện của trang chính: crema-lab lưu lựa chọn
+     vào localStorage["crema-theme"]. Công cụ mở ở tab riêng nhưng cùng origin
+     nên đọc lại được ngay khi tải, và sự kiện `storage` giúp tab công cụ đang
+     mở đổi theo ngay lúc người dùng bấm công tắc ở tab kia. -->
+<script>
+(function(){
+  var root = document.documentElement;
+  function apply(v){
+    if(v === 'dark'){ root.setAttribute('data-crema-theme','dark'); }
+    else { root.removeAttribute('data-crema-theme'); }
+  }
+  try{ apply(localStorage.getItem('crema-theme')); }catch(e){}
+  window.addEventListener('storage', function(e){
+    if(e.key === 'crema-theme'){ apply(e.newValue); }
+  });
+})();
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bản Đồ Vùng Trồng Cà Phê Việt Nam — Crema Lab</title>
-<meta name="description" content="Atlas tra cứu tương tác về các vùng trồng cà phê Việt Nam: địa lý, giống loài, độ cao, chế biến và đặc điểm hương vị được ghi nhận phổ biến, dựa trên ranh giới hành chính thực tế.">
+<title>Vietnam Coffee Map — Crema Lab</title>
+<meta name="description" content="Vùng trồng, độ cao, giống và cách sơ chế của từng vùng cà phê Việt Nam.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crema-lab-website.vercel.app/tools/vietnam-coffee-map.html">
-<meta property="og:title" content="Bản Đồ Vùng Trồng Cà Phê Việt Nam — Crema Lab">
-<meta property="og:description" content="Atlas tra cứu tương tác về các vùng trồng cà phê Việt Nam: địa lý, giống loài, độ cao, chế biến và đặc điểm hương vị được ghi nhận phổ biến, dựa trên ranh giới hành chính thực tế.">
+<meta property="og:title" content="Vietnam Coffee Map — Crema Lab">
+<meta property="og:description" content="Vùng trồng, độ cao, giống và cách sơ chế của từng vùng cà phê Việt Nam.">
 <meta property="og:image" content="https://crema-lab-website.vercel.app/images/tools/og-vietnam-coffee-map.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Bản Đồ Vùng Trồng Cà Phê Việt Nam — Crema Lab">
-<meta name="twitter:description" content="Atlas tra cứu tương tác về các vùng trồng cà phê Việt Nam: địa lý, giống loài, độ cao, chế biến và đặc điểm hương vị được ghi nhận phổ biến, dựa trên ranh giới hành chính thực tế.">
+<meta name="twitter:title" content="Vietnam Coffee Map — Crema Lab">
+<meta name="twitter:description" content="Vùng trồng, độ cao, giống và cách sơ chế của từng vùng cà phê Việt Nam.">
 <meta name="twitter:image" content="https://crema-lab-website.vercel.app/images/tools/og-vietnam-coffee-map.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,6 +83,7 @@ a:hover { color: var(--ink); }
   font-weight: 700;
   font-size: 11px;
   letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--coffee);
 }
 
@@ -134,18 +153,8 @@ h1, h2, h3, .display {
   padding: 40px 32px 24px;
   max-width: 920px;
 }
-.hero h1 {
-  font-size: clamp(16px, 4vw, 48px);
-  line-height: 1.02;
-  margin-top: 8px;
-  white-space: nowrap;
-}
-.hero .lede {
-  margin-top: 10px;
-  font-size: 15px;
-  max-width: 560px;
-  color: #34352f;
-}
+.hero h1{font-size:clamp(18px,4.4vw,44px);line-height:1.05;margin-top:8px;white-space:nowrap;}
+.hero .lede{margin-top:10px;font-size:14px;max-width:640px;color:#34352f;}
 .principle-strip {
   margin: 10px 0 0;
   font-size: 12px;
@@ -658,6 +667,42 @@ footer.site-footer {
   }
 }
 
+
+/* ================= Nền tối (đồng bộ với công tắc của trang chính) ================= */
+html[data-crema-theme="dark"]{
+  color-scheme:dark;
+  --bg:#13110f; --ink:#eee9df; --card-bg:#1b1815;
+  --line:rgba(238,233,223,.16); --line-strong:rgba(238,233,223,.34);
+  --muted:#a8a099; --coffee:#ca7449;
+}
+html[data-crema-theme="dark"] body{background:var(--bg);color:var(--ink);}
+html[data-crema-theme="dark"] #fsBtn{background:rgba(30,26,23,.94);}
+
+html[data-crema-theme="dark"] .hero .lede,
+html[data-crema-theme="dark"] .info-text,
+html[data-crema-theme="dark"] .methodology{color:#c6bdb3;}
+html[data-crema-theme="dark"] .site-header nav,
+html[data-crema-theme="dark"] .panel-region .loc,
+html[data-crema-theme="dark"] .block-body,
+html[data-crema-theme="dark"] .legend-item,
+html[data-crema-theme="dark"] .source-list{color:#c6bdb3;}
+html[data-crema-theme="dark"] .cup-note,
+html[data-crema-theme="dark"] .cup-dim b,
+html[data-crema-theme="dark"] .principle-strip,
+html[data-crema-theme="dark"] .island-inset-label,
+html[data-crema-theme="dark"] .site-footer{color:#a09890;}
+/* Những chỗ lấy nền theo --ink nên ở nền tối chúng sáng lên — chữ phải đảo
+   sang tối, nếu không chữ trắng nằm trên nền kem sẽ mất hút. */
+html[data-crema-theme="dark"] .region-index button.active,
+html[data-crema-theme="dark"] .filter-btn.active,
+html[data-crema-theme="dark"] .sheet-close,
+html[data-crema-theme="dark"] .skip-link,
+html[data-crema-theme="dark"] .panel-region .status-tag.major,
+html[data-crema-theme="dark"] .hover-tip{color:#13110f;}
+html[data-crema-theme="dark"] .hover-tip .h-row{color:#4a453f;}
+html[data-crema-theme="dark"] .map-legend,
+html[data-crema-theme="dark"] .fullscreen-toggle{background:rgba(27,24,21,.94);}
+html[data-crema-theme="dark"] .admin-note{background:rgba(225,173,95,.10);color:#c6bdb3;}
 </style>
 </head>
 <body>
@@ -682,13 +727,13 @@ footer.site-footer {
 <header class="site-header">
   <a class="brand-mark" href="/" aria-label="Crema Lab — Trang chủ">CREMA LAB <span>— Coffee &amp; Training</span></a>
   <nav>
-    <a href="#map-section">Bản đồ</a> &nbsp;·&nbsp; <a href="#sources">Nguồn &amp; Phương pháp</a>
+    <a href="#map-section">Bản đồ</a> &nbsp;·&nbsp; <a href="#sources">Nguồn tham khảo</a>
   </nav>
 </header>
 
 <div class="hero">
-  <div class="eyebrow" id="hero-eyebrow">Atlas Cà Phê Nguồn Gốc</div>
-  <h1 id="hero-title">Bản Đồ Vùng Trồng Cà Phê Việt Nam</h1>
+  <div class="eyebrow" id="hero-eyebrow">Origin Reference</div>
+  <h1 id="hero-title">Vietnam Coffee Map</h1>
   <p class="lede" id="hero-lede"></p>
 </div>
 
@@ -845,9 +890,9 @@ footer.site-footer {
    ========================================================================== */
 
 window.MAP_META = {
-  title: "Bản Đồ Vùng Trồng Cà Phê Việt Nam",
+  title: "Vietnam Coffee Map",
   subtitle: "Một atlas tra cứu về địa lý, giống loài và chế biến cà phê Việt Nam — dùng cho đào tạo và giáo dục chuyên sâu.",
-  lede: "Việt Nam là nước sản xuất Robusta lớn nhất thế giới, đồng thời sở hữu một số vùng Arabica đặc sản đang phát triển ở cao nguyên phía Bắc và Nam Trung Bộ. Bấm vào một vùng trên bản đồ để xem hồ sơ chi tiết.",
+  lede: "Vùng trồng, độ cao, giống và cách sơ chế của từng vùng cà phê Việt Nam.",
   principle: "Nguồn gốc là một hệ thống — không phải lời hứa về hương vị.",
   principleBody: "Độ cao, giống, khí hậu và cách chế biến định hình tiềm năng hương vị, nhưng không đảm bảo kết quả trong tách. Các mô tả cảm quan dưới đây phản ánh xu hướng được ghi nhận phổ biến, không phải quy luật tuyệt đối cho mọi lô hàng."
 };
@@ -1226,7 +1271,7 @@ window.METHODOLOGY_NOTE = "Ranh giới địa lý trong bản đồ này đượ
     var el = document.getElementById(id);
     if (el && text) el.textContent = text;
   };
-  setText("hero-eyebrow", "Atlas Cà Phê Nguồn Gốc");
+  setText("hero-eyebrow", "Origin Reference");
   setText("hero-title", MAP_META.title);
   setText("hero-lede", MAP_META.lede);
   var principleEl = document.getElementById("principle-strip");

@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+<!-- Nền tối đi theo công tắc giao diện của trang chính: crema-lab lưu lựa chọn
+     vào localStorage["crema-theme"]. Công cụ mở ở tab riêng nhưng cùng origin
+     nên đọc lại được ngay khi tải, và sự kiện `storage` giúp tab công cụ đang
+     mở đổi theo ngay lúc người dùng bấm công tắc ở tab kia. -->
+<script>
+(function(){
+  var root = document.documentElement;
+  function apply(v){
+    if(v === 'dark'){ root.setAttribute('data-crema-theme','dark'); }
+    else { root.removeAttribute('data-crema-theme'); }
+  }
+  try{ apply(localStorage.getItem('crema-theme')); }catch(e){}
+  window.addEventListener('storage', function(e){
+    if(e.key === 'crema-theme'){ apply(e.newValue); }
+  });
+})();
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SCA Coffee Taster's Flavor Wheel — Crema Lab</title>
@@ -57,8 +75,8 @@ h1,h2,h3,.display{font-family:var(--serif-display);letter-spacing:.01em;margin:0
 
 /* ---------- Hero ---------- */
 .hero{padding:36px 32px 22px;max-width:920px;}
-.hero h1{font-size:clamp(16px,4.4vw,44px);line-height:1.05;margin-top:8px;white-space:nowrap;}
-.hero .lede{margin-top:10px;font-size:14.5px;max-width:600px;color:#34352f;}
+.hero h1{font-size:clamp(18px,4.4vw,44px);line-height:1.05;margin-top:8px;white-space:nowrap;}
+.hero .lede{margin-top:10px;font-size:14px;max-width:640px;color:#34352f;}
 
 .mode-toggle{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;}
 .mode-btn{font-family:var(--sans);font-size:12.5px;letter-spacing:.01em;font-weight:600;
@@ -312,6 +330,34 @@ aside#panelwrap{flex:1 1 38%;max-width:440px;border-left:1px solid var(--line);
 .source-list li a:hover{text-decoration:underline;}
 
 footer.site-footer{padding:22px 32px 36px;font-size:11.5px;color:#8a8b83;}
+
+/* ================= Nền tối (đồng bộ với công tắc của trang chính) ================= */
+html[data-crema-theme="dark"]{
+  color-scheme:dark;
+  --bg:#13110f; --ink:#eee9df; --card-bg:#1b1815;
+  --line:rgba(238,233,223,.16); --line-strong:rgba(238,233,223,.34);
+  --muted:#a8a099; --coffee:#ca7449; --vi:#d09a6b;
+}
+html[data-crema-theme="dark"] body{background:var(--bg);color:var(--ink);}
+html[data-crema-theme="dark"] #fsBtn{background:rgba(30,26,23,.94);}
+
+html[data-crema-theme="dark"] .hero .lede,
+html[data-crema-theme="dark"] .info-text,
+html[data-crema-theme="dark"] .methodology{color:#c6bdb3;}
+html[data-crema-theme="dark"] footer.site-footer{color:#8f877e;}
+html[data-crema-theme="dark"] .mode-btn.active,
+html[data-crema-theme="dark"] .btn-primary{color:#13110f;}
+html[data-crema-theme="dark"] .children-list button,
+html[data-crema-theme="dark"] .game-constraints .c-item,
+html[data-crema-theme="dark"] .reveal-t3-chips .chip,
+html[data-crema-theme="dark"] .t3-detail-item,
+html[data-crema-theme="dark"] .quiz-opt,
+html[data-crema-theme="dark"] .btn-secondary{background:#1b1815;color:var(--ink);}
+html[data-crema-theme="dark"] .game-hint{background:rgba(225,173,95,.10);}
+html[data-crema-theme="dark"] .game-hint b{color:var(--gold);}
+/* Nút QUAY lấy nền theo --ink nên ở nền tối nó sáng lên — chữ phải đảo sang
+   tối, nếu không chữ trắng nằm trên nền kem sẽ mất hút. */
+html[data-crema-theme="dark"] #spinHubLabel{fill:#13110f;}
 </style>
 </head>
 <body>
@@ -339,7 +385,7 @@ footer.site-footer{padding:22px 32px 36px;font-size:11.5px;color:#8a8b83;}
 <div class="hero">
   <div class="eyebrow">Sensory Reference</div>
   <h1>SCA Coffee Taster's Flavor Wheel</h1>
-  <p class="lede">Khám phá bản đồ hương vị cà phê chuẩn SCA.</p>
+  <p class="lede">Bản đồ hương vị chuẩn SCA, chú giải song ngữ từ nhóm hương đến từng mô tả.</p>
   <div class="mode-toggle" role="group" aria-label="Chế độ xem">
     <button type="button" class="mode-btn active" id="modeExploreBtn">Tra cứu</button>
     <button type="button" class="mode-btn" id="modeG1Btn" title="Quay vòng 1, đoán nội dung vòng 2 và vòng 3">Game 1 · Nhận diện</button>

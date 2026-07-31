@@ -6,7 +6,11 @@ Release 1) và `content-tiers.md` (nội dung 3 tầng cho Extraction Lab).
 ## Phạm vi Release 1 — KHÔNG tự mở rộng
 
 Chỉ build: Landing hero (immersive, ngắn) + Courses + Instructor + Schedule + Tuition
-+ About/Philosophy + Contact/Registration + Extraction Lab bản cơ bản.
++ About/Philosophy + Contact/Registration.
+
+Extraction Lab đã bị gỡ khỏi repo theo yêu cầu — không dựng lại trừ khi được yêu
+cầu rõ. `content-tiers.md` và các mục Extraction Lab trong `todo.md`/`README.md`
+là tài liệu tồn dư của công cụ này.
 
 Chưa build (Release 2/3, không tự làm thêm trừ khi được yêu cầu):
 - 5 chương Experience Mode đầy đủ theo concept gốc (hiện có bản rút gọn 3 chương:
