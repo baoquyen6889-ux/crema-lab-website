@@ -251,9 +251,8 @@ const knowledgeTools = [
       "So sánh hai loài trên cùng một trục — đặc tính nông học, hồ sơ hương vị và cấu tạo trái cà phê.",
     href: "/tools/arabica-robusta.html",
     image: "/images/tools/arabica-robusta-transparent.png",
-    meta: "Sắp ra mắt",
+    meta: "Giáo án Barista · So sánh",
     effect: "bean",
-    pending: true,
   },
 ];
 
@@ -402,57 +401,101 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
     document.documentElement.dataset.cremaTheme = theme;
   }, [theme, themeReady]);
 
-  // Carousel vòng tròn: bấm trái ở thẻ đầu quay về thẻ cuối và ngược lại.
+  /* Carousel vòng tròn thật: render 3 dải thẻ giống nhau và luôn giữ khung nhìn
+     ở dải giữa. Khi trôi khỏi dải giữa thì nhảy lùi/tiến đúng một dải (không
+     animation nên mắt không thấy) — nhờ vậy kéo mãi về hai phía đều có thẻ, và
+     thẻ nào cũng lên được mép trái, kể cả thẻ cuối. */
+  const toolBandWidth = () => {
+    const grid = toolGridRef.current;
+    if (!grid) return 0;
+    const cards = grid.children as HTMLCollectionOf<HTMLElement>;
+    if (cards.length < knowledgeTools.length + 1) return 0;
+    return cards[knowledgeTools.length].offsetLeft - cards[0].offsetLeft;
+  };
+
   const scrollToTool = (index: number) => {
     const grid = toolGridRef.current;
     if (!grid) return;
     const total = knowledgeTools.length;
     const target = ((index % total) + total) % total;
-    const card = grid.children[target] as HTMLElement | undefined;
-    if (card) grid.scrollTo({ left: card.offsetLeft - grid.offsetLeft, behavior: "smooth" });
+    const cards = grid.children as HTMLCollectionOf<HTMLElement>;
+
+    // chọn bản sao gần vị trí hiện tại nhất để quãng cuộn luôn ngắn, đi được
+    // cả hai chiều (1 → 4 lùi về trái, 4 → 1 tiến sang phải)
+    let best = 0;
+    let bestDistance = Infinity;
+    for (let band = 0; band < 3; band += 1) {
+      const card = cards[band * total + target];
+      if (!card) continue;
+      const left = card.offsetLeft - grid.offsetLeft;
+      const distance = Math.abs(left - grid.scrollLeft);
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        best = left;
+      }
+    }
+    grid.scrollTo({ left: best, behavior: "smooth" });
   };
 
-  // Dải mờ mép phải chỉ hiện khi còn thẻ chưa lộ (vd. thẻ 4 trở đi), tắt khi
-  // đã kéo tới cuối để thẻ cuối không bị mờ oan. Đồng thời theo dõi thẻ đang
-  // ở đầu khung nhìn để chấm chỉ vị trí khớp cả khi người dùng tự kéo.
   useEffect(() => {
     const grid = toolGridRef.current;
     if (!grid) return;
 
-    const sync = () => {
-      const remaining = grid.scrollWidth - grid.clientWidth - grid.scrollLeft;
-      grid.classList.toggle("has-overflow", remaining > 8);
+    const total = knowledgeTools.length;
+    let band = 0;
+    let offsets: number[] = [];
+    let frame = 0;
+    let settle = 0;
 
+    // scroll-behavior:smooth của container làm mọi lần gán scrollLeft đều chạy
+    // animation — bước nhảy dải phải tức thì, nếu không người dùng sẽ thấy giật.
+    const jumpTo = (left: number) => grid.scrollTo({ left, behavior: "instant" as ScrollBehavior });
+
+    const measure = () => {
       const cards = Array.from(grid.children) as HTMLElement[];
-      if (!cards.length) return;
+      offsets = cards.map(card => card.offsetLeft - grid.offsetLeft);
+      band = offsets[total] ? offsets[total] - offsets[0] : 0;
+      if (band && grid.scrollLeft < band * 0.5) jumpTo(band);
+    };
 
-      // Ở cuối dải, thẻ cuối đã hiện nhưng không thể trôi tới mép trái được nữa
-      // (container hết chỗ cuộn) — khi đó cho sáng luôn chấm cuối cho khớp với
-      // thứ người dùng đang nhìn thấy.
-      if (remaining <= 8) {
-        setActiveTool(cards.length - 1);
-        return;
-      }
-
+    // Đo sẵn vị trí từng thẻ; lúc cuộn chỉ so số nên không đụng layout -> mượt.
+    const update = () => {
+      frame = 0;
       let nearest = 0;
       let best = Infinity;
-      cards.forEach((card, i) => {
-        const distance = Math.abs(card.offsetLeft - grid.offsetLeft - grid.scrollLeft);
+      offsets.forEach((left, i) => {
+        const distance = Math.abs(left - grid.scrollLeft);
         if (distance < best) {
           best = distance;
           nearest = i;
         }
       });
-      setActiveTool(nearest);
+      setActiveTool(((nearest % total) + total) % total);
     };
 
-    sync();
-    grid.addEventListener("scroll", sync, { passive: true });
-    const observer = new ResizeObserver(sync);
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+      // Chỉ nhảy dải khi người dùng đã ngừng cuộn, tránh cắt ngang animation.
+      window.clearTimeout(settle);
+      settle = window.setTimeout(() => {
+        if (!band) return;
+        if (grid.scrollLeft < band * 0.5) jumpTo(grid.scrollLeft + band);
+        else if (grid.scrollLeft > band * 1.5) jumpTo(grid.scrollLeft - band);
+      }, 140);
+    };
+
+    measure();
+    jumpTo(band);
+    update();
+
+    grid.addEventListener("scroll", onScroll, { passive: true });
+    const observer = new ResizeObserver(measure);
     observer.observe(grid);
     return () => {
-      grid.removeEventListener("scroll", sync);
+      grid.removeEventListener("scroll", onScroll);
       observer.disconnect();
+      if (frame) cancelAnimationFrame(frame);
+      window.clearTimeout(settle);
     };
   }, []);
 
@@ -716,14 +759,17 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         </div>
 
         <div className="tool-grid" ref={toolGridRef}>
-          {knowledgeTools.map((tool, index) => (
+          {[0, 1, 2].flatMap(band =>
+            knowledgeTools.map((tool, index) => (
             <a
-              className={`tool-card tool-card-${tool.effect}${tool.pending ? " tool-card-pending" : ""} reveal spotlight`}
-              key={tool.href}
+              className={`tool-card tool-card-${tool.effect} reveal spotlight`}
+              key={`${band}-${tool.href}`}
               href={tool.href}
               target="_blank"
               rel="noreferrer"
               aria-label={tool.title}
+              aria-hidden={band !== 1 || undefined}
+              tabIndex={band === 1 ? undefined : -1}
               style={{ transitionDelay: `${index * 90}ms` }}
               onMouseMove={handleSpotlight}
             >
@@ -745,7 +791,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                 <p>{tool.description}</p>
               </div>
             </a>
-          ))}
+            ))
+          )}
         </div>
 
         <div className="tool-nav" role="tablist" aria-label="Chọn công cụ">

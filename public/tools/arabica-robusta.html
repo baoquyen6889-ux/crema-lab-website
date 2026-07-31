@@ -26,6 +26,10 @@
   --radius:2px; --muted:#55564f;
   --serif-display:"Be Vietnam Pro","Inter",sans-serif;
   --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  /* Arabica = vàng, Robusta = nâu đậm. Bản *-ink dùng cho chữ để đủ tương phản
+     trên nền trắng (vàng nguyên bản quá nhạt để đọc). */
+  --ara:#E1AD5F; --ara-ink:#9a6c1c;
+  --rob:#7a5233; --rob-ink:#5c3d24;
   --robusta:#4a3221;
 }
 *{box-sizing:border-box;}
@@ -61,13 +65,31 @@ h1,h2,h3,.display{font-family:var(--serif-display);letter-spacing:.01em;margin:0
   padding:9px 18px;border-radius:var(--radius);cursor:pointer;
   transition:background .15s,color .15s,border-color .15s;}
 .mode-btn:hover{border-color:var(--coffee);}
-.mode-btn.active[data-species="arabica"]{background:var(--coffee);border-color:var(--coffee);color:#fff;}
+.mode-btn.active[data-species="arabica"]{background:var(--ara);border-color:var(--ara);color:var(--gold-ink);}
 .mode-btn.active[data-species="robusta"]{background:var(--robusta);border-color:var(--robusta);color:#fff;}
+
+/* ---------- Beans hero: hai hạt thật, đúng tương quan kích thước ---------- */
+/* Nằm ngay trong khung so sánh, phía trên các thanh — xem hạt trước rồi mới đọc số */
+.beans-hero{padding:clamp(24px,4vw,44px) 24px clamp(20px,3vw,32px);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;gap:clamp(24px,6vw,72px);}
+.bean-figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:14px;}
+.bean-figure img{width:clamp(110px,17vw,190px);height:auto;display:block;
+  filter:drop-shadow(0 14px 22px rgba(60,38,20,.18));}
+/* Robusta nhỏ hơn Arabica ~12% — giữ đúng tương quan thật */
+.bean-figure.is-rob img{width:clamp(97px,15vw,167px);}
+.bean-figure figcaption{text-align:center;}
+.bean-figure figcaption b{display:block;font-family:var(--serif-display);font-weight:800;
+  font-size:clamp(16px,2.4vw,25px);letter-spacing:.04em;color:var(--ink);}
+.bean-figure figcaption span{display:block;margin-top:2px;font-size:12px;font-style:italic;color:var(--muted);}
+.beans-vs{flex:0 0 auto;width:52px;height:52px;border-radius:50%;border:2px solid var(--ara);
+  display:flex;align-items:center;justify-content:center;font-family:var(--serif-display);
+  font-weight:800;font-size:15px;color:var(--ara-ink);}
 
 /* ---------- Identity card ---------- */
 section.identity-section{padding:6px 32px 8px;max-width:920px;}
 .identity-card{border:1px solid var(--line);background:var(--card-bg);padding:22px 26px;
-  border-left:4px solid var(--coffee);transition:border-color .2s;
+  border-left:4px solid var(--ara);transition:border-color .2s;
   display:flex;align-items:center;gap:26px;}
 .identity-card.is-robusta{border-left-color:var(--robusta);}
 /* Giữ đúng tương quan thật: hạt Robusta nhỏ hơn Arabica ~10–15%. */
@@ -86,25 +108,25 @@ section.identity-section{padding:6px 32px 8px;max-width:920px;}
 section.stage-section{padding:20px 32px 8px;}
 .stage{border:1px solid var(--line);background:var(--card-bg);}
 .layout{display:flex;gap:0;align-items:stretch;min-height:0;}
-.compare-pane{flex:1 1 64%;padding:30px 34px;background:var(--card-bg);}
-.compare-group-title{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--muted);margin:22px 0 10px;}
+.compare-pane{flex:1 1 64%;padding:22px 26px;background:var(--card-bg);}
+.compare-group-title{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin:16px 0 6px;}
 .compare-group-title:first-child{margin-top:0;}
 .compare-row{width:100%;text-align:left;background:none;border:none;border-top:1px solid var(--line);
-  padding:13px 8px;cursor:pointer;display:grid;grid-template-columns:1fr auto;align-items:center;
-  gap:6px;font-family:var(--sans);border-radius:var(--radius);transition:background .12s;}
+  padding:8px;cursor:pointer;display:grid;grid-template-columns:1fr auto;align-items:center;
+  gap:4px;font-family:var(--sans);border-radius:var(--radius);transition:background .12s;}
 .compare-row:hover,.compare-row.active{background:#faf7f1;}
 .compare-row:last-child{border-bottom:1px solid var(--line);}
-.compare-label{grid-column:1/3;font-size:12.5px;font-weight:700;letter-spacing:.02em;color:var(--ink);margin-bottom:6px;}
+.compare-label{grid-column:1/3;font-size:11.5px;font-weight:700;letter-spacing:.02em;color:var(--ink);margin-bottom:4px;}
 .compare-bars{grid-column:1/3;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;}
-.cb{display:flex;align-items:center;gap:8px;}
-.cb-track{flex:1;height:7px;border-radius:4px;background:#e9e2d6;overflow:hidden;position:relative;}
+.cb{display:flex;align-items:center;gap:7px;}
+.cb-track{flex:1;height:6px;border-radius:3px;background:#e9e2d6;overflow:hidden;position:relative;}
 .cb-fill{position:absolute;top:0;bottom:0;border-radius:4px;}
-.cb-a .cb-fill{right:0;background:var(--coffee);}
-.cb-r .cb-fill{left:0;background:var(--gold);}
-.cb-val{font-size:12.5px;font-weight:700;white-space:nowrap;min-width:70px;}
-.cb-a .cb-val{text-align:right;color:var(--coffee);}
-.cb-r .cb-val{text-align:left;color:#a97a2f;}
+.cb-a .cb-fill{right:0;background:var(--ara);}
+.cb-r .cb-fill{left:0;background:var(--rob);}
+.cb-val{font-size:11.5px;font-weight:700;white-space:nowrap;min-width:66px;}
+.cb-a .cb-val{text-align:right;color:var(--ara-ink);}
+.cb-r .cb-val{text-align:left;color:var(--rob-ink);}
 
 aside#panelwrap{flex:1 1 36%;max-width:400px;border-left:1px solid var(--line);
   background:var(--card-bg);padding:34px 26px;overflow-y:auto;}
@@ -115,7 +137,7 @@ aside#panelwrap{flex:1 1 36%;max-width:400px;border-left:1px solid var(--line);
 #panel .tag{display:inline-block;color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.06em;
   text-transform:uppercase;padding:4px 12px;border-radius:var(--radius);margin-bottom:14px;background:var(--muted);}
 #panel h3{font-size:21px;font-weight:800;letter-spacing:-.01em;position:relative;padding-bottom:14px;margin:2px 0 0;}
-#panel h3::after{content:"";position:absolute;left:0;bottom:0;width:48px;height:4px;background:var(--coffee);}
+#panel h3::after{content:"";position:absolute;left:0;bottom:0;width:48px;height:4px;background:var(--ara);}
 #panel .panel-vs{display:flex;gap:14px;margin:16px 0;}
 #panel .panel-vs>div{flex:1;background:#faf7f1;border:1px solid var(--line);padding:10px 12px;border-radius:var(--radius);}
 #panel .panel-vs b{display:block;font-size:16px;}
@@ -152,34 +174,46 @@ html:fullscreen,html:-webkit-full-screen{background:var(--bg);}
   .cb-a .cb-fill{right:auto;left:0;}
 }
 
-/* ---------- Cherry anatomy ---------- */
-section.cherry-section{padding:36px 32px 10px;max-width:1160px;}
-.cherry-section h2{font-size:22px;}
-.cherry-section .section-lede{margin-top:8px;font-size:13.5px;color:var(--muted);max-width:600px;}
-.cherry-layout{display:flex;gap:36px;align-items:center;flex-wrap:wrap;margin-top:26px;}
-.cherry-diagram{flex:0 0 auto;}
-.cherry-legend{flex:1 1 320px;display:grid;gap:10px;min-width:280px;}
-.cherry-legend-row{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);}
-.cherry-legend-row .num{flex:0 0 22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;
-  font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;}
-.cherry-num text{font-family:var(--sans);font-size:13px;font-weight:800;fill:#fff;text-anchor:middle;}
-.cherry-legend-row .txt b{font-size:13.5px;}
-.cherry-legend-row .txt small{display:block;color:var(--muted);font-size:12px;margin-top:2px;line-height:1.5;}
-.bean-shapes{display:flex;gap:16px;margin-top:26px;flex-wrap:wrap;}
-.bean-shape-card{flex:1 1 240px;border:1px solid var(--line);background:var(--card-bg);padding:18px 20px;}
-.bean-shape-card h4{font-size:14px;font-weight:800;margin-bottom:4px;}
-.bean-shape-card .sub{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--coffee);font-weight:700;}
-.bean-shape-card p{font-size:12.5px;color:var(--muted);line-height:1.65;margin:8px 0 0;}
+/* ---------- Cherry anatomy (gấp lại được, mặc định đóng cho gọn) ---------- */
+section.cherry-section{padding:28px 32px 10px;max-width:1160px;}
+.cherry-details{border:1px solid var(--line);background:var(--card-bg);}
+.cherry-details>summary{list-style:none;cursor:pointer;padding:16px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.cherry-details>summary::-webkit-details-marker{display:none;}
+.cherry-details>summary:hover{background:#faf7f1;}
+.cherry-summary-text b{display:block;font-family:var(--serif-display);font-size:16px;font-weight:700;}
+.cherry-summary-text small{display:block;margin-top:3px;font-size:12.5px;color:var(--muted);}
+.cherry-chevron{flex:0 0 auto;color:var(--muted);display:flex;transition:transform .2s;}
+.cherry-chevron svg{width:18px;height:18px;}
+.cherry-details[open] .cherry-chevron{transform:rotate(180deg);}
+.cherry-layout{display:flex;gap:28px;align-items:center;flex-wrap:wrap;
+  padding:4px 20px 0;border-top:1px solid var(--line);}
+.cherry-diagram{flex:0 0 auto;padding:16px 0;}
+.cherry-diagram svg{width:230px;height:230px;}
+.cherry-legend{flex:1 1 300px;display:grid;gap:2px;min-width:260px;}
+.cherry-legend-row{display:flex;align-items:baseline;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);}
+/* Chấm mang đúng màu của lớp trên sơ đồ — đối chiếu bằng màu, khỏi cần đánh số
+   chi chít lên hình (sẽ chật khi sơ đồ thu nhỏ). */
+.cherry-legend-row .num{flex:0 0 20px;height:20px;border-radius:50%;
+  border:1px solid rgba(30,31,31,.14);
+  font-size:10.5px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.cherry-legend-row .txt b{font-size:13px;}
+.cherry-legend-row .txt small{display:block;color:var(--muted);font-size:11.5px;margin-top:1px;line-height:1.45;}
+.bean-shapes{display:flex;gap:14px;padding:18px 20px 20px;flex-wrap:wrap;}
+.bean-shape-card{flex:1 1 240px;border:1px solid var(--line);background:#faf9f6;padding:14px 16px;}
+.bean-shape-card h4{font-size:13.5px;font-weight:800;margin-bottom:3px;}
+.bean-shape-card .sub{font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ara-ink);font-weight:700;}
+.bean-shape-card p{font-size:12px;color:var(--muted);line-height:1.6;margin:6px 0 0;}
 
 /* ---------- World share ---------- */
 section.world-section{padding:36px 32px 10px;max-width:920px;}
 .world-section h2{font-size:22px;}
 .world-bar{display:flex;height:34px;border-radius:var(--radius);overflow:hidden;margin-top:20px;
   border:1px solid var(--line-strong);}
-.world-bar .seg-a{background:var(--coffee);}
-.world-bar .seg-r{background:var(--gold);}
+.world-bar .seg-a{background:var(--ara);}
+.world-bar .seg-r{background:var(--rob);}
 .world-bar span{display:flex;align-items:center;justify-content:center;color:#fff;font-size:12.5px;font-weight:700;}
-.world-bar .seg-r span{color:var(--gold-ink);}
+.world-bar .seg-a span{color:var(--gold-ink);}
 .world-caption{margin-top:8px;font-size:11.5px;color:var(--muted);}
 .world-note{margin-top:18px;font-size:13.5px;line-height:1.75;color:#2b2822;}
 .world-note a{font-weight:600;}
@@ -242,6 +276,17 @@ section.world-section{padding:36px 32px 10px;max-width:920px;}
 
 <section id="stage-section" class="stage-section">
   <div class="stage">
+    <div class="beans-hero">
+      <figure class="bean-figure">
+        <img src="/images/tools/bean-arabica.png" alt="Hạt cà phê Arabica" width="218" height="300">
+        <figcaption><b>ARABICA</b><span>Coffea arabica</span></figcaption>
+      </figure>
+      <div class="beans-vs" aria-hidden="true">VS</div>
+      <figure class="bean-figure is-rob">
+        <img src="/images/tools/bean-robusta.png" alt="Hạt cà phê Robusta" width="241" height="300">
+        <figcaption><b>ROBUSTA</b><span>Coffea canephora</span></figcaption>
+      </figure>
+    </div>
     <div class="layout">
       <div class="compare-pane">
         <div class="compare-group-title">Đặc tính nông học</div>
@@ -253,7 +298,7 @@ section.world-section{padding:36px 32px 10px;max-width:920px;}
         <div id="panel">
           <div class="placeholder">
             <div class="lead">Chọn một chỉ số để xem giải thích</div>
-            <p>Mỗi hàng so sánh <b>Arabica</b> (nâu) và <b>Robusta</b> (vàng đồng) trên cùng một trục. Bấm vào một hàng bất kỳ bên trái để xem lý do đứng sau sự khác biệt đó.</p>
+            <p>Mỗi hàng so sánh <b>Arabica</b> (vàng) và <b>Robusta</b> (nâu) trên cùng một trục. Bấm vào một hàng bất kỳ bên trái để xem lý do đứng sau sự khác biệt đó.</p>
           </div>
         </div>
       </aside>
@@ -262,8 +307,16 @@ section.world-section{padding:36px 32px 10px;max-width:920px;}
 </section>
 
 <section id="cherry-section" class="cherry-section">
-  <h2>Cấu tạo trái cà phê</h2>
-  <p class="section-lede">Sáu lớp — từ vỏ quả ngoài cùng đến nhân bên trong. Cấu trúc này giống nhau ở cả Arabica lẫn Robusta.</p>
+ <details class="cherry-details">
+  <summary>
+    <span class="cherry-summary-text">
+      <b>Cấu tạo trái cà phê</b>
+      <small>Sáu lớp — từ vỏ quả ngoài cùng đến nhân bên trong, giống nhau ở cả hai loài.</small>
+    </span>
+    <span class="cherry-chevron" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </span>
+  </summary>
   <div class="cherry-layout">
     <div class="cherry-diagram">
       <svg viewBox="0 0 360 360" width="360" height="360" role="img" aria-label="Sơ đồ cắt lớp trái cà phê">
@@ -276,20 +329,12 @@ section.world-section{padding:36px 32px 10px;max-width:920px;}
         <ellipse cx="196" cy="180" rx="18" ry="42" fill="#9c8a52" transform="rotate(6 196 180)"/>
         <path d="M166 142 Q172 180 166 218" fill="none" stroke="#5c4f28" stroke-width="2.4"/>
         <path d="M196 142 Q190 180 196 218" fill="none" stroke="#5c4f28" stroke-width="2.4"/>
-        <!-- số thứ tự đặt dọc đường chéo trên-phải để không đè lên nhau -->
-        <g class="cherry-num">
-          <circle cx="290" cy="70" r="13" fill="#1E1F1F"/><text x="290" y="75">1</text>
-          <circle cx="269" cy="91" r="13" fill="#1E1F1F"/><text x="269" y="96">2</text>
-          <circle cx="249" cy="111" r="13" fill="#1E1F1F"/><text x="249" y="116">3</text>
-          <circle cx="230" cy="130" r="13" fill="#1E1F1F"/><text x="230" y="135">4</text>
-          <circle cx="213" cy="147" r="13" fill="#1E1F1F"/><text x="213" y="152">5</text>
-          <circle cx="181" cy="248" r="13" fill="#1E1F1F"/><text x="181" y="253">6</text>
-        </g>
       </svg>
     </div>
     <div class="cherry-legend" id="cherryLegend"></div>
   </div>
   <div class="bean-shapes" id="beanShapes"></div>
+ </details>
 </section>
 
 <section class="world-section">
@@ -367,13 +412,14 @@ const SENSORY_ROWS = [
     info: "Hàm lượng caffeine và axit chlorogenic cao hơn khiến Robusta đắng gắt hơn rõ rệt so với Arabica." }
 ];
 
+/* c = màu đúng của lớp đó trên sơ đồ, t = màu chữ số cho đủ tương phản */
 const CHERRY_LAYERS = [
-  { n: 1, vi: "Lớp vỏ quả", en: "skin", d: "Lớp ngoài cùng, đổi màu khi chín — dấu hiệu để thu hoạch đúng thời điểm." },
-  { n: 2, vi: "Lớp thịt quả", en: "pulp", d: "Phần thịt quả ngọt bao quanh nhân — ảnh hưởng trực tiếp đến sơ chế Natural/Honey." },
-  { n: 3, vi: "Lớp nhớt", en: "mucilage", d: "Lớp nhầy giàu đường và pectin — nơi vi sinh vật hoạt động mạnh nhất trong lên men." },
-  { n: 4, vi: "Lớp vỏ trấu", en: "parchment", d: "Lớp vỏ cứng bảo vệ nhân, được loại bỏ trước khi xuất khẩu (trừ khi bảo quản dạng thóc)." },
-  { n: 5, vi: "Lớp vỏ lụa", en: "silverskin", d: "Màng mỏng sát nhân, thường bong ra thành trấu vụn (chaff) trong quá trình rang." },
-  { n: 6, vi: "Nhân", en: "bean", d: "Phần được rang, xay và pha — \"trái tim\" của cả trái cà phê." }
+  { n: 1, c: "#c23b2f", t: "#fff", vi: "Lớp vỏ quả", en: "skin" },
+  { n: 2, c: "#e2793f", t: "#fff", vi: "Lớp thịt quả", en: "pulp" },
+  { n: 3, c: "#f0c68c", t: "#5c3d24", vi: "Lớp nhớt", en: "mucilage" },
+  { n: 4, c: "#efe6c8", t: "#5c3d24", vi: "Lớp vỏ trấu", en: "parchment" },
+  { n: 5, c: "#d8cda2", t: "#5c3d24", vi: "Lớp vỏ lụa", en: "silverskin" },
+  { n: 6, c: "#9c8a52", t: "#fff", vi: "Nhân", en: "bean" }
 ];
 
 const BEAN_SHAPES = [
@@ -397,7 +443,7 @@ document.getElementById("sensoryRows").innerHTML = SENSORY_ROWS.map(r => renderC
 
 document.getElementById("cherryLegend").innerHTML = CHERRY_LAYERS.map(l => `
   <div class="cherry-legend-row">
-    <span class="num">${l.n}</span>
+    <span class="num" style="background:${l.c};color:${l.t}">${l.n}</span>
     <span class="txt"><b>${l.vi}</b><small>${l.en}</small></span>
   </div>`).join("");
 
@@ -434,8 +480,8 @@ function selectRow(group, key){
     <span class="tag">${group === "agro" ? "Đặc tính nông học" : "Hồ sơ hương vị"}</span>
     <h3>${row.label}</h3>
     <div class="panel-vs">
-      <div><b style="color:var(--coffee)">${row.a}</b><span>Arabica</span></div>
-      <div><b style="color:#a97a2f">${row.r}</b><span>Robusta</span></div>
+      <div><b style="color:var(--ara-ink)">${row.a}</b><span>Arabica</span></div>
+      <div><b style="color:var(--rob-ink)">${row.r}</b><span>Robusta</span></div>
     </div>
     <p class="info-text">${row.info}</p>`;
 }
