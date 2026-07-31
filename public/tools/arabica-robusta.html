@@ -69,22 +69,22 @@ h1,h2,h3,.display{font-family:var(--serif-display);letter-spacing:.01em;margin:0
 .mode-btn.active[data-species="robusta"]{background:var(--robusta);border-color:var(--robusta);color:#fff;}
 
 /* ---------- Beans hero: hai hạt thật, đúng tương quan kích thước ---------- */
-/* Nằm ngay trong khung so sánh, phía trên các thanh — xem hạt trước rồi mới đọc số */
-.beans-hero{padding:clamp(24px,4vw,44px) 24px clamp(20px,3vw,32px);
-  border-bottom:1px solid var(--line);
-  display:flex;align-items:center;justify-content:center;gap:clamp(24px,6vw,72px);}
-.bean-figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:14px;}
-.bean-figure img{width:clamp(110px,17vw,190px);height:auto;display:block;
-  filter:drop-shadow(0 14px 22px rgba(60,38,20,.18));}
+/* Cùng lưới 2 cột với .compare-bars nên hạt nằm thẳng trên đúng cột số của nó */
+.beans-hero{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  padding:6px 8px 20px;margin-bottom:16px;border-bottom:1px solid var(--line);}
+.bean-figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.bean-figure img{width:clamp(84px,11vw,132px);height:auto;display:block;
+  filter:drop-shadow(0 12px 18px rgba(60,38,20,.16));}
 /* Robusta nhỏ hơn Arabica ~12% — giữ đúng tương quan thật */
-.bean-figure.is-rob img{width:clamp(97px,15vw,167px);}
+.bean-figure.is-rob img{width:clamp(74px,9.7vw,116px);}
 .bean-figure figcaption{text-align:center;}
 .bean-figure figcaption b{display:block;font-family:var(--serif-display);font-weight:800;
-  font-size:clamp(16px,2.4vw,25px);letter-spacing:.04em;color:var(--ink);}
-.bean-figure figcaption span{display:block;margin-top:2px;font-size:12px;font-style:italic;color:var(--muted);}
-.beans-vs{flex:0 0 auto;width:52px;height:52px;border-radius:50%;border:2px solid var(--ara);
+  font-size:clamp(13px,1.5vw,17px);letter-spacing:.04em;color:var(--ink);}
+.bean-figure figcaption span{display:block;margin-top:1px;font-size:10.5px;font-style:italic;color:var(--muted);}
+.beans-vs{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);
+  width:38px;height:38px;border-radius:50%;border:2px solid var(--ara);background:var(--card-bg);
   display:flex;align-items:center;justify-content:center;font-family:var(--serif-display);
-  font-weight:800;font-size:15px;color:var(--ara-ink);}
+  font-weight:800;font-size:12px;color:var(--ara-ink);}
 
 /* ---------- Identity card ---------- */
 section.identity-section{padding:6px 32px 8px;max-width:920px;}
@@ -117,7 +117,8 @@ section.stage-section{padding:20px 32px 8px;}
   gap:4px;font-family:var(--sans);border-radius:var(--radius);transition:background .12s;}
 .compare-row:hover,.compare-row.active{background:#faf7f1;}
 .compare-row:last-child{border-bottom:1px solid var(--line);}
-.compare-label{grid-column:1/3;font-size:11.5px;font-weight:700;letter-spacing:.02em;color:var(--ink);margin-bottom:4px;}
+/* Nhãn nằm giữa hai cột: đọc từ tâm ra hai bên, gọn hơn canh trái */
+.compare-label{grid-column:1/3;text-align:center;font-size:11.5px;font-weight:700;letter-spacing:.02em;color:var(--ink);margin-bottom:4px;}
 .compare-bars{grid-column:1/3;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;}
 .cb{display:flex;align-items:center;gap:7px;}
 .cb-track{flex:1;height:6px;border-radius:3px;background:#e9e2d6;overflow:hidden;position:relative;}
@@ -172,6 +173,10 @@ html:fullscreen,html:-webkit-full-screen{background:var(--bg);}
   .cb .cb-track{order:2;}
   .cb .cb-val{order:3;text-align:left;min-width:72px;}
   .cb-a .cb-fill{right:auto;left:0;}
+  /* Ảnh hạt + chữ nằm ngang trên màn hẹp làm cột chữ bị bóp còn vài từ mỗi
+     dòng — xếp dọc lại, và thu nhỏ hạt vì đã có hạt lớn ở khung so sánh. */
+  .identity-card{flex-direction:column;align-items:flex-start;gap:14px;}
+  .identity-card .id-bean,.identity-card.is-robusta .id-bean{width:72px;}
 }
 
 /* ---------- Cherry anatomy (gấp lại được, mặc định đóng cho gọn) ---------- */
@@ -205,17 +210,16 @@ section.cherry-section{padding:28px 32px 10px;max-width:1160px;}
 .bean-shape-card .sub{font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ara-ink);font-weight:700;}
 .bean-shape-card p{font-size:12px;color:var(--muted);line-height:1.6;margin:6px 0 0;}
 
-/* ---------- World share ---------- */
-section.world-section{padding:36px 32px 10px;max-width:920px;}
-.world-section h2{font-size:22px;}
-.world-bar{display:flex;height:34px;border-radius:var(--radius);overflow:hidden;margin-top:20px;
+/* ---------- World share (nằm trong khung so sánh) ---------- */
+.world-bar{display:flex;height:26px;border-radius:var(--radius);overflow:hidden;margin-top:2px;
   border:1px solid var(--line-strong);}
 .world-bar .seg-a{background:var(--ara);}
 .world-bar .seg-r{background:var(--rob);}
-.world-bar span{display:flex;align-items:center;justify-content:center;color:#fff;font-size:12.5px;font-weight:700;}
+.world-bar span{display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;}
 .world-bar .seg-a span{color:var(--gold-ink);}
-.world-caption{margin-top:8px;font-size:11.5px;color:var(--muted);}
-.world-note{margin-top:18px;font-size:13.5px;line-height:1.75;color:#2b2822;}
+.world-caption{margin:7px 0 0;font-size:11px;line-height:1.6;color:var(--muted);}
+section.world-section{padding:22px 32px 10px;max-width:920px;}
+.world-note{margin:0;font-size:13.5px;line-height:1.75;color:#2b2822;}
 .world-note a{font-weight:600;}
 
 /* ---------- History / Sources ---------- */
@@ -276,23 +280,33 @@ section.world-section{padding:36px 32px 10px;max-width:920px;}
 
 <section id="stage-section" class="stage-section">
   <div class="stage">
-    <div class="beans-hero">
-      <figure class="bean-figure">
-        <img src="/images/tools/bean-arabica.png" alt="Hạt cà phê Arabica" width="218" height="300">
-        <figcaption><b>ARABICA</b><span>Coffea arabica</span></figcaption>
-      </figure>
-      <div class="beans-vs" aria-hidden="true">VS</div>
-      <figure class="bean-figure is-rob">
-        <img src="/images/tools/bean-robusta.png" alt="Hạt cà phê Robusta" width="241" height="300">
-        <figcaption><b>ROBUSTA</b><span>Coffea canephora</span></figcaption>
-      </figure>
-    </div>
     <div class="layout">
       <div class="compare-pane">
+        <!-- Hai hạt đặt đúng trên hai cột của bảng so sánh: trái = Arabica,
+             phải = Robusta, để mắt đi thẳng từ hạt xuống số của chính nó. -->
+        <div class="beans-hero">
+          <figure class="bean-figure">
+            <img src="/images/tools/bean-arabica.png" alt="Hạt cà phê Arabica" width="218" height="300">
+            <figcaption><b>ARABICA</b><span>Coffea arabica</span></figcaption>
+          </figure>
+          <figure class="bean-figure is-rob">
+            <img src="/images/tools/bean-robusta.png" alt="Hạt cà phê Robusta" width="241" height="300">
+            <figcaption><b>ROBUSTA</b><span>Coffea canephora</span></figcaption>
+          </figure>
+          <div class="beans-vs" aria-hidden="true">VS</div>
+        </div>
+
         <div class="compare-group-title">Đặc tính nông học</div>
         <div id="agroRows"></div>
         <div class="compare-group-title">Hồ sơ hương vị · năm trục cảm quan</div>
         <div id="sensoryRows"></div>
+
+        <div class="compare-group-title">Tỷ trọng sản lượng thế giới</div>
+        <div class="world-bar">
+          <div class="seg-a" style="flex:57"><span>Arabica ~57%</span></div>
+          <div class="seg-r" style="flex:43"><span>Robusta ~43%</span></div>
+        </div>
+        <p class="world-caption">Ước tính niên vụ 2024/25 — International Coffee Organization. Tỷ trọng Robusta đang tăng dần khi biến đổi khí hậu ưu ái giống chịu nhiệt tốt hơn.</p>
       </div>
       <aside id="panelwrap">
         <div id="panel">
@@ -338,12 +352,6 @@ section.world-section{padding:36px 32px 10px;max-width:920px;}
 </section>
 
 <section class="world-section">
-  <h2>Trên bản đồ sản lượng thế giới</h2>
-  <div class="world-bar">
-    <div class="seg-a" style="flex:57"><span>Arabica ~57%</span></div>
-    <div class="seg-r" style="flex:43"><span>Robusta ~43%</span></div>
-  </div>
-  <p class="world-caption">Ước tính tỷ trọng sản lượng toàn cầu niên vụ 2024/25 — nguồn International Coffee Organization. Tỷ trọng Robusta có xu hướng tăng dần khi biến đổi khí hậu ưu ái các giống chịu nhiệt tốt hơn.</p>
   <p class="world-note">Việt Nam là nước xuất khẩu <b>Robusta</b> lớn nhất thế giới nhờ khí hậu và độ cao phù hợp, đồng thời đang phát triển các vùng Arabica đặc sản tại Lâm Đồng, Sơn La, Điện Biên. → <a href="/tools/vietnam-coffee-map.html">Khám phá Bản Đồ Vùng Trồng Cà Phê Việt Nam</a></p>
 </section>
 
