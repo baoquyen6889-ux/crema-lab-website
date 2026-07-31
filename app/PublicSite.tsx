@@ -244,6 +244,17 @@ const knowledgeTools = [
     meta: "Atlas giống · Dữ liệu WCR",
     effect: "wheel",
   },
+  {
+    number: "04",
+    title: "ARABICA & ROBUSTA",
+    description:
+      "So sánh hai loài trên cùng một trục — đặc tính nông học, hồ sơ hương vị và cấu tạo trái cà phê.",
+    href: "/tools/arabica-robusta.html",
+    image: "/images/tools/arabica-robusta-transparent.png",
+    meta: "Sắp ra mắt",
+    effect: "bean",
+    pending: true,
+  },
 ];
 
 const courses = [
@@ -651,7 +662,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
         <div className="tool-grid">
           {knowledgeTools.map((tool, index) => (
             <a
-              className={`tool-card tool-card-${tool.effect} reveal spotlight`}
+              className={`tool-card tool-card-${tool.effect}${tool.pending ? " tool-card-pending" : ""} reveal spotlight`}
               key={tool.href}
               href={tool.href}
               target="_blank"
