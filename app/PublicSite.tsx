@@ -3,6 +3,7 @@
 import { CSSProperties, FormEvent, MouseEvent, PointerEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { VARIETY_WHEEL_CELLS, VARIETY_WHEEL_VIEWBOX } from "./varietyWheelCells";
 import "./public-site.css";
 
 const sectionIds = ["kien-thuc", "khoa-hoc", "tu-van"];
@@ -213,12 +214,36 @@ const stages = [
   },
 ];
 
-const knowledgeTools = [
+/* Lớp viền của thẻ 03: chồng đúng hình học từng ô lên ảnh bánh xe. Mảng đã
+   được sắp theo thứ tự chọn (lõi → vòng 1 → 2 → 3), nên chỉ cần lệch pha
+   animation theo chỉ số là ra hiệu ứng chọn lần lượt hết vòng này tới vòng kia.
+   preserveAspectRatio mặc định (xMidYMid meet) khớp với object-fit:contain của
+   ảnh nền, nên viền nằm đúng ô dù thẻ rộng hẹp thế nào. */
+function VarietyWheelCells() {
+  return (
+    <svg className="tool-cells" viewBox={VARIETY_WHEEL_VIEWBOX} aria-hidden="true" focusable="false">
+      {VARIETY_WHEEL_CELLS.map((d, i) => (
+        <path key={i} d={d} style={{ "--i": i } as CSSProperties} />
+      ))}
+    </svg>
+  );
+}
+
+const knowledgeTools: {
+  number: string;
+  title: string;
+  description: string;
+  href: string;
+  image: string;
+  meta: string;
+  /* Mỗi icon có hiệu ứng riêng khi rê chuột — xem .tool-card-* trong CSS. */
+  effect: "wheel" | "map" | "cells" | "bean";
+}[] = [
   {
     number: "01",
     title: "COFFEE FLAVOR WHEEL",
     description:
-      "Khám phá bản đồ hương vị chuẩn SCA ngay trên bản gốc — giải nghĩa song ngữ từ nhóm hương đến mô tả cụ thể.",
+      "Bản đồ hương vị chuẩn SCA, chú giải song ngữ từ nhóm hương đến từng mô tả.",
     href: "/tools/flavor-wheel.html",
     image: "/images/tools/flavor-wheel-transparent.png",
     meta: "Công cụ tương tác · Song ngữ",
@@ -228,7 +253,7 @@ const knowledgeTools = [
     number: "02",
     title: "VIETNAM COFFEE MAP",
     description:
-      "Khám phá vùng trồng, độ cao, giống và sơ chế — hiểu vì sao mỗi vùng cho một hồ sơ hương vị riêng.",
+      "Vùng trồng, độ cao, giống và cách sơ chế của từng vùng cà phê Việt Nam.",
     href: "/tools/vietnam-coffee-map.html",
     image: "/images/tools/vietnam-coffee-map-centered.png",
     meta: "Dữ liệu vùng trồng · Có nguồn",
@@ -238,19 +263,19 @@ const knowledgeTools = [
     number: "03",
     title: "COFFEE VARIETY WHEEL",
     description:
-      "Tra cứu nhóm di truyền, nguồn gốc và đặc tính của các giống Arabica và Robusta phổ biến.",
+      "Nhóm di truyền, nguồn gốc và đặc tính giống Arabica, Robusta theo dữ liệu WCR.",
     href: "/tools/coffee-variety-wheel.html",
-    image: "/images/tools/coffee-variety-wheel-transparent.png",
+    image: "/images/tools/coffee-variety-wheel-atlas.png",
     meta: "Atlas giống · Dữ liệu WCR",
-    effect: "wheel",
+    effect: "cells",
   },
   {
     number: "04",
     title: "ARABICA & ROBUSTA",
     description:
-      "So sánh hai loài trên cùng một trục — đặc tính nông học, hồ sơ hương vị và cấu tạo trái cà phê.",
+      "Hai loài trên cùng một trục: đặc tính nông học, hồ sơ hương vị, cấu tạo trái.",
     href: "/tools/arabica-robusta.html",
-    image: "/images/tools/arabica-robusta-transparent.png",
+    image: "/images/tools/arabica-robusta-vs.png",
     meta: "Giáo án Barista · So sánh",
     effect: "bean",
   },
@@ -705,7 +730,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <em>to understand.</em>
           </p>
           <p className="coffee-clock-subline">
-            Cảm ơn bạn đã dành thời gian để bắt đầu hành trình hiểu cà phê cùng Crema Lab.
+            Hiểu cà phê là một hành trình cần thời gian — từ nguyên lý đến
+            khả năng tự hiệu chỉnh chất lượng.
           </p>
         </div>
 
@@ -753,8 +779,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <h2 id="knowledge-heading">HỌC QUA KHÁM PHÁ.</h2>
           </div>
           <p>
-            Khám phá kiến thức cà phê qua những nội dung trực quan, dễ hiểu và
-            có thể ứng dụng ngay.
+            Bốn công cụ tra cứu mở, dữ liệu có nguồn. Dùng được ngay khi cần
+            đối chiếu.
           </p>
         </div>
 
@@ -781,6 +807,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                   sizes="(max-width: 760px) 82vw, 33vw"
                   className="tool-thumbnail"
                 />
+                {tool.effect === "cells" ? <VarietyWheelCells /> : null}
               </div>
               <div className="tool-card-copy">
                 <div className="tool-card-meta">
@@ -849,8 +876,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <h2 id="courses-heading">HỌC ĐỂ TỰ ĐIỀU CHỈNH.</h2>
           </div>
           <p>
-            Từ nguyên lý đến thực hành, mỗi khóa học giúp bạn hiểu biến số, tự
-            tin đưa ra quyết định và thích ứng với tình huống thực tế.
+            Học nguyên lý và thông số, để tự hiệu chỉnh thay vì làm theo công
+            thức.
           </p>
         </div>
 
@@ -909,7 +936,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
       </section>
 
       <section className="alumni-strip" aria-label="Học viên đã tham gia khóa học">
-        <p className="alumni-kicker">Học viên đã đồng hành cùng Crema Lab</p>
+        <p className="alumni-kicker">Học viên đã học tại Crema Lab</p>
         <div
           className="alumni-track"
           aria-hidden="true"
@@ -935,8 +962,8 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
             <span className="registration-badge">Tư vấn</span>
             <h2 id="register-heading">CHỌN ĐIỂM BẮT ĐẦU.</h2>
             <p>
-              Hãy kể Crema Lab nghe điều bạn đang hướng đến — chúng ta sẽ cùng
-              tìm điểm bắt đầu phù hợp.
+              Cho biết mục tiêu và mức hiện tại của bạn. Crema Lab đề xuất lộ
+              trình tương ứng.
             </p>
           </div>
 
@@ -1019,7 +1046,7 @@ export default function PublicSite({ onExperience }: PublicSiteProps) {
                 </label>
                 <label>
                   Mục tiêu của bạn
-                  <textarea name="goal" rows={3} placeholder="Chia sẻ ngắn để chúng tôi tư vấn chính xác hơn" />
+                  <textarea name="goal" rows={3} placeholder="Mục tiêu hoặc câu hỏi của bạn" />
                 </label>
                 <button type="submit">Gửi yêu cầu tư vấn</button>
                 <p className={`form-success${submitted ? " is-visible" : ""}`} aria-live="polite">

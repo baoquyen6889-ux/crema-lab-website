@@ -83,7 +83,7 @@ test("ships all three standalone knowledge tools with page thumbnails", async ()
     stat(new URL("../public/tools/coffee-variety-wheel.html", import.meta.url)),
     stat(new URL("../public/images/tools/flavor-wheel-transparent.png", import.meta.url)),
     stat(new URL("../public/images/tools/vietnam-coffee-map-centered.png", import.meta.url)),
-    stat(new URL("../public/images/tools/coffee-variety-wheel-transparent.png", import.meta.url)),
+    stat(new URL("../public/images/tools/coffee-variety-wheel-atlas.png", import.meta.url)),
   ]);
 
   assert.match(wheel, /Bánh Xe Hương Vị Cà Phê/i);
@@ -230,9 +230,23 @@ test("uses a contemporary editorial system for the public Crema Lab site", async
   assert.match(styles, /\.system-strip/);
   assert.match(styles, /\.footer-top\{/);
   assert.match(styles, /\.instructor-grid\{/);
+  // Mỗi icon giữ hiệu ứng riêng của nó; 03 dùng sóng làm sáng các ô bánh xe.
   assert.match(site, /tool-card-\$\{tool\.effect\}/);
-  assert.match(styles, /toolWheelSpin/);
-  assert.match(styles, /toolMapSweep/);
+  assert.match(styles, /@keyframes toolWheelSpin/);
+  assert.match(styles, /@keyframes toolMapSweep/);
+  assert.match(styles, /@keyframes toolBeanTilt/);
+  assert.match(styles, /@keyframes toolCellPick/);
+  // Viền chọn của thẻ 03 phải trùng hệ toạ độ với ảnh bánh xe bên dưới.
+  assert.match(site, /VARIETY_WHEEL_VIEWBOX/);
+  assert.doesNotMatch(styles, /toolRipple/);
+  // Artwork bị cắt đúng bằng khung trong, dù hiệu ứng có xoay hay nghiêng.
+  assert.match(styles, /\.tool-thumbnail\{[^}]*clip-path:inset\(var\(--tool-frame\)\)/);
+  // Rê chuột chỉ nhấc khung vuông bên trong, không nhấc cả thẻ — nên mọi
+  // keyframe chạm transform phải mang sẵn translateY(-6px).
+  assert.doesNotMatch(styles, /\.tool-card:hover\{[^}]*translateY/);
+  assert.match(styles, /\.tool-card:hover \.tool-visual:after[^{]*\{transform:translateY\(-6px\)\}/);
+  assert.match(styles, /@keyframes toolWheelSpin\{from\{transform:translateY\(-6px\)/);
+  assert.match(styles, /@keyframes toolBeanTilt\{0%,100%\{transform:translateY\(-6px\)/);
   assert.doesNotMatch(site, /footer-brand/);
   assert.match(styles, /\.footer-wordmark-crema/);
   assert.match(styles, /\.footer-wordmark-lab/);
